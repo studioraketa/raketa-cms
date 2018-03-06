@@ -152,7 +152,7 @@ class ImagePicker extends React.Component {
 
     // ajax update
     const self = this;
-    this.mediaManager.update(editImage, (successImage) => {
+    this.mediaManager.update(editImage, { alt }, (successImage) => {
       self.setState({ imageDialogOpen: false });
     });
   }

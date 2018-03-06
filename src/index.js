@@ -8,6 +8,7 @@ import Img from './lib/Image';
 import List from './List';
 import Container from './Container';
 import EmbeddedVideo from './EmbeddedVideo';
+import MediaManager from './MediaManager';
 
 export {
   PageBuilder,
@@ -20,4 +21,5 @@ export {
   List,
   Container,
   EmbeddedVideo,
+  MediaManager,
 };
