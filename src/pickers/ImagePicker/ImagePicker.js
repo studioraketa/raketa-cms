@@ -34,25 +34,8 @@ const ImageControl = styled.div`
 `;
 
 class ImagePicker extends React.Component {
-  static uploadFile(file, callback) {
-    let formData = new FormData();
-    formData.append('image[asset]', file);
-
-    jQuery.ajax({
-      url: '/images',
-      data: formData,
-      dataType: 'json',
-      type: 'POST',
-      processData: false,
-      contentType: false,
-      success: (image) => {
-        callback(image);
-      },
-    });
-  }
-
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       pickerOpen: false,
@@ -66,35 +49,32 @@ class ImagePicker extends React.Component {
       alt: '',
       editImage: false,
     };
-  }
 
-  getHost() {
-    return `${this.context.host}`;
+    this.mediaManager = context.mediaManager;
   }
 
   fetchData(q, callback) {
     const params = q !== '' && q.length > 2 ? { q } : {};
 
-    jQuery.get('/images', params, (images) => {
+    this.mediaManager.findAll((images) => {
       this.setState({ images }, () => {
         callback();
-      });
+      }, params);
     });
   }
 
   handleUpload(files) {
     this.setState({ filesToUpload: files.length, filesUploaded: 0, files: [] }, () => {
       files.forEach((file) => {
-        ImagePicker.uploadFile(file, (response) => {
-          this.setState({ filesUploaded: this.state.filesUploaded + 1 }, () => {
-            const { files, q } = this.state;
-            this.setState({ files: [...files, response] }, () => {
-              if (this.state.filesToUpload === this.state.filesUploaded) {
-                this.fetchData(q, () => {
-                  // Upload complete
-                });
-              }
-            });
+        this.mediaManager.uploadFile(file, (response) => {
+          const { files, q } = this.state;
+
+          this.setState({ filesUploaded: this.state.filesUploaded + 1, files: [...files, response] }, () => {
+            if (this.state.filesToUpload === this.state.filesUploaded) {
+              this.fetchData(q, () => {
+                // Upload complete
+              });
+            }
           });
         });
       });
@@ -124,23 +104,16 @@ class ImagePicker extends React.Component {
 
     const self = this;
 
-    jQuery.ajax({
-      url: `/images/${image.id}`,
-      dataType: 'json',
-      type: 'DELETE',
-      processData: false,
-      contentType: false,
-      success: (successImage) => {
-        const { images } = self.state;
-        const imageIdx = images.findIndex(currentImage => currentImage.id === successImage.id);
+    this.mediaManager.destroy(image, (successImage) => {
+      const { images } = self.state;
+      const imageIdx = images.findIndex(currentImage => currentImage.id === successImage.id);
 
-        const newImages = [
-          ...images.slice(0, imageIdx),
-          ...images.slice(imageIdx + 1),
-        ];
+      const newImages = [
+        ...images.slice(0, imageIdx),
+        ...images.slice(imageIdx + 1),
+      ];
 
-        self.setState({ images: newImages });
-      },
+      self.setState({ images: newImages });
     });
   }
 
@@ -179,14 +152,8 @@ class ImagePicker extends React.Component {
 
     // ajax update
     const self = this;
-    jQuery.ajax({
-      url: `/images/${editImage.id}`,
-      dataType: 'json',
-      type: 'PATCH',
-      data: { image: { alt } },
-      success: (successImage) => {
-        self.setState({ imageDialogOpen: false });
-      },
+    this.mediaManager.update(editImage, (successImage) => {
+      self.setState({ imageDialogOpen: false });
     });
   }
 
@@ -281,7 +248,8 @@ ImagePicker.propTypes = {
 };
 
 ImagePicker.contextTypes = {
-  host: PropTypes.string
+  host: PropTypes.string,
+  mediaManager: PropTypes.object,
 };
 
 export default ImagePicker;

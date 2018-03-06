@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Title, Button } from 'raketa-ui';
 
-import Dropzone from './Dropzone';
+import Dropzone from 'react-dropzone';
 
 const StyledDropzone = styled.div`
   position: relative;
@@ -31,14 +31,14 @@ class Dropbox extends React.Component {
   }
 
   onOpenClick() {
-    this.refs.dropzone.open();
+    this.dropzone.open();
   }
 
   render() {
     return (
       <div>
         <StyledDropzone>
-          <Dropzone ref="dropzone" onDrop={this.props.onDrop}>
+          <Dropzone ref={dropzone => this.dropzone = dropzone} onDrop={this.props.onDrop} style={{}}>
             <DropzoneLabel>
               <Title third>Select files from your computer</Title>
               <small>or drag and drop here</small>

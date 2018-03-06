@@ -33,14 +33,15 @@
     "babel-preset-react": "^6.24.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "styled-components": "^3.1.6",
     "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.10",
-    "styled-components": "^3.1.6"
+    "webpack-cli": "^2.0.10"
   },
   "dependencies": {
     "jquery": "^3.3.1",
     "prop-types": "^15.6.1",
     "raketa-ui": "^1.0.0",
+    "react-dropzone": "^4.2.8",
     "react-icons": "^2.2.7",
     "react-no-ssr": "^1.1.0",
     "react-rte": "^0.16.0",

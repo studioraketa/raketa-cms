@@ -34,7 +34,7 @@ class PageBuilder extends React.Component {
   }
 
   getChildContext() {
-    return { host: this.props.host };
+    return { host: this.props.host, mediaManager: this.props.mediaManager };
   }
 
   widgetFactory(widgetName) {
@@ -179,10 +179,12 @@ PageBuilder.defaultProps = {
 PageBuilder.propTypes = {
   page: PropTypes.object.isRequired,
   host: PropTypes.string,
+  mediaManager: PropTypes.object,
 };
 
 PageBuilder.childContextTypes = {
-  host: PropTypes.string
+  host: PropTypes.string,
+  mediaManager: PropTypes.object,
 };
 
 export default PageBuilder;
