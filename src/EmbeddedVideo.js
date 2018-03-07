@@ -32,17 +32,13 @@ const EmbeddedVideo = ({ videoUrl }) => {
 
   if (video.type === 'youtube') {
     return (
-      <div className="video">
-        <iframe frameBorder="0" allowFullScreen="0" src={`https://youtube.com/embed/${video.videoId}`} className="content" />
-      </div>
+      <iframe frameBorder="0" allowFullScreen="0" src={`https://youtube.com/embed/${video.videoId}`} className="content" />
     );
   }
 
   if (video.type === 'vimeo') {
     return (
-      <div className="video">
-        <iframe frameBorder="0" allowFullScreen="0" src={`https://player.vimeo.com/video/${video.videoId}?color=ffffff&title=0&byline=0&portrait=0`} className="content" />
-      </div>
+      <iframe frameBorder="0" allowFullScreen="0" src={`https://player.vimeo.com/video/${video.videoId}?color=ffffff&title=0&byline=0&portrait=0`} className="content" />
     );
   }
 
