@@ -16,8 +16,6 @@ import SelectMenu from '../forms/SelectMenu';
 import TextInput from '../forms/TextInput';
 
 const AdminWidgetWrapper = styled.div`
-  z-index: 1;
-
   ${props => props.isPreview ? '' : `
     &:hover {
       position: relative;
