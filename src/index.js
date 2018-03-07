@@ -3,6 +3,7 @@ import TextInput from './forms/TextInput';
 import TextArea from './forms/TextArea';
 import RichText from './forms/RichText';
 import SelectMenu from './forms/SelectMenu';
+import ImagePicker from './pickers/ImagePicker/ImagePicker';
 import Dialog from './dialogs/Dialog';
 import Img from './lib/Image';
 import List from './List';
@@ -22,4 +23,5 @@ export {
   Container,
   EmbeddedVideo,
   MediaManager,
+  ImagePicker,
 };
