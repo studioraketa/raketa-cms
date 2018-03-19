@@ -11,6 +11,7 @@ import List from './List';
 import Container from './Container';
 import EmbeddedVideo from './EmbeddedVideo';
 import MediaManager from './MediaManager';
+import ListInput from './ListInput';
 
 export {
   PageBuilder,
@@ -26,4 +27,5 @@ export {
   MediaManager,
   ImagePicker,
   ImageInput,
+  ListInput,
 };

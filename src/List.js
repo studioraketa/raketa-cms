@@ -112,9 +112,9 @@ class List extends React.Component {
           <strong>{this.props.titleField !== '' ? item[this.props.titleField] : `Item ${idx + 1}`}</strong>
 
           <div>
-            <IconButton onClick={() => this.handleToggle(idx)}><MdKeyboardArrowDown /></IconButton>
+            <IconButton type="button" onClick={() => this.handleToggle(idx)}><MdKeyboardArrowDown /></IconButton>
             <IconSpan className="move btn-drag"><MdImportExport /></IconSpan>
-            <IconButton danger  onClick={() => this.handleRemoveItem(idx)}><MdDelete /></IconButton>
+            <IconButton type="button" danger onClick={() => this.handleRemoveItem(idx)}><MdDelete /></IconButton>
           </div>
         </ListItemToolbar>
 
@@ -137,7 +137,7 @@ class List extends React.Component {
           {this.renderItems()}
         </SortableList>
 
-        <Button success onClick={() => this.handleAddItem()}>Add Item</Button>
+        <Button type="button" success onClick={() => this.handleAddItem()}>Add Item</Button>
       </div>
     );
   }
