@@ -4,6 +4,7 @@ import TextArea from './forms/TextArea';
 import RichText from './forms/RichText';
 import SelectMenu from './forms/SelectMenu';
 import ImagePicker from './pickers/ImagePicker/ImagePicker';
+import ImageInput from './pickers/ImagePicker/ImageInput';
 import Dialog from './dialogs/Dialog';
 import Img from './lib/Image';
 import List from './List';
@@ -24,4 +25,5 @@ export {
   EmbeddedVideo,
   MediaManager,
   ImagePicker,
+  ImageInput,
 };

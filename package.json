@@ -38,13 +38,17 @@
     "webpack-cli": "^2.0.10"
   },
   "dependencies": {
+    "draft-js": "^0.10.5",
+    "draftjs-to-html": "^0.8.3",
+    "html-to-draftjs": "^1.3.0",
+    "immutable": "^3.8.2",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.1",
     "raketa-ui": "^1.0.0",
+    "react-draft-wysiwyg": "^1.12.11",
     "react-dropzone": "^4.2.8",
     "react-icons": "^2.2.7",
     "react-no-ssr": "^1.1.0",
-    "react-rte": "^0.16.0",
     "react-sortablejs": "^1.3.6",
     "sortablejs": "^1.7.0"
   }

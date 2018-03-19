@@ -1,48 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
-var RichTextEditor;
-if (typeof(window) !== 'undefined') { RichTextEditor = require('react-rte').default; }
+const TOOLBAR_CONFIG = {
+  options: ['blockType', 'inline', 'list', 'link', 'remove', 'history'],
+};
 
 class RichText extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      editorValue: RichTextEditor.createValueFromString(props.value, 'html'),
+    const contentBlock = htmlToDraft(props.value);
+
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      const editorState = EditorState.createWithContent(contentState);
+      this.state = {
+        editorState,
+      };
     }
   }
 
-  onChange(editorValue) {
+  onEditorStateChange(newState) {
     const { onChange } = this.props;
-    this.setState({ editorValue }, () => {
-      if (onChange) onChange(editorValue.toString('html'));
+    const { editorState } = this.state;
+
+    this.setState({ editorState: newState }, () => {
+      if (onChange) onChange(draftToHtml(convertToRaw(newState.getCurrentContent())));
     });
-  }
+  };
 
   render() {
-    const { label, value, placeholder } = this.props;
-    const { editorValue } = this.state;
+    const { editorState } = this.state;
 
     return (
-      <RichTextEditor
-        value={editorValue}
-        onChange={(v) => this.onChange(v)}
+      <Editor
+        toolbar={TOOLBAR_CONFIG}
+        editorState={editorState}
+        onEditorStateChange={editorState => this.onEditorStateChange(editorState)}
       />
-    );
+    )
   }
 }
 
-RichText.defaultProps = {
-  value: '',
-  placeholder: '',
-};
+// class RichText2 extends React.Component {
+//   constructor(props) {
+//     super(props);
 
-RichText.propTypes = {
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-};
+//     this.state = {
+//       editorValue: RichTextEditor.createValueFromString(props.value, 'html'),
+//     }
+//   }
+
+//   onChange(editorValue) {
+//     const { onChange } = this.props;
+//     this.setState({ editorValue }, () => {
+//       if (onChange) onChange(editorValue.toString('html'));
+//     });
+//   }
+
+//   render() {
+//     const { label, value, placeholder } = this.props;
+//     const { editorValue } = this.state;
+
+//     return (
+//       <RichTextEditor
+//         value={editorValue}
+//         onChange={(v) => this.onChange(v)}
+//       />
+//     );
+//   }
+// }
+
+// RichText.defaultProps = {
+//   value: '',
+//   placeholder: '',
+// };
+
+// RichText.propTypes = {
+//   label: PropTypes.string.isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   value: PropTypes.string,
+//   placeholder: PropTypes.string,
+// };
 
 export default RichText;

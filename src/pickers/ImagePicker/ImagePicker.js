@@ -50,7 +50,7 @@ class ImagePicker extends React.Component {
       editImage: false,
     };
 
-    this.mediaManager = context.mediaManager;
+    this.mediaManager = props.mediaManager || context.mediaManager;
   }
 
   fetchData(q, callback) {

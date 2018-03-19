@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import styled, { ThemeProvider } from 'styled-components';
-import theme from '../../raketa-ui/defaultTheme';
+import { RaketaUIProvider } from 'raketa-ui';
 
 import ImagePicker from './ImagePicker';
 
@@ -11,29 +9,33 @@ class ImageInput extends React.Component {
     super(props);
 
     this.state = {
-      selectedImage: this.props.image || false,
+      selectedImage: props.image || false,
     };
   }
 
   render() {
+    const { name, mediaManager } = this.props;
+    const { selectedImage } = this.state;
+
     return (
-      <ThemeProvider theme={theme}>
+      <RaketaUIProvider>
         <div>
           <ImagePicker
-            value={this.state.selectedImage}
-            onChange={newImage => this.setState({ selectedImage: newImage })}
+            mediaManager={mediaManager}
+            value={selectedImage}
+            onChange={selectedImage => this.setState({ selectedImage })}
           />
 
-          <input type="hidden" name={this.props.name} value={this.state.selectedImage ? this.state.selectedImage.id : ''} />
+          <input type="hidden" name={name} value={selectedImage ? selectedImage.id : ''} />
         </div>
-      </ThemeProvider>
+      </RaketaUIProvider>
     );
   }
 }
 
 ImageInput.propTypes = {
-  image: PropTypes.object.isRequired,
-  name: PropTypes.name.isRequired,
+  // image: PropTypes.object.isRequired,
+  // name: PropTypes.name.isRequired,
 };
 
 export default ImageInput;
