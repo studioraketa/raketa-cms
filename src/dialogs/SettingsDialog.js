@@ -6,6 +6,7 @@ import TextArea from '../forms/TextArea';
 import RichText from '../forms/RichText';
 import TextInput from '../forms/TextInput';
 import SelectMenu from '../forms/SelectMenu';
+import ButtonSettings from '../forms/ButtonSettings';
 import { humanize } from '../helpers/humanize';
 import Dialog from './Dialog';
 import ImagePicker from '../pickers/ImagePicker/ImagePicker';
@@ -60,6 +61,17 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={newValue => onChange(field, newValue)}
+        />
+      );
+    }
+
+    case 'button': {
+      return (
+        <ButtonSettings
+          key={`dialog-${field}`}
+          button_settings_title={opts.label}
+          value={value}
+          onChange={newValues => onChange(field, newValues)}
         />
       );
     }

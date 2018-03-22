@@ -13,6 +13,7 @@ import EmbeddedVideo from './EmbeddedVideo';
 import MediaManager from './MediaManager';
 import ListInput from './ListInput';
 import imgageSrc from './helpers/imageSrc';
+import Button from './forms/Button';
 
 export {
   PageBuilder,
@@ -30,4 +31,5 @@ export {
   ImageInput,
   ListInput,
   imgageSrc,
+  Button,
 };
