@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import jQuery from 'jquery';
 
 import Img from '../../lib/Image';
 import Dialog from '../../dialogs/Dialog';
@@ -15,8 +14,6 @@ import {
   Button,
   Tabs,
 } from 'raketa-ui';
-
-// beforeSend: (xhr) => { xhr.setRequestHeader('X-CSRF-Token', jQuery('meta[name="csrf-token"]').attr('content')); },
 
 const ImageWrapper = styled.div`
   margin-right: 16px;
@@ -56,11 +53,9 @@ class ImagePicker extends React.Component {
   fetchData(q, callback) {
     const params = q !== '' && q.length > 2 ? { q } : {};
 
-    this.mediaManager.findAll((images) => {
-      this.setState({ images }, () => {
-        callback();
-      }, params);
-    });
+    this.mediaManager.findAll(images => {
+      this.setState({ images }, () => callback());
+    }, params);
   }
 
   handleUpload(files) {

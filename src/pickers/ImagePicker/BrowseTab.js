@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import MdEdit from 'react-icons/lib/md/edit';
+
+const IconEdit = () => <img style={{ width: '12px' }} src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyMnB4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAyMiAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5lZGl0LTI8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iZWRpdC0yIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPiAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMi4wMDAwMDAsIDIuMDAwMDAwKSIgaWQ9IlNoYXBlIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMiI+ICAgICAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIxMyAwIDE4IDUgNSAxOCAwIDE4IDAgMTMiPjwvcG9seWdvbj4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==" />;
 
 import {
   reset,
@@ -21,11 +22,16 @@ const ImageList = styled.div`
 
 const Thumb = styled.div`
   position: relative;
-  border: 4px solid transparent;
   cursor: pointer;
-  width: 108px;
-  height: 108px;
-  ${props => props.selected ? 'border: 4px solid green;' : ''}
+  width: 116px;
+  height: 116px;
+  border: 8px solid ${props => props.selected ? props.theme.successColor : 'transparent'};
+
+  button { display: none; }
+
+  &:hover {
+    button { display: inline-block; }
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -36,28 +42,33 @@ const ImageWrapper = styled.div`
   }
 `;
 
-const DeleteButton = styled.button`
-  ${reset()}
-  ${resetButton()}
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #d00;
-  padding: 0em .5em;
-  font-size: 1em;
-  color: #fff;
-`;
-
 const EditButton = styled.button`
   ${reset()}
   ${resetButton()}
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 8px;
+  left: 12px;
   background-color: ${props => props.theme.successColor};
-  padding: .1em .5em;
   font-size: .85em;
   color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+`;
+
+const DeleteButton = styled.button`
+  ${reset()}
+  ${resetButton()}
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  background-color: ${props => props.theme.dangerColor};
+  font-size: 1em;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 19px;
 `;
 
 const ImageItem = ({ image, selected, onSelect, onFastSelect, onDelete, onEdit }) => (
@@ -70,7 +81,7 @@ const ImageItem = ({ image, selected, onSelect, onFastSelect, onDelete, onEdit }
     <EditButton
       type="button"
       onClick={(e) => { e.preventDefault(); e.stopPropagation(); onEdit(image); }}
-    ><MdEdit /></EditButton>
+    ><IconEdit /></EditButton>
     <DeleteButton
       type="button"
       onClick={(e) => { e.preventDefault(); e.stopPropagation(); onDelete(image); }}

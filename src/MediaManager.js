@@ -1,4 +1,11 @@
-import jQuery from 'jquery';
+const serialize = (params) => Object.keys(params)
+  .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+  .join('&');
+
+const get = (url, params = {}, opts = {}) => fetch(`${url}?${serialize(params)}`, opts);
+const patch = (url, params = {}, opts = {}) => fetch(url, Object.assign({ method: 'PATCH', credentials: 'same-origin', body: JSON.stringify(params) }, opts))
+const post = (url, params = {}, opts = {}) => fetch(url, Object.assign({ method: 'POST', credentials: 'same-origin', body: JSON.stringify(params) }, opts))
+const del = (url, params = {}, opts = {}) => fetch(url, Object.assign({ method: 'DELETE', credentials: 'same-origin', body: JSON.stringify(params) }, opts))
 
 export default class MediaManager {
   constructor(baseUrl) {
@@ -6,50 +13,27 @@ export default class MediaManager {
   }
 
   findAll(callback, params = {}) {
-    jQuery.get(`${this.baseUrl}images`, params, (images) => {
-      callback(images);
-    });
+    get(`${this.baseUrl}images`, params).then(r => r.json()).then(images => callback(images));
   }
 
   uploadFile(file, callback) {
-    const formData = new FormData();
-    formData.append('image[asset]', file);
+    const body = new FormData();
+    body.append('image[asset]', file);
 
-    jQuery.ajax({
-      url: `${this.baseUrl}images`,
-      data: formData,
-      dataType: 'json',
-      type: 'POST',
-      processData: false,
-      contentType: false,
-      success: (image) => {
-        callback(image);
-      },
-    });
+    post(`${this.baseUrl}images`, {}, { body })
+      .then(r => r.json())
+      .then(image => callback(image));
   }
 
   update(image, params, callback) {
-    jQuery.ajax({
-      url: `${this.baseUrl}images/${image.id}`,
-      dataType: 'json',
-      type: 'PATCH',
-      data: { image: params },
-      success: (response) => {
-        callback(response);
-      },
-    });
+    patch(`${this.baseUrl}images/${image.id}`, { image: params }, { headers: { 'content-type': 'application/json' } })
+      .then(r => r.json())
+      .then(image => callback(image));
   }
 
   destroy(image, callback) {
-    jQuery.ajax({
-      url: `${this.baseUrl}images/${image.id}`,
-      dataType: 'json',
-      type: 'DELETE',
-      processData: false,
-      contentType: false,
-      success: (response) => {
-        callback(response);
-      },
-    });
+    del(`${this.baseUrl}images/${image.id}`, {}, { headers: { 'content-type': 'application/json' } })
+      .then(r => r.json())
+      .then(image => callback(image));
   }
 }
