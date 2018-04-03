@@ -12,6 +12,7 @@ import Container from './Container';
 import EmbeddedVideo from './EmbeddedVideo';
 import MediaManager from './MediaManager';
 import ListInput from './ListInput';
+import imgageSrc from './helpers/imageSrc';
 
 export {
   PageBuilder,
@@ -28,4 +29,5 @@ export {
   ImagePicker,
   ImageInput,
   ListInput,
+  imgageSrc,
 };
