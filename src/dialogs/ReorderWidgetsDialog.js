@@ -23,6 +23,22 @@ const ReorderDialogItem = styled.div `
   }
 `;
 
+const handleStyles = {
+  display: 'inline-block',
+  width: '16px',
+  marginRight: '.5em'
+};
+
+const titleStyles = {
+  fontSize: '1em',
+  fontWeight: 500
+};
+
+const sortableOptions = {
+  handle: '.btn-drag',
+  animation: 150
+};
+
 const ReorderWidgetsDialog = ({
   open,
   library,
@@ -41,14 +57,14 @@ const ReorderWidgetsDialog = ({
 
     <SortableList
       tag="div"
-      options={{ handle: '.btn-drag', animation: 150 }}
+      options={sortableOptions}
       onChange={onChange}
     >
       {widgets.map((widget, idx) =>
         <div key={widget.widgetId} data-id={idx}>
           <ReorderDialogItem className="btn-drag">
-            <Handle style={{ display: 'inline-block', width: '16px', marginRight: '.5em' }} />
-            <Title third style={{ fontSize: '1em', fontWeight: 500 }}>{library[widget.component].title}</Title>
+            <Handle style={handleStyles} />
+            <Title third style={titleStyles}>{library[widget.component].title}</Title>
           </ReorderDialogItem>
         </div>)}
     </SortableList>

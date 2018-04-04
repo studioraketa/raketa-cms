@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from 'raketa-ui';
 
-const TextArea = ({ label, onChange, value, placeholder }) => {
-  return (
-    <TextField multiline label={label} value={value} placeholder={placeholder} onChange={value => onChange(value)} />
-  );
-};
+const TextArea = ({ label, onChange, value, placeholder }) => (
+  <TextField
+    multiline
+    label={label}
+    value={value}
+    placeholder={placeholder}
+    onChange={onChange}
+  />
+);
 
 TextArea.defaultProps = {
   value: '',

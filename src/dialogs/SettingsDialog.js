@@ -13,13 +13,15 @@ import ImagePicker from '../pickers/ImagePicker/ImagePicker';
 
 
 const renderField = (field, value, onChange, opts) => {
+  const handleChange = newValue => onChange(field, newValue);
+
   switch (opts.type) {
     case 'text': {
       return (<TextInput
         key={`dialog-${field}`}
         label={opts.label}
         value={value}
-        onChange={newValue => onChange(field, newValue)}
+        onChange={handleChange}
       />);
     }
 
@@ -29,7 +31,7 @@ const renderField = (field, value, onChange, opts) => {
           key={`dialog-${field}`}
           label={opts.label}
           value={value}
-          onChange={newValue => onChange(field, newValue)}
+          onChange={handleChange}
         />);
     }
 
@@ -39,7 +41,7 @@ const renderField = (field, value, onChange, opts) => {
           key={`dialog-${field}`}
           label={opts.label}
           value={value}
-          onChange={newValue => onChange(field, newValue)}
+          onChange={handleChange}
         />);
     }
 
@@ -50,7 +52,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           options={opts.options}
           value={value}
-          onChange={newValue => onChange(field, newValue)}
+          onChange={handleChange}
         />);
     }
 
@@ -60,7 +62,7 @@ const renderField = (field, value, onChange, opts) => {
           key={`dialog-${field}`}
           label={opts.label}
           value={value}
-          onChange={newValue => onChange(field, newValue)}
+          onChange={handleChange}
         />
       );
     }
@@ -82,7 +84,7 @@ const renderField = (field, value, onChange, opts) => {
     //   return React.createElement(window[componentName], {
     //     key: `dialog-${field}`,
     //     value,
-    //     onChange: newValue => onChange(field, newValue),
+    //     onChange: handleChange,
     //   });
     // }
 
@@ -91,7 +93,7 @@ const renderField = (field, value, onChange, opts) => {
         key={`dialog-${field}`}
         label={field}
         value={value}
-        onChange={newValue => onChange(field, newValue)}
+        onChange={handleChange}
       />);
     }
   }
@@ -121,7 +123,6 @@ const SettingsDialog = ({
 
   if (typeof widget.adminFields === 'function') {
     const items = settings.list ? settings.list : [];
-
     fields = widget.adminFields(items, onChangeField, settings);
   }
 

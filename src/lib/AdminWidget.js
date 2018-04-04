@@ -44,12 +44,14 @@ const Segment = styled.div`
   width: 32%;
 `;
 
+const DEFAULT_SPACINGS = [['none', 'None'], ['both', 'Both'], ['top', 'Top'], ['bottom', 'Bottom']];
+
 const CommonSettings = ({ settings, themes, onChange }) => (
   <SegmentWrapper>
     <Segment>
       <SelectMenu
         label="Spacing"
-        options={[['none', 'None'], ['both', 'Both'], ['top', 'Top'], ['bottom', 'Bottom']]}
+        options={DEFAULT_SPACINGS}
         value={settings.spacing}
         onChange={newValue => onChange('spacing', newValue)}
       />

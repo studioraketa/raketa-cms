@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from 'raketa-ui';
 
-const TextInput = ({ label, onChange, value, placeholder }) => {
-  return (
-    <TextField label={label} value={value} placeholder={placeholder} onChange={value => onChange(value)} />
-  );
-};
+const TextInput = ({ label, onChange, value, placeholder }) => (
+  <TextField
+    label={label}
+    value={value}
+    placeholder={placeholder}
+    onChange={onChange}
+  />
+);
 
 TextInput.defaultProps = {
   value: '',
