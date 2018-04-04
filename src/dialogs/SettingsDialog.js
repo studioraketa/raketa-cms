@@ -11,7 +11,6 @@ import { humanize } from '../helpers/humanize';
 import Dialog from './Dialog';
 import ImagePicker from '../pickers/ImagePicker/ImagePicker';
 
-
 const renderField = (field, value, onChange, opts) => {
   const handleChange = newValue => onChange(field, newValue);
 
@@ -71,9 +70,9 @@ const renderField = (field, value, onChange, opts) => {
       return (
         <ButtonSettings
           key={`dialog-${field}`}
-          button_settings_title={opts.label}
+          label={opts.label}
           value={value}
-          onChange={newValues => onChange(field, newValues)}
+          onChange={handleChange}
         />
       );
     }
@@ -99,6 +98,13 @@ const renderField = (field, value, onChange, opts) => {
   }
 };
 
+const renderAdminFields = (widget, settings, onChange) => (
+  Object.keys(widget.adminFields).map(field => {
+    const opts = Object.assign({ label: humanize(field) }, widget.adminFields[field]);
+    return renderField(field, settings[field], onChange, opts);
+  })
+);
+
 const SettingsDialog = ({
   open,
   widget,
@@ -112,13 +118,7 @@ const SettingsDialog = ({
   let fields;
 
   if (typeof widget.adminFields === 'object') {
-    fields = Object.keys(widget.adminFields).map(field =>
-      renderField(
-        field,
-        settings[field],
-        onChangeField,
-        Object.assign({ label: humanize(field) }, widget.adminFields[field])),
-      );
+    fields = renderAdminFields(widget, settings, onChangeField);
   }
 
   if (typeof widget.adminFields === 'function') {
