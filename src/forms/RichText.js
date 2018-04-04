@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormControl, Label } from 'raketa-ui';
 
 import ReactQuill from 'react-quill';
 
@@ -36,8 +37,14 @@ class RichText extends React.Component {
   }
 
   render() {
+    const { label } = this.props;
+
     return (
-      <ReactQuill modules={MODULES} formats={FORMATS} value={this.state.value} onChange={this.handleChange} />
+      <FormControl>
+        {label &&
+          <Label>{label}</Label>}
+        <ReactQuill modules={MODULES} formats={FORMATS} value={this.state.value} onChange={this.handleChange} />
+      </FormControl>
     )
   }
 }
