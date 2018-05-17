@@ -13,6 +13,12 @@ class ImageInput extends React.Component {
     };
   }
 
+  handleChange(selectedImage) {
+    this.setState({ selectedImage }, () => {
+      if (this.props.onChange) this.props.onChange(selectedImage);
+    })
+  }
+
   render() {
     const { name, mediaManager } = this.props;
     const { selectedImage } = this.state;
@@ -23,7 +29,7 @@ class ImageInput extends React.Component {
           <ImagePicker
             mediaManager={mediaManager}
             value={selectedImage}
-            onChange={selectedImage => this.setState({ selectedImage })}
+            onChange={selectedImage => this.handleChange(selectedImage)}
           />
 
           <input type="hidden" name={name} value={selectedImage ? selectedImage.id : ''} />
