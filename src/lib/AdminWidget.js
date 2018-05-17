@@ -44,14 +44,12 @@ const Segment = styled.div`
   width: 32%;
 `;
 
-const DEFAULT_SPACINGS = [['none', 'None'], ['both', 'Both'], ['top', 'Top'], ['bottom', 'Bottom']];
-
-const CommonSettings = ({ settings, themes, onChange }) => (
+const CommonSettings = ({ settings, themes, spacings, onChange }) => (
   <SegmentWrapper>
     <Segment>
       <SelectMenu
         label="Spacing"
-        options={DEFAULT_SPACINGS}
+        options={spacings}
         value={settings.spacing}
         onChange={newValue => onChange('spacing', newValue)}
       />
@@ -152,7 +150,7 @@ class AdminWidget extends React.Component {
   }
 
   render() {
-    const { widgetId, isPreview, themes } = this.props;
+    const { widgetId, isPreview, themes, spacings } = this.props;
 
     return (
       <AdminWidgetWrapper isPreview={isPreview}>
@@ -174,6 +172,7 @@ class AdminWidget extends React.Component {
           headerToolbar={() =>
             <CommonSettings
               themes={themes}
+              spacings={spacings}
               settings={this.state.containerSettings}
               onChange={(field, value) => this.handleToolbarChange(field, value)}
             />

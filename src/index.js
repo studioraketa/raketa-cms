@@ -12,7 +12,7 @@ import Container from './Container';
 import EmbeddedVideo from './EmbeddedVideo';
 import MediaManager from './MediaManager';
 import ListInput from './ListInput';
-import imgageSrc from './helpers/imageSrc';
+import imageSrc from './helpers/imageSrc';
 import Button from './forms/Button';
 import ButtonSettings from './forms/ButtonSettings';
 
@@ -31,7 +31,7 @@ export {
   ImagePicker,
   ImageInput,
   ListInput,
-  imgageSrc,
+  imageSrc,
   Button,
   ButtonSettings,
 };

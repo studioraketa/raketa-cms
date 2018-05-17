@@ -109,7 +109,7 @@ class PageBuilder extends React.Component {
   }
 
   render() {
-    const { library, navigation, dirty, themes, onExit } = this.props;
+    const { library, navigation, dirty, themes, spacings, onExit } = this.props;
     const { page, isLoading, orderDialogOpen, pageSettingsOpen } = this.state;
     const { widgets } = page;
 
@@ -147,6 +147,7 @@ class PageBuilder extends React.Component {
                       <AdminWidget
                         library={library}
                         themes={themes}
+                        spacings={spacings}
                         isPreview={false}
                         widgetId={widget.widgetId}
                         widgetComponent={widget.component}
@@ -174,6 +175,7 @@ class PageBuilder extends React.Component {
 
 PageBuilder.defaultProps = {
   themes: [['none', 'None'], ['light', 'Light'], ['dark', 'Dark']],
+  spacings: [['none', 'None'], ['both', 'Both'], ['top', 'Top'], ['bottom', 'Bottom']],
 };
 
 PageBuilder.propTypes = {
