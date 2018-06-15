@@ -98,7 +98,7 @@ class AdminWidget extends React.Component {
     const widget = this.getWidget();
     const fields = Object.keys(widget.defaults);
 
-    const widgetProps = fields.map(field => ({ [field]: this.props[field] || widget.defaults[field] }));
+    const widgetProps = fields.map(field => ({ [field]: this.props[field] }));
     return Object.assign(...widgetProps);
   }
 
@@ -114,7 +114,7 @@ class AdminWidget extends React.Component {
     const widget = this.getWidget();
     const fields = Object.keys(widget.defaults);
 
-    const widgetProps = fields.map(field => ({ [field]: this.state[field] || widget.defaults[field] }));
+    const widgetProps = fields.map(field => ({ [field]: this.state[field] }));
     return Object.assign(...widgetProps, { containerSettings: this.getContainerSettings() });
   }
 

@@ -118,9 +118,20 @@ LinkSettings.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+const DEFAULTS = {
+  label: 'link',
+  link: '#',
+  id: '',
+  className: '',
+  target: '_self',
+  rel: 'follow',
+};
+
 LinkSettings.defaultProps = {
   label: 'Link  ',
-  value: { label: '', link: '', id: '', className: '', target: '_self', rel: 'follow' },
+  value: DEFAULTS,
 };
+
+LinkSettings.defaults = DEFAULTS;
 
 export default LinkSettings;

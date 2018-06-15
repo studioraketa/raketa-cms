@@ -105,9 +105,9 @@ const ButtonSettings = ({ label, value, onChange }) => (
 
       <SelectMenu
         label="Follow Link"
-        options={[['follow', 'Follow'], ['no-follow', 'No Follow']]}
-        value={value.follow_link}
-        onChange={follow_link => onChange(mergeSettings(value, 'follow_link', follow_link))}
+        options={[['follow', 'Follow'], ['nofollow', 'No Follow']]}
+        value={value.rel}
+        onChange={rel => onChange(mergeSettings(value, 'rel', rel))}
       />
     </ThreeColumns>
   </ButtonControl>
@@ -119,9 +119,20 @@ ButtonSettings.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+const DEFAULTS = {
+  label: 'Button',
+  link: '#',
+  id: '',
+  type: 'regular',
+  target: '_self',
+  rel: 'follow',
+};
+
 ButtonSettings.defaultProps = {
   label: 'Button',
-  value: { label: '', link: '', id: '', type: 'regular', target: '_self', follow_link: 'follow' },
+  value: DEFAULTS,
 };
+
+ButtonSettings.defaults = DEFAULTS;
 
 export default ButtonSettings;
