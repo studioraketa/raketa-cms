@@ -15,6 +15,8 @@ import ListInput from './ListInput';
 import imageSrc from './helpers/imageSrc';
 import Button from './forms/Button';
 import ButtonSettings from './forms/ButtonSettings';
+import LinkSettings from './forms/LinkSettings';
+import Link from './lib/Link';
 
 export {
   PageBuilder,
@@ -34,4 +36,6 @@ export {
   imageSrc,
   Button,
   ButtonSettings,
+  LinkSettings,
+  Link,
 };
