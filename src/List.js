@@ -154,7 +154,9 @@ class List extends React.Component {
         <ListItemWrapper minimized={this.state.minimizedItems.includes(idx)}>
           {this.props.listItem(
             item,
-            (field, value) => this.onChangeField(idx, field, value))}
+            (field, value) => this.onChangeField(idx, field, value),
+            idx
+          )}
         </ListItemWrapper>
       </ListItem>);
   }
