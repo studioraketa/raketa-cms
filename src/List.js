@@ -61,8 +61,10 @@ const ItemTitle = styled.span`
 
 class List extends React.Component {
   static newItemFactory(firstItem) {
-    const item = Object.keys(firstItem).reduce((obj, key) =>
-      Object.assign({}, obj, { [key]: '' }));
+    const item = Object.keys(obj).reduce(
+      (obj, key) => Object.assign({}, obj, { [key]: '' }),
+      {}
+    );
 
     return Object.assign({}, item, { id: randomId() });
   }
