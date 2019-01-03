@@ -9,7 +9,7 @@ import {
   SideNavSearchWrapper,
 } from '../lib/SideNav';
 
-import { ComponentPreview } from '../lib/ComponentPreview';
+import { SidebarItem } from '../lib/SidebarItem';
 import TextInput from '../forms/TextInput';
 
 class AdminSidebar extends React.Component {
@@ -44,7 +44,7 @@ class AdminSidebar extends React.Component {
             <NavSectionTitle secondary>{categoryName}</NavSectionTitle>
 
             {widgets.filter(widgetName => library[widgetName].category === categoryName).map((widgetName, widgetIdx) =>
-              <ComponentPreview key={widgetIdx} onClick={() => onAddWidget(widgetName)}>{library[widgetName].title}</ComponentPreview>
+              <SidebarItem key={widgetIdx} onClick={() => onAddWidget(widgetName)}>{library[widgetName].title}</SidebarItem>
             )}
           </div>)}
       </div>

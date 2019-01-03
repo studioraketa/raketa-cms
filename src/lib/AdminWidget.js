@@ -135,13 +135,6 @@ class AdminWidget extends React.Component {
     this.props.onDelete(widgetId);
   }
 
-  renderWidget() {
-    return React.createElement(
-      this.getWidget(),
-      Object.assign(this.getWidgetProps(), { containerSettings: this.getContainerSettings() }),
-    );
-  }
-
   render() {
     const { widgetId, themes, spacings } = this.props;
 
@@ -153,7 +146,10 @@ class AdminWidget extends React.Component {
           <IconButton danger onClick={() => this.handleDeleteWidget(widgetId)}><IconDelete /></IconButton>
         </AdminWidgetToolbar>
 
-        {this.renderWidget()}
+        {React.createElement(
+          this.getWidget(),
+          Object.assign(this.getWidgetProps(), { containerSettings: this.getContainerSettings() }),
+        )}
 
         <SettingsDialog
           open={this.state.open}
@@ -162,7 +158,7 @@ class AdminWidget extends React.Component {
           onChangeField={(field, value) => this.handleChange(field, value)}
           onPrimary={() => this.handleSave()}
           onClose={() => this.setState({ open: false })}
-          headerToolbar={() =>
+          renderCommonSettings={() =>
             <CommonSettings
               themes={themes}
               spacings={spacings}

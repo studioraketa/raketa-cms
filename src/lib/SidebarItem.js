@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { em, reset, resetButton } from 'raketa-ui';
 
-export const ComponentPreview = styled.button`
+export const SidebarItem = styled.button`
   position: relative;
   ${reset()}
   ${resetButton()}

@@ -114,8 +114,7 @@ const SettingsDialog = ({
   onChangeField,
   onClose,
   onPrimary,
-  headerToolbar,
-  dialogSize,
+  renderCommonSettings,
 }) => {
   let fields;
 
@@ -140,7 +139,7 @@ const SettingsDialog = ({
     >
       <Tabs>
         <div title="Content">{fields}</div>
-        <div title="Settings">{headerToolbar()}</div>
+        <div title="Settings">{renderCommonSettings()}</div>
       </Tabs>
     </Dialog>
   );
