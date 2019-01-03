@@ -1,14 +1,14 @@
 ## Install
 
 ```
-yarn add raketa-ui
+yarn add "@raketa-cms/raketa-cms"
 ```
 
 ## Development
 
 In a terminal session from the project's directory run:
 - yarn
-- yarn dev
+- yarn start
 
 In another terminal session in the project's directory run:
 - yarn link
@@ -24,8 +24,7 @@ Note when you want to stop using the local package:
 ## Build and publish
 
 1. yarn build
-2. Remove this.refs.editor.focus() from dist/bundle.js
-3. yarn publish
+1. yarn publish
 
 ## Usage
 
