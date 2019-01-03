@@ -1,8 +1,7 @@
 import React from 'react';
-import styles from './Input.scss';
+import styles from './Textarea.scss';
 
-const Input = ({
-  type,
+const Textarea = ({
   name,
   value,
   placeholder,
@@ -10,8 +9,7 @@ const Input = ({
   pattern,
   id,
   onChange,
-}) => <input
-        type={type}
+}) => <textarea
         name={name}
         value={value}
         placeholder={placeholder}
@@ -22,10 +20,10 @@ const Input = ({
         className={styles.root}
       />;
 
-Input.defaultProps = {
+Textarea.defaultProps = {
   type: 'text',
   value: '',
   onChange: () => {},
 };
 
-export default Input;
+export default Textarea;

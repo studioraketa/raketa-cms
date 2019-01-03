@@ -3,6 +3,7 @@
 
 .root {
   composes: reset-inputs from '../../reset.scss';
+  height: 100px;
 
   &:focus { border-color: brand; }
 

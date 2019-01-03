@@ -13,6 +13,9 @@ import {
   P,
   Button,
   Input,
+  Label,
+  FormGroup,
+  Textarea,
  } from './raketa-ui';
 
 import {
@@ -117,7 +120,21 @@ class PageBuilder extends React.Component {
             <Button onClick={() => alert('boo!')}>Hit me!</Button>
             <Button role="secondary" onClick={() => alert('boo!')}>Hit me!</Button>
             <Button role="text" onClick={() => alert('boo!')}>Hit me!</Button>
-            <Input value="This is a test" placeholder="alalala" />
+
+            <FormGroup>
+              <Label htmlFor="title">Hello</Label>
+              <Input id="title" value="This is a test" placeholder="alalala" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="email">Email</Label>
+              <Input type="email" id="email" value="user@example.com" placeholder="alalala" />
+            </FormGroup>
+
+            <FormGroup>
+              <Label htmlFor="description">Description</Label>
+              <Textarea id="description" value="lorem ipsum..." placeholder="alalala" />
+            </FormGroup>
 
             <ReorderDialog
               open={reorderOpen}

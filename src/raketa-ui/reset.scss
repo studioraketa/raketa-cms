@@ -2,7 +2,7 @@
 @value fs-base, base-line-height from sizes;
 
 @value colors: "./colors.scss";
-@value black from colors;
+@value black, gray, brand from colors;
 
 .global-reset {
   padding: 0;
@@ -45,4 +45,22 @@
   -moz-osx-font-smoothing: inherit;
   // border-radius: 3px;
   cursor: pointer;
+}
+
+.reset-inputs {
+  composes: reset-typography;
+
+  display: block;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  padding: 0.5em 0em;
+  border: 0;
+  border-bottom: 1px solid gray;
+  color: black;
+  font-size: 1em;
+  line-height: 1;
+  background-color: transparent;
 }

@@ -1,0 +1,14 @@
+@value sizes: "../../font-sizes.scss";
+@value fs-small from sizes;
+
+@value colors: "../../colors.scss";
+@value brand from colors;
+
+.root {
+  composes: reset-typography from "../../reset.scss";
+
+  color: brand;
+  font-size: fs-small;
+  font-weight: 700;
+  cursor: pointer;
+}
