@@ -1,0 +1,27 @@
+@value colors: "../../colors.scss";
+@value gray, black, brand from colors;
+
+.root {
+  composes: reset-typography from '../../reset.scss';
+
+  display: block;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  padding: 0.5em 0em;
+  border: 0;
+  border-bottom: 1px solid gray;
+  color: black;
+  font-size: 1em;
+  line-height: 1;
+  background-color: transparent;
+
+  &:focus { border-color: brand; }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

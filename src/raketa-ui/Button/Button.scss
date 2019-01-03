@@ -1,0 +1,42 @@
+@value colors: "../colors.scss";
+@value brand, black, white from colors;
+
+.root {
+  composes: reset-buttons from "../reset.scss";
+}
+
+.primary {
+  composes: root;
+  background-color: brand;
+  border-color: brand;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.secondary {
+  composes: root;
+  background-color: transparent;
+  border-color: black;
+  color: black;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.text {
+  composes: root;
+  background-color: transparent;
+  border-color: transparent;
+  color: black;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.9;
+    text-decoration: none;
+  }
+}
+

@@ -1,0 +1,48 @@
+@value sizes: "./font-sizes.scss";
+@value fs-base, base-line-height from sizes;
+
+@value colors: "./colors.scss";
+@value black from colors;
+
+.global-reset {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.reset-typography {
+  composes: global-reset;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  font-size: fs-base;
+  color: black;
+  line-height: base-line-height;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.reset-headings {
+  composes: reset-typography;
+  font-weight: normal;
+}
+
+.reset-buttons {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0;
+  margin-right: 0.5em;
+  border: 1px solid transparent;
+  width: auto;
+  overflow: visible;
+  -webkit-appearance: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  line-height: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  // border-radius: 3px;
+  cursor: pointer;
+}

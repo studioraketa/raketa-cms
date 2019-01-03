@@ -1,0 +1,11 @@
+@value fs-base: 16px;
+@value base-line-height: 1.666;
+@value fraction: 1.333;
+
+@value fs-small: calc(fs-base / fraction);
+@value fs-tiny: calc(fs-small / fraction);
+@value fs-medium: calc(fs-base * fraction);
+@value fs-large: calc(fs-medium * fraction);
+@value fs-xlarge: calc(fs-large * fraction);
+@value fs-xxlarge: calc(fs-xlarge * fraction);
+@value fs-huge: calc(fs-xxlarge * fraction);

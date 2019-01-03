@@ -1,0 +1,4 @@
+.root {
+  composes: reset-typography from "../../reset.scss";
+  margin-bottom: 1em;
+}

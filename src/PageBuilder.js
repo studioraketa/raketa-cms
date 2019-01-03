@@ -9,6 +9,13 @@ import {
 } from 'raketa-ui';
 
 import {
+  H,
+  P,
+  Button,
+  Input,
+ } from './raketa-ui';
+
+import {
   add,
   removeById,
   updateFieldById,
@@ -105,6 +112,13 @@ class PageBuilder extends React.Component {
       <NoSSR>
         <RaketaUIProvider>
           <div style={{ paddingLeft: '64px' }}>
+            <H level={2}>Hello world!</H>
+            <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo temporibus deleniti, pariatur architecto rem, autem maiores natus labore accusamus eligendi recusandae officiis quo dolorem praesentium obcaecati culpa adipisci dicta harum!</P>
+            <Button onClick={() => alert('boo!')}>Hit me!</Button>
+            <Button role="secondary" onClick={() => alert('boo!')}>Hit me!</Button>
+            <Button role="text" onClick={() => alert('boo!')}>Hit me!</Button>
+            <Input value="This is a test" placeholder="alalala" />
+
             <ReorderDialog
               open={reorderOpen}
               library={library}

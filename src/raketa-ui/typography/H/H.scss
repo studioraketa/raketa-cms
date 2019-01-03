@@ -1,0 +1,42 @@
+@value sizes: "../../font-sizes.scss";
+@value fs-base, fs-medium, fs-large, fs-xlarge, fs-xxlarge, base-line-height from sizes;
+
+.root {
+  composes: reset-headings from "../../reset.scss";
+  margin-bottom: 0.5em;
+}
+
+.size1 {
+  composes: root;
+  font-size: fs-xxlarge;
+  line-height: 1.2;
+}
+
+.size2 {
+  composes: root;
+  font-size: fs-xlarge;
+  line-height: 1.2;
+}
+
+.size3 {
+  composes: root;
+  font-size: fs-large;
+  line-height: 1.2;
+}
+
+.size4 {
+  composes: root;
+  font-size: fs-medium;
+  line-height: 1.2;
+}
+
+.size5 {
+  composes: root;
+  font-size: fs-base;
+}
+
+.size6 {
+  composes: root;
+  font-size: fs-base;
+  font-weight: bold;
+}

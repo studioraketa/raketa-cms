@@ -1,5 +1,32 @@
 const path = require('path');
 
+const CSSModuleLoader = {
+  loader: 'css-loader',
+  options: {
+    modules: true,
+    sourceMap: true,
+    localIdentName: '[local]__[hash:base64:5]',
+    // minimize: true
+  }
+}
+
+// const CSSLoader = {
+//   loader: 'css-loader',
+//   options: {
+//     modules: false,
+//     sourceMap: true,
+//     minimize: true
+//   }
+// }
+
+const postCSSLoader = {
+  loader: 'postcss-loader',
+  options: {
+    ident: 'postcss',
+    sourceMap: true,
+  }
+}
+
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
   entry: './src/index.js',
@@ -11,13 +38,21 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          CSSModuleLoader,
+          postCSSLoader,
+          'sass-loader',
+        ]
+      },
     ]
   },
   output: {
     path: __dirname + '/dist',
     filename: 'bundle.js',
-    // library: 'raketa-cms',
     libraryTarget: 'umd',
     globalObject: 'this',
     umdNamedDefine: true
