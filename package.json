@@ -1,12 +1,12 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.2.1",
+  "version": "1.2.0",
   "description": "Visual CMS builder for editing and rendering pages based on component libraries. ",
-  "main": "build/index.js",
+  "main": "build/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch --mode development",
-    "build": "webpack --mode production && sed -i '' 's/this.refs.editor.focus()//g' build/index.js",
+    "build": "webpack --mode production",
     "stats": "webpack --json > stats.json"
   },
   "repository": {
