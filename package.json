@@ -1,12 +1,13 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.1.0",
-  "description": "Page builder library for editing and rendering component libraries. ",
-  "main": "dist/bundle.js",
+  "version": "1.2.0",
+  "description": "Visual CMS builder for editing and rendering pages based on component libraries. ",
+  "main": "build/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "stats": "webpack --json > stats.json"
   },
   "repository": {
     "type": "git",
@@ -27,10 +28,10 @@
     "styled-components": "^3.1.6"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.3",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "styled-components": "^3.1.6",
