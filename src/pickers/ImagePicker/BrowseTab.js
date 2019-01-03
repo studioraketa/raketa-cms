@@ -38,6 +38,7 @@ const ImageWrapper = styled.div`
     object-fit: contain;
     width: 100px;
     height: 100px;
+    background-color: #ddd;
   }
 `;
 

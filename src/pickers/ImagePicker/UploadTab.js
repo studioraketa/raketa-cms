@@ -4,7 +4,7 @@ import Dropbox from '../../lib/Dropbox';
 import ProgressBar from '../../lib/ProgressBar';
 
 const FileItem = ({ file }) => (
-  <div className="file-item">
+  <div>
     <strong>{file.name}</strong>
     <span>Completed</span>
   </div>

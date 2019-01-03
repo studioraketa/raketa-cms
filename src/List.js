@@ -115,7 +115,7 @@ class List extends React.Component {
     const { items } = this.state;
 
     return (
-      <div className="list">
+      <div>
         {!items &&
           <h4>There are no items yet.</h4>}
 

@@ -76,15 +76,18 @@ const renderField = (field, value, onChange, opts) => {
       );
     }
 
-    // case 'component': {
-    //   const componentName = opts.component;
-    //
-    //   return React.createElement(window[componentName], {
-    //     key: `dialog-${field}`,
-    //     value,
-    //     onChange: handleChange,
-    //   });
-    // }
+    case 'custom': {
+      const Component = opts.component;
+
+      return (
+        <Component
+          key={`dialog-${field}`}
+          label={opts.label}
+          value={value}
+          onChange={handleChange}
+        />
+      );
+    }
 
     default: {
       return (<TextInput

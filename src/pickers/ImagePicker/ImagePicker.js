@@ -25,6 +25,7 @@ const ImageWrapper = styled.div`
     object-fit: contain;
     width: 100px;
     height: 100px;
+    background-color: #ddd;
   }
 `;
 
@@ -113,7 +114,7 @@ class ImagePicker extends React.Component {
   }
 
   handleSearch(q) {
-    this.setState({ q }, () => this.fetchData(q));
+    this.setState({ q }, () => this.fetchData(q, () => {}));
   }
 
   handleEditImage(image) {
@@ -163,9 +164,11 @@ class ImagePicker extends React.Component {
     return (
       <div>
         <ImageControl>
-          <ImageWrapper>
-            <Img src={selectedImage} variant="thumb" />
-          </ImageWrapper>
+          {selectedImage &&
+            <ImageWrapper>
+              <Img src={selectedImage} variant="thumb" />
+            </ImageWrapper>
+          }
 
           <FormControl>
             <Label>{`${label} ${selectedImage.alt ? `(${selectedImage.alt})` : ''}`}</Label>

@@ -109,7 +109,8 @@ class PageBuilder extends React.Component {
               open={reorderOpen}
               library={library}
               onClose={() => this.setState({ reorderOpen: false })}
-              onChange={newOrder => this.handleReorder(newOrder)}
+              onChange={order => this.handleReorder(order)}
+              onDelete={widgetId => this.handleRemove(widgetId)}
               widgets={widgets}
             />
 
@@ -127,8 +128,8 @@ class PageBuilder extends React.Component {
               (
                 <SortableList
                   tag="div"
-                  options={{ handle: '.btn-drag', animation: 150 }}
-                  onChange={newOrder => this.handleReorder(newOrder)}
+                  options={{ handle: '[data-drag]', animation: 150 }}
+                  onChange={order => this.handleReorder(order)}
                 >
                   {widgets.map((widget, idx) =>
                     <div key={widget.widgetId} data-id={idx}>
