@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const PageRender = ({ library, page }) => (
   <div>
@@ -9,10 +8,5 @@ const PageRender = ({ library, page }) => (
         Object.assign({}, { key: idx }, widget.settings)))}
   </div>
 );
-
-PageRender.propTypes = {
-  library: PropTypes.object.isRequired,
-  page: PropTypes.object.isRequired,
-};
 
 export default PageRender;

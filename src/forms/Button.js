@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Button = ({ settings, className }) => {
   const { button_id, button_label, button_link, button_target, button_type, follow_link } = settings;
@@ -19,10 +18,6 @@ const Button = ({ settings, className }) => {
       target={button_target}
       rel={follow_link === 'no-follow' ? 'nofollow' : ''}
     >{button_label}</a>);
-};
-
-Button.propTypes = {
-  settings: PropTypes.object.isRequired,
 };
 
 export default Button;

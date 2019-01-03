@@ -237,11 +237,6 @@ class ImagePicker extends React.Component {
   }
 }
 
-ImagePicker.propTypes = {
-  value: PropTypes.any,
-  onChange: PropTypes.func.isRequired,
-};
-
 ImagePicker.contextTypes = {
   host: PropTypes.string,
   mediaManager: PropTypes.object,

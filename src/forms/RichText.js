@@ -1,6 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import RichTextEditor from 'react-rte';
 import { FormControl, Label } from 'raketa-ui';
 
 class RichText extends React.Component {

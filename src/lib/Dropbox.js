@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Title, Button } from 'raketa-ui';
 
@@ -55,10 +54,5 @@ class Dropbox extends React.Component {
 }
 
 Dropbox.defaultProps = { buttonLabel: 'Select files...' };
-
-Dropbox.propTypes = {
-  buttonLabel: PropTypes.string.isRequired,
-  onDrop: PropTypes.func.isRequired,
-};
 
 export default Dropbox;

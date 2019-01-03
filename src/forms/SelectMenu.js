@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { SelectField } from 'raketa-ui';
 
 const prepareOption = (o) => {
@@ -18,13 +17,6 @@ const SelectMenu = ({ label, options, onChange, value }) => (
 
 SelectMenu.defaultProps = {
   value: '',
-};
-
-SelectMenu.propTypes = {
-  label: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
-  value: PropTypes.any,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default SelectMenu;

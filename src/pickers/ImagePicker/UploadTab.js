@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Dropbox from '../../lib/Dropbox';
 import ProgressBar from '../../lib/ProgressBar';
@@ -11,19 +10,11 @@ const FileItem = ({ file }) => (
   </div>
 );
 
-FileItem.propTypes = {
-  file: PropTypes.object.isRequired,
-};
-
 const FileList = ({ files }) => (
   <div>
     {files.map(file => <FileItem key={file.id} file={file} />)}
   </div>
 );
-
-FileList.propTypes = {
-  files: PropTypes.array.isRequired,
-};
 
 const ImageUploader = styled.div`
   margin-top: 16px;
@@ -60,12 +51,5 @@ class UploadTab extends React.Component {
     );
   }
 }
-
-UploadTab.propTypes = {
-  filesToUpload: PropTypes.number.isRequired,
-  filesUploaded: PropTypes.number.isRequired,
-  files: PropTypes.array.isRequired,
-  onUpload: PropTypes.func.isRequired,
-};
 
 export default UploadTab;

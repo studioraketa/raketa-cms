@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { RaketaUIProvider } from 'raketa-ui';
 
 import ImagePicker from './ImagePicker';
@@ -38,10 +37,5 @@ class ImageInput extends React.Component {
     );
   }
 }
-
-ImageInput.propTypes = {
-  // image: PropTypes.object.isRequired,
-  // name: PropTypes.name.isRequired,
-};
 
 export default ImageInput;

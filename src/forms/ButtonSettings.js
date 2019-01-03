@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { em, reset } from 'raketa-ui';
 
@@ -112,12 +111,6 @@ const ButtonSettings = ({ label, value, onChange }) => (
     </ThreeColumns>
   </ButtonControl>
 );
-
-ButtonSettings.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
-};
 
 const DEFAULTS = {
   label: 'Button',

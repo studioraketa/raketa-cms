@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SortableList from 'react-sortablejs';
 import {
@@ -163,13 +162,6 @@ class List extends React.Component {
 
 List.defaultProps = {
   items: [],
-};
-
-List.propTypes = {
-  items: PropTypes.array.isRequired,
-  onChangeList: PropTypes.func.isRequired,
-  listItem: PropTypes.func.isRequired,
-  primaryField: PropTypes.any,
 };
 
 export default List;

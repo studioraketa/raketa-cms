@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import containerClass from './helpers/containerClass';
 
 const Container = ({ settings, className, children }) => {
@@ -17,13 +16,6 @@ const Container = ({ settings, className, children }) => {
 Container.defaultProps = {
   className: '',
   id: '',
-};
-
-Container.propTypes = {
-  settings: PropTypes.object.isRequired,
-  children: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  id: PropTypes.string,
 };
 
 export default Container;

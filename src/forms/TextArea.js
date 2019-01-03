@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { TextField } from 'raketa-ui';
 
 const TextArea = ({ label, onChange, value, placeholder }) => (
@@ -15,13 +14,6 @@ const TextArea = ({ label, onChange, value, placeholder }) => (
 TextArea.defaultProps = {
   value: '',
   placeholder: '',
-};
-
-TextArea.propTypes = {
-  label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
 };
 
 export default TextArea;

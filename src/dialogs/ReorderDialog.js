@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SortableList from 'react-sortablejs';
 import { em, Title } from 'raketa-ui';
@@ -34,12 +33,7 @@ const titleStyles = {
   fontWeight: 500
 };
 
-const sortableOptions = {
-  handle: '.btn-drag',
-  animation: 150
-};
-
-const ReorderWidgetsDialog = ({
+const ReorderDialog = ({
   open,
   library,
   onClose,
@@ -57,12 +51,12 @@ const ReorderWidgetsDialog = ({
 
     <SortableList
       tag="div"
-      options={sortableOptions}
+      options={{ handle: '[data-drag]', animation: 150 }}
       onChange={onChange}
     >
       {widgets.map((widget, idx) =>
         <div key={widget.widgetId} data-id={idx}>
-          <ReorderDialogItem className="btn-drag">
+          <ReorderDialogItem data-drag>
             <Handle style={handleStyles} />
             <Title third style={titleStyles}>{library[widget.component].title}</Title>
           </ReorderDialogItem>
@@ -71,15 +65,8 @@ const ReorderWidgetsDialog = ({
   </Dialog>
 );
 
-ReorderWidgetsDialog.defaultProps = {
+ReorderDialog.defaultProps = {
   widgets: [],
 };
 
-ReorderWidgetsDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  widgets: PropTypes.array,
-};
-
-export default ReorderWidgetsDialog;
+export default ReorderDialog;

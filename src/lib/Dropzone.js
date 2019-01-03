@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 class Dropzone extends React.Component {
@@ -110,20 +109,5 @@ class Dropzone extends React.Component {
 
 Dropzone.defaultProps = { supportClick: true, multiple: true };
 Dropzone.displayName = 'Dropzone';
-Dropzone.propTypes = {
-  onDrop: PropTypes.func.isRequired,
-  onDragOver: PropTypes.func,
-  onDragLeave: PropTypes.func,
-  size: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  style: PropTypes.object,
-  children: PropTypes.object,
-  supportClick: PropTypes.bool,
-  accept: PropTypes.string,
-  multiple: PropTypes.bool,
-  activeClassName: PropTypes.string,
-  className: PropTypes.string,
-};
 
 export default Dropzone;

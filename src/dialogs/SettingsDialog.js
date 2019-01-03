@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Tabs } from 'raketa-ui';
 
 import TextArea from '../forms/TextArea';
@@ -143,17 +142,5 @@ const SettingsDialog = ({
     </Dialog>
   );
 };
-
-SettingsDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  widget: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired,
-  onChangeField: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onPrimary: PropTypes.func.isRequired,
-  headerToolbar: PropTypes.func,
-  dialogSize: PropTypes.string,
-};
-
 
 export default SettingsDialog;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ProgressWrapper = styled.div`
@@ -24,11 +23,6 @@ const ProgressBar = ({ total, done }) => {
       <Progress style={{ width: `${progress}%` }}>{done}/{total}</Progress>
     </ProgressWrapper>
   );
-};
-
-ProgressBar.propTypes = {
-  total: PropTypes.number.isRequired,
-  done: PropTypes.number.isRequired,
 };
 
 export default ProgressBar;

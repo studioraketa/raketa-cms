@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   SideNav,
@@ -7,7 +6,6 @@ import {
   NavButton,
   NavPanel,
   NavSectionTitle,
-  NavSectionMenuItem,
   SideNavSearchWrapper,
 } from '../lib/SideNav';
 
@@ -54,7 +52,7 @@ class AdminSidebar extends React.Component {
   }
 
   render() {
-    const { library, navigation, dirty, onSave, onReorderDialog, onExit } = this.props;
+    const { dirty, onSave, onReorderDialog, onExit } = this.props;
 
     return (
       <SideNav>
@@ -88,11 +86,5 @@ class AdminSidebar extends React.Component {
     );
   }
 }
-
-AdminSidebar.propTypes = {
-  onSave: PropTypes.func.isRequired,
-  onAddWidget: PropTypes.func.isRequired,
-  onReorderDialog: PropTypes.func.isRequired,
-};
 
 export default AdminSidebar;

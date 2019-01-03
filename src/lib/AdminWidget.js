@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const IconMove = () => <img style={{ position: 'relative', top: '4px', width: '16px' }} src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyMnB4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAyMiAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5tb3ZlPC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9Im1vdmUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+ICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjAwMDAwMCwgMS4wMDAwMDApIiBpZD0iU2hhcGUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyIj4gICAgICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSIzIDcgMCAxMCAzIDEzIj48L3BvbHlsaW5lPiAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjcgMyAxMCAwIDEzIDMiPjwvcG9seWxpbmU+ICAgICAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iMTMgMTcgMTAgMjAgNyAxNyI+PC9wb2x5bGluZT4gICAgICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSIxNyA3IDIwIDEwIDE3IDEzIj48L3BvbHlsaW5lPiAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLDEwIEwyMCwxMCI+PC9wYXRoPiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMCwwIEwxMCwyMCI+PC9wYXRoPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+" />;
@@ -71,12 +70,6 @@ const CommonSettings = ({ settings, themes, spacings, onChange }) => (
     </Segment>
   </SegmentWrapper>
 );
-
-CommonSettings.propTypes = {
-  settings: PropTypes.object.isRequired,
-  themes: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
 class AdminWidget extends React.Component {
   constructor(props) {
@@ -185,15 +178,6 @@ class AdminWidget extends React.Component {
 
 AdminWidget.defaultProps = {
   containerSettings: {},
-};
-
-AdminWidget.propTypes = {
-  widgetId: PropTypes.string.isRequired,
-  widgetComponent: PropTypes.string.isRequired,
-  containerSettings: PropTypes.object.isRequired,
-  themes: PropTypes.array.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default AdminWidget;
