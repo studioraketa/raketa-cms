@@ -17,7 +17,7 @@ import SelectMenu from '../forms/SelectMenu';
 import TextInput from '../forms/TextInput';
 
 const AdminWidgetWrapper = styled.div`
-  ${props => props.isPreview ? '' : `
+  ${props => `
     &:hover {
       position: relative;
       box-shadow: inset 0 0 0 1px ${props.theme.borderColor};
@@ -150,10 +150,10 @@ class AdminWidget extends React.Component {
   }
 
   render() {
-    const { widgetId, isPreview, themes, spacings } = this.props;
+    const { widgetId, themes, spacings } = this.props;
 
     return (
-      <AdminWidgetWrapper isPreview={isPreview}>
+      <AdminWidgetWrapper>
         <AdminWidgetToolbar data-toolbar>
           <IconSpan className="btn-drag"><IconMove /></IconSpan>
           <IconButton primary onClick={() => this.setState({ open: true })}><IconEdit /></IconButton>

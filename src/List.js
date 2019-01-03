@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SortableList from 'react-sortablejs';
-
-const Handle = (props) => <img {...props} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4=" />;
-const IconDelete = () => <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2giPjxwb2x5bGluZSBwb2ludHM9IjMgNiA1IDYgMjEgNiI+PC9wb2x5bGluZT48cGF0aCBkPSJNMTkgNnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY2bTMgMFY0YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiPjwvcGF0aD48L3N2Zz4=" />;
-const IconMinus = () => <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbWludXMtY2lyY2xlIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCI+PC9jaXJjbGU+PGxpbmUgeDE9IjgiIHkxPSIxMiIgeDI9IjE2IiB5Mj0iMTIiPjwvbGluZT48L3N2Zz4=" />;
-const IconPlus = () => <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItcGx1cy1jaXJjbGUiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIj48L2NpcmNsZT48bGluZSB4MT0iMTIiIHkxPSI4IiB4Mj0iMTIiIHkyPSIxNiI+PC9saW5lPjxsaW5lIHgxPSI4IiB5MT0iMTIiIHgyPSIxNiIgeTI9IjEyIj48L2xpbmU+PC9zdmc+" />;
-
 import {
   em,
   Button,
-  IconButton,
-  IconSpan,
 } from 'raketa-ui';
 
-const randomId = () => Math.floor(Math.random() * ((999 - 100) + 1)) + 100;
+import {
+  add,
+  removeByIndex,
+  updateFieldByIndex,
+  reorder,
+  randomId,
+} from './lists';
+
+const Handle = (props) => <img {...props} src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4=" />;
+const IconDelete = () => <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2giPjxwb2x5bGluZSBwb2ludHM9IjMgNiA1IDYgMjEgNiI+PC9wb2x5bGluZT48cGF0aCBkPSJNMTkgNnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY2bTMgMFY0YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiPjwvcGF0aD48L3N2Zz4=" />;
 
 const ListItem = styled.div`
   margin-bottom: ${em(1)};
@@ -60,8 +61,11 @@ const ItemTitle = styled.span`
 `;
 
 class List extends React.Component {
-  static newItemFactory(firstItem) {
-    const item = Object.keys(firstItem).reduce(
+  static factory(items, template) {
+    if (template) return Object.assign({}, template, { id: randomId() });
+    if (!template && items.length === 0) throw 'List without a template needs the first element of the items to be present in order to reuse it for the creation of a new element';
+
+    const item = Object.keys(items[0]).reduce(
       (obj, key) => Object.assign({}, obj, { [key]: '' }),
       {}
     );
@@ -73,122 +77,99 @@ class List extends React.Component {
     super(props);
 
     this.state = {
-      items: this.props.items || [],
-      minimizedItems: [],
+      items: props.items || [],
     };
+
+    if (!props.template) console.warn(`DEPRECATED: List without template: ${JSON.stringify(props.items)}`);
+    if (!props.primaryField) console.warn(`DEPRECATED: List without primaryField: ${JSON.stringify(props.items)}`);
   }
 
-  onChangeField(idx, field, value) {
-    const newItems = [
-      ...this.state.items.slice(0, idx),
-      Object.assign({}, this.state.items[idx], { [field]: value }),
-      ...this.state.items.slice(idx + 1),
-    ];
-
-    this.setState({ items: newItems }, () => this.notifyChange());
+  handleChangeField(idx, field, value) {
+    this.setState({ items: updateFieldByIndex(this.state.items, field, value, idx) }, () => this.notifyChange());
   }
 
   notifyChange() {
     this.props.onChangeList('list', this.state.items);
   }
 
-  handleAddItem() {
-    const newItems = [...this.state.items, List.newItemFactory(this.state.items[0])];
+  handleAdd() {
+    const { template } = this.props;
+    const { items } = this.state;
 
-    this.setState({ items: newItems }, () => this.notifyChange());
+    this.setState({ items: add(items, List.factory(items, template)) }, () => this.notifyChange());
   }
 
-  handleReorder(newOrder) {
-    const newItems = [];
-    newOrder.forEach((i) => {
-      newItems.push(this.state.items[i]);
-    });
-
-    this.setState({ items: newItems }, () => this.notifyChange());
+  handleReorder(order) {
+    this.setState({ items: reorder(this.state.items, order) }, () => this.notifyChange());
   }
 
-  handleRemoveItem(idx) {
-    if (this.state.items.length === 1) return;
+  handleRemove(idx) {
+    const { template } = this.props;
+    const { items } = this.state;
+    if (!template && items.length === 1) return;
 
-    const newItems = [...this.state.items.slice(0, idx), ...this.state.items.slice(idx + 1)];
-    this.setState({ items: newItems }, () => this.notifyChange());
-  }
-
-  handleToggle(idx) {
-    let { minimizedItems } = this.state;
-
-    if (!minimizedItems.includes(idx)) {
-      minimizedItems.push(idx);
-    } else {
-      const itemIdx = minimizedItems.findIndex(item => item === idx);
-
-      minimizedItems = [
-        ...minimizedItems.slice(0, itemIdx),
-        ...minimizedItems.slice(itemIdx + 1),
-      ];
-    }
-
-    this.setState({ minimizedItems });
-  }
-
-  renderItems() {
-    if (this.state.items.length === 0) return (<h4>There are no items yet.</h4>);
-
-    return this.state.items.map((item, idx) =>
-      <ListItem key={item.id} data-id={idx}>
-        <ListItemToolbar>
-          <div>
-            <Handle className="move btn-drag" style={{ width: '16px', marginLeft: '-4px', cursor: 'move' }} />
-            <ItemTitle>{this.props.titleField !== '' ? item[this.props.titleField] : `Item ${idx + 1}`}</ItemTitle>
-          </div>
-
-          <div>
-            <ListButton type="button" onClick={() => this.handleToggle(idx)}>
-              {this.state.minimizedItems.includes(idx) ? <IconPlus /> : <IconMinus />}
-            </ListButton>
-
-            <ListButton type="button" danger onClick={() => this.handleRemoveItem(idx)}>
-              <IconDelete />
-            </ListButton>
-          </div>
-        </ListItemToolbar>
-
-        <ListItemWrapper minimized={this.state.minimizedItems.includes(idx)}>
-          {this.props.listItem(
-            item,
-            (field, value) => this.onChangeField(idx, field, value),
-            idx
-          )}
-        </ListItemWrapper>
-      </ListItem>);
+    this.setState({ items: removeByIndex(items, idx) }, () => this.notifyChange());
   }
 
   render() {
+    const { template, listItem, primaryField } = this.props;
+    const { items } = this.state;
+
     return (
       <div className="list">
-        <SortableList
-          tag="div"
-          options={{ handle: '.move', animation: 150 }}
-          onChange={newOrder => this.handleReorder(newOrder)}
-        >
-          {this.renderItems()}
-        </SortableList>
+        {!items &&
+          <h4>There are no items yet.</h4>}
 
-        <Button type="button" sm success onClick={() => this.handleAddItem()}>Add Item</Button>
+        {items && (
+          <SortableList
+            tag="div"
+            options={{ handle: '[data-drag]', animation: 150 }}
+            onChange={newOrder => this.handleReorder(newOrder)}
+          >
+            {items.map((item, idx) => (
+              <ListItem key={item.id} data-id={idx}>
+                <ListItemToolbar>
+                  <div>
+                    <Handle data-drag style={{ display: 'inline-block', width: '16px', cursor: 'move' }} />
+                    <ItemTitle>{primaryField ? item[primaryField] : `Item ${idx + 1}`}</ItemTitle>
+                  </div>
+
+                  <div>
+                    {(template || (!template && items.length !== 1)) && (
+                      <ListButton type="button" danger onClick={() => this.handleRemove(idx)}>
+                        <IconDelete />
+                      </ListButton>
+                    )}
+                  </div>
+                </ListItemToolbar>
+
+                <ListItemWrapper>
+                  {listItem(
+                    item,
+                    (field, value) => this.handleChangeField(idx, field, value),
+                    idx
+                  )}
+                </ListItemWrapper>
+              </ListItem>
+            ))}
+          </SortableList>
+        )}
+
+        <Button type="button" sm success onClick={() => this.handleAdd()}>Add Item</Button>
       </div>
     );
   }
 }
 
 List.defaultProps = {
-  titleField: '',
+  items: [],
 };
 
 List.propTypes = {
   items: PropTypes.array.isRequired,
   onChangeList: PropTypes.func.isRequired,
   listItem: PropTypes.func.isRequired,
-  titleField: PropTypes.string,
+  primaryField: PropTypes.any,
 };
 
 export default List;

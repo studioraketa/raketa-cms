@@ -148,7 +148,6 @@ class PageBuilder extends React.Component {
                         library={library}
                         themes={themes}
                         spacings={spacings}
-                        isPreview={false}
                         widgetId={widget.widgetId}
                         widgetComponent={widget.component}
                         onUpdate={(widgetId, settings) => this.handleUpdate(widgetId, settings)}
