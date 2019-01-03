@@ -13,7 +13,7 @@ class RichText extends React.Component {
   }
 
   componentDidMount() {
-    this.RichTextEditor = require('react-rte').default;
+    this.RichTextEditor = require('@dock365/react-rte').default;
 
     this.setState({
       editorValue: this.RichTextEditor.createValueFromString(this.props.value, 'html'),

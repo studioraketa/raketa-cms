@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import Img from '../../lib/Image';
 import Dialog from '../../dialogs/Dialog';
-import TextInput from '../../forms/TextInput';
 import BrowseTab from './BrowseTab';
 import UploadTab from './UploadTab';
 
@@ -14,6 +13,10 @@ import {
   Button,
   Tabs,
 } from 'raketa-ui';
+
+import {
+  removeById,
+} from '../../lists';
 
 const ImageWrapper = styled.div`
   margin-right: 16px;
@@ -36,15 +39,12 @@ class ImagePicker extends React.Component {
 
     this.state = {
       pickerOpen: false,
-      selectedImage: this.props.value || false,
+      selectedImage: props.value || false,
       filesToUpload: 0,
       filesUploaded: 0,
       images: [],
       files: [],
       q: '',
-      imageDialogOpen: false,
-      alt: '',
-      editImage: false,
     };
 
     this.mediaManager = props.mediaManager || context.mediaManager;
@@ -85,38 +85,35 @@ class ImagePicker extends React.Component {
   }
 
   handleSelectImage() {
-    this.setState({ pickerOpen: false });
-    if (this.props.onChange) this.props.onChange(this.state.selectedImage);
+    this.setState({ pickerOpen: false }, () => {
+      if (this.props.onChange) this.props.onChange(this.state.selectedImage)
+    });
+  }
+
+  handleClearImage() {
+    this.setState({ selectedImage: false }, () => {
+      if (this.props.onChange) this.props.onChange(this.state.selectedImage)
+    });
   }
 
   handleFastSelect(image) {
-    this.setState({ selectedImage: image, pickerOpen: false });
-    if (this.props.onChange) this.props.onChange(this.state.selectedImage);
+    this.setState({ selectedImage: image, pickerOpen: false }, () => {
+      if (this.props.onChange) this.props.onChange(this.state.selectedImage)
+    });
   }
 
   handleDeleteImage(image) {
     if (!confirm('Are you sure? ')) return;
 
-    const self = this;
+    const { images } = this.state;
 
-    this.mediaManager.destroy(image, (successImage) => {
-      const { images } = self.state;
-      const imageIdx = images.findIndex(currentImage => currentImage.id === successImage.id);
-
-      const newImages = [
-        ...images.slice(0, imageIdx),
-        ...images.slice(imageIdx + 1),
-      ];
-
-      self.setState({ images: newImages });
+    this.mediaManager.destroy(image, (deletedImage) => {
+      self.setState({ images: removeById(images, deletedImage.id) });
     });
   }
 
   handleSearch(q) {
-    this.setState({ q }, () => {
-      this.fetchData(q, () => {
-      });
-    });
+    this.setState({ q }, () => this.fetchData(q));
   }
 
   handleEditImage(image) {
@@ -145,9 +142,8 @@ class ImagePicker extends React.Component {
       });
     }
 
-    // ajax update
     const self = this;
-    this.mediaManager.update(editImage, { alt }, (successImage) => {
+    this.mediaManager.update(editImage, { alt }, () => {
       self.setState({ imageDialogOpen: false });
     });
   }
@@ -162,9 +158,6 @@ class ImagePicker extends React.Component {
       selectedImage,
       files,
       q,
-      imageDialogOpen,
-      alt,
-      editImage,
     } = this.state;
 
     return (
@@ -179,11 +172,8 @@ class ImagePicker extends React.Component {
             <Button
               type="button"
               onClick={() => this.handleOpenPicker()}
-            >Select Image...</Button>
-            <Button
-              type="button"
-              onClick={() => this.handleEditImage(selectedImage)}
-            >Edit alt</Button>
+            >Browse...</Button>
+            <Button type="button" onClick={() => this.handleClearImage()}>Clear</Button>
           </FormControl>
         </ImageControl>
 
@@ -217,20 +207,6 @@ class ImagePicker extends React.Component {
               />
             </div>
           </Tabs>
-        </Dialog>
-
-        <Dialog
-          open={imageDialogOpen}
-          onClose={() => this.setState({ imageDialogOpen: false })}
-          title="Edit Image"
-          primaryLabel="Update"
-          onPrimary={() => this.handleUpdateImage(editImage)}
-        >
-          <TextInput
-            label="Image Alt"
-            value={alt}
-            onChange={alt => this.setState({ alt })}
-          />
         </Dialog>
       </div>
     );

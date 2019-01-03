@@ -1,12 +1,12 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Page builder library for editing and rendering component libraries. ",
   "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch --mode development",
-    "build": "webpack --mode production && sed -i '' 's/this.refs.editor.focus()//g' dist/bundle.js"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -38,12 +38,11 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "@dock365/react-rte": "^0.16.3",
     "prop-types": "^15.6.1",
     "raketa-ui": "^1.0.6",
     "react-dropzone": "^4.2.8",
     "react-no-ssr": "^1.1.0",
-    "react-quill": "^1.2.6",
-    "react-rte": "^0.16.1",
     "react-sortablejs": "^1.4.0",
     "sortablejs": "^1.8.0-rc1"
   }

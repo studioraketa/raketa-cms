@@ -1,15 +1,8 @@
 const path = require('path');
 
-const libraryName = 'raketa-ui';
-const outputFile = 'bundle.js';
-
 module.exports = {
   mode: process.env.NODE_ENV || 'production',
   entry: './src/index.js',
-  // output: {
-  //   filename: 'bundle.js',
-  //   path: path.resolve(__dirname, 'dist')
-  // },
   module: {
     rules: [
       {
@@ -23,8 +16,8 @@ module.exports = {
   },
   output: {
     path: __dirname + '/dist',
-    filename: outputFile,
-    library: libraryName,
+    filename: 'bundle.js',
+    // library: 'raketa-cms',
     libraryTarget: 'umd',
     globalObject: 'this',
     umdNamedDefine: true
