@@ -50,7 +50,10 @@ const ReorderDialog = ({
           <ReorderDialogItem data-drag>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Handle style={{ display: 'inline-block', width: '16px', marginRight: '.5em' }} />
-              <Title third style={{ display: 'inline-block', fontSize: '1em', fontWeight: 500 }}>{library[widget.component].title}{library[widget.component].primaryField ? `: ${widget.settings[library[widget.component].primaryField]}` : ''}</Title>
+              <Title third style={{ display: 'inline-block', fontSize: '1em', fontWeight: 500 }}>
+                {library[widget.component].title ? library[widget.component].title : widget.component}
+                {library[widget.component].primaryField ? `: ${widget.settings[library[widget.component].primaryField]}` : ''}
+              </Title>
             </div>
 
             <Button type="button" danger onClick={() => {
