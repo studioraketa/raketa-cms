@@ -1,6 +1,6 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Page builder library for editing and rendering component libraries. ",
   "main": "dist/bundle.js",
   "scripts": {

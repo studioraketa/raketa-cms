@@ -52,7 +52,7 @@ const withPropsChecker = (WrappedComponent) => {
   };
 };
 
-const Canvas = withPropsChecker(React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove }) => (
+const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove }) => (
   <React.Fragment>
     {(widgets.length > 0) &&
       <SortableList
@@ -85,7 +85,14 @@ const Canvas = withPropsChecker(React.memo(({ widgets, library, themes, spacings
       </EmptyCanvas>
     }
   </React.Fragment>
-)));
+), (props, nextProps) => {
+  // TODO: Make this comparision quicker
+  const themesAreEqual = JSON.stringify(props.themes) === JSON.stringify(nextProps.themes);
+  const spacingsAreEqual = JSON.stringify(props.spacings) === JSON.stringify(nextProps.spacings);
+  const widgetsAreEqual = JSON.stringify(props.widgets) === JSON.stringify(nextProps.widgets);
+
+  return themesAreEqual && spacingsAreEqual && widgetsAreEqual;
+});
 
 class PageBuilder extends React.Component {
   constructor(props) {
