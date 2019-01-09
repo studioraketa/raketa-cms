@@ -5,18 +5,28 @@ const prepareOption = (o) => {
   return {value: o[0], text: o[1]};
 }
 
-const SelectMenu = ({ label, options, onChange, value }) => (
+const getOptions = (options, placeholder) => {
+  const initialOptions = placeholder ? [{ value: '', text: placeholder }] : [];
+  const preparedOptions = options.map(o => prepareOption(o));
+
+  return [
+    ...initialOptions,
+    ...preparedOptions
+  ]
+}
+
+const SelectMenu = ({ label, options, placeholder, onChange, value }) => (
   <SelectField
     label={label}
-    options={options.map(o => prepareOption(o))}
+    options={getOptions(options, placeholder)}
     value={value}
     onChange={onChange}
-    placeholder="Please select..."
   />
 );
 
 SelectMenu.defaultProps = {
   value: '',
+  placeholder: 'Please select...',
 };
 
 export default SelectMenu;

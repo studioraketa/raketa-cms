@@ -3000,9 +3000,9 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
-raketa-ui@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/raketa-ui/-/raketa-ui-1.0.6.tgz#80a72431071d5a0e0fc6f8f3c5306f2ce4dfaa0d"
+raketa-ui@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/raketa-ui/-/raketa-ui-1.0.9.tgz#f7a239ad1e7db2ab8eea13beb4730559cae65645"
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.0.6"
