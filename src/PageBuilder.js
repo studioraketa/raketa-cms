@@ -28,30 +28,6 @@ const EmptyCanvas = styled.div`
   height: 100vh;
 `;
 
-const withPropsChecker = (WrappedComponent) => {
-  return class PropsChecker extends React.Component {
-    componentWillReceiveProps(nextProps) {
-      Object.keys(nextProps)
-        .filter(key => {
-          return nextProps[key] !== this.props[key];
-        })
-        .map(key => {
-          console.log(
-            'changed property:',
-            key,
-            'from',
-            this.props[key],
-            'to',
-            nextProps[key]
-          );
-        });
-    }
-    render() {
-      return <WrappedComponent {...this.props} />;
-    }
-  };
-};
-
 const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove }) => (
   <React.Fragment>
     {(widgets.length > 0) &&
