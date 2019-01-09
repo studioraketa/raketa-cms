@@ -28,6 +28,65 @@ const EmptyCanvas = styled.div`
   height: 100vh;
 `;
 
+const withPropsChecker = (WrappedComponent) => {
+  return class PropsChecker extends React.Component {
+    componentWillReceiveProps(nextProps) {
+      Object.keys(nextProps)
+        .filter(key => {
+          return nextProps[key] !== this.props[key];
+        })
+        .map(key => {
+          console.log(
+            'changed property:',
+            key,
+            'from',
+            this.props[key],
+            'to',
+            nextProps[key]
+          );
+        });
+    }
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+};
+
+const Canvas = withPropsChecker(React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove }) => (
+  <React.Fragment>
+    {(widgets.length > 0) &&
+      <SortableList
+        tag="div"
+        options={{ handle: '[data-drag]', animation: 150 }}
+        onChange={onReorder}
+      >
+        {widgets.map((widget, idx) =>
+          <div key={widget.widgetId} data-id={idx}>
+            <AdminWidget
+              library={library}
+              themes={themes}
+              spacings={spacings}
+              widgetId={widget.widgetId}
+              widgetComponent={widget.component}
+              onUpdate={onUpdate}
+              onDelete={onRemove}
+              {...widget.settings}
+            />
+          </div>)}
+      </SortableList>
+    }
+
+    {(widgets.length === 0) &&
+      <EmptyCanvas>
+        <div>
+          <Title primary>It's always good to start with a clean slate. </Title>
+          <Text>Use the sidebar to add content. </Text>
+        </div>
+      </EmptyCanvas>
+    }
+  </React.Fragment>
+)));
+
 class PageBuilder extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +96,14 @@ class PageBuilder extends React.Component {
       dirty: false,
       reorderOpen: false,
     };
+
+    this.handleSave = this.handleSave.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleOpenReorder = this.handleOpenReorder.bind(this);
+    this.handleCloseReorder = this.handleCloseReorder.bind(this);
+    this.handleReorder = this.handleReorder.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   getChildContext() {
@@ -57,6 +124,14 @@ class PageBuilder extends React.Component {
       component: widgetName,
       settings: widget.defaults,
     };
+  }
+
+  handleOpenReorder() {
+    this.setState({ reorderOpen: true });
+  }
+
+  handleCloseReorder() {
+    this.setState({ reorderOpen: false });
   }
 
   handleAdd(widgetName) {
@@ -108,9 +183,9 @@ class PageBuilder extends React.Component {
             <ReorderDialog
               open={reorderOpen}
               library={library}
-              onClose={() => this.setState({ reorderOpen: false })}
-              onChange={order => this.handleReorder(order)}
-              onDelete={widgetId => this.handleRemove(widgetId)}
+              onClose={this.handleCloseReorder}
+              onChange={this.handleReorder}
+              onDelete={this.handleRemove}
               widgets={widgets}
             />
 
@@ -118,42 +193,21 @@ class PageBuilder extends React.Component {
               library={library}
               navigation={navigation}
               dirty={dirty}
-              onSave={() => this.handleSave()}
-              onAddWidget={widget => this.handleAdd(widget)}
-              onReorderDialog={() => this.setState({ reorderOpen: true })}
+              onSave={this.handleSave}
+              onAddWidget={this.handleAdd}
+              onReorderDialog={this.handleOpenReorder}
               onExit={onExit}
             />
 
-            {widgets.length > 0 ?
-              (
-                <SortableList
-                  tag="div"
-                  options={{ handle: '[data-drag]', animation: 150 }}
-                  onChange={order => this.handleReorder(order)}
-                >
-                  {widgets.map((widget, idx) =>
-                    <div key={widget.widgetId} data-id={idx}>
-                      <AdminWidget
-                        library={library}
-                        themes={themes}
-                        spacings={spacings}
-                        widgetId={widget.widgetId}
-                        widgetComponent={widget.component}
-                        onUpdate={(widgetId, settings) => this.handleUpdate(widgetId, settings)}
-                        onDelete={widgetId => this.handleRemove(widgetId)}
-                        {...widget.settings}
-                      />
-                    </div>)}
-                </SortableList>
-              ) : (
-                <EmptyCanvas>
-                  <div>
-                    <Title primary>It's always good to start with a clean slate. </Title>
-                    <Text>Use the sidebar to add content. </Text>
-                  </div>
-                </EmptyCanvas>
-                )
-              }
+            <Canvas
+              widgets={widgets}
+              library={library}
+              themes={themes}
+              spacings={spacings}
+              onReorder={this.handleReorder}
+              onUpdate={this.handleUpdate}
+              onRemove={this.handleRemove}
+            />
           </div>
         </RaketaUIProvider>
       </NoSSR>
