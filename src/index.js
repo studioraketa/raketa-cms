@@ -1,3 +1,5 @@
+import { RaketaUIProvider } from 'raketa-ui';
+
 import PageBuilder from './PageBuilder';
 import TextInput from './forms/TextInput';
 import TextArea from './forms/TextArea';
@@ -38,4 +40,5 @@ export {
   ButtonSettings,
   LinkSettings,
   Link,
+  RaketaUIProvider,
 };

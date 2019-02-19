@@ -26,7 +26,10 @@ class AdminSidebar extends React.Component {
     const { q } = this.state;
     const { library, onAddWidget } = this.props;
 
-    const widgets = Object.keys(library).filter(widgetName => widgetName.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+    const widgets = Object.keys(library).filter(widgetName => !library[widgetName].deprecated).filter(widgetName => {
+      return library[widgetName].title.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+    });
+
     const widgetsCategories = widgets.map(widgetName => library[widgetName].category).filter((c, idx, self) => self.indexOf(c) === idx);
 
     return (
