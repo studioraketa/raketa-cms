@@ -109,12 +109,12 @@ class ImagePicker extends React.Component {
     const { images } = this.state;
 
     this.mediaManager.destroy(image, (deletedImage) => {
-      self.setState({ images: removeById(images, deletedImage.id) });
+      this.setState({ images: removeById(images, deletedImage.id) });
     });
   }
 
   handleSearch(q) {
-    this.setState({ q }, () => this.fetchData(q, () => {}));
+    this.setState({ q }, () => this.fetchData(q, () => { }));
   }
 
   handleEditImage(image) {
