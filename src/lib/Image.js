@@ -7,7 +7,7 @@ const Img = ({ src, variant, className, onLoad, alt = null }) => {
 
   if (typeof src === 'object' && ('name' in src) && (src.name.includes('.svg') || src.name.includes('.gif'))) return (<img src={src.urls.original} alt={imgAlt !== null ? imgAlt : src.name} className={className} onLoad={onLoad} />);
   if (typeof src === 'object' && ('name' in src)) return (<img src={src.urls[variant]} alt={imgAlt !== null ? imgAlt : src.name} className={className} onLoad={onLoad} />);
-  if (typeof src === 'string') return (<img src={src} alt={imgAlt !== null ? imgAlt : src.name} className={className} onLoad={onLoad} />);
+  if (typeof src === 'string') return (<img src={src} alt={src} className={className} onLoad={onLoad} />);
 
   return null;
 };
