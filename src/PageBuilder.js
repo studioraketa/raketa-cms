@@ -20,6 +20,7 @@ import SortableList from 'react-sortablejs';
 import AdminSidebar from './lib/AdminSidebar';
 import AdminWidget from './lib/AdminWidget';
 import ReorderDialog from './dialogs/ReorderDialog';
+import ErrorBoundary from './ErrorBoundary';
 
 const EmptyCanvas = styled.div`
   display: flex;
@@ -37,18 +38,21 @@ const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUp
         onChange={onReorder}
       >
         {widgets.map((widget, idx) =>
-          <div key={widget.widgetId} data-id={idx}>
-            <AdminWidget
-              library={library}
-              themes={themes}
-              spacings={spacings}
-              widgetId={widget.widgetId}
-              widgetComponent={widget.component}
-              onUpdate={onUpdate}
-              onDelete={onRemove}
-              {...widget.settings}
-            />
-          </div>)}
+          <ErrorBoundary key={idx}>
+            <div data-id={idx}>
+              <AdminWidget
+                library={library}
+                themes={themes}
+                spacings={spacings}
+                widgetId={widget.widgetId}
+                widgetComponent={widget.component}
+                onUpdate={onUpdate}
+                onDelete={onRemove}
+                {...widget.settings}
+              />
+            </div>
+          </ErrorBoundary>
+        )}
       </SortableList>
     }
 
