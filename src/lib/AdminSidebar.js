@@ -55,7 +55,7 @@ class AdminSidebar extends React.Component {
   }
 
   render() {
-    const { dirty, onSave, onReorderDialog, onExit } = this.props;
+    const { dirty, onSave, onReorderDialog, onExit, buttons } = this.props;
 
     return (
       <SideNav>
@@ -79,6 +79,19 @@ class AdminSidebar extends React.Component {
             onClick={onSave}
           />
         </NavItem>
+
+        {buttons && buttons.map(button =>
+          <NavItem key={button.id}>
+            <NavButton
+              id={button.id}
+              className={button.className}
+              onClick={() => button.onClick()}
+          >
+              {button.label}
+            </NavButton>
+          </NavItem>
+        )}
+
         <NavItem bottom>
           <NavButton
             icon="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyMnB4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAyMiAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5jaGV2cm9ucy1sZWZ0PC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9ImNoZXZyb25zLWxlZnQiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+ICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LjAwMDAwMCwgNi4wMDAwMDApIiBpZD0iU2hhcGUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyIj4gICAgICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSI1IDEwIDAgNSA1IDAiPjwvcG9seWxpbmU+ICAgICAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iMTIgMTAgNyA1IDEyIDAiPjwvcG9seWxpbmU+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4="

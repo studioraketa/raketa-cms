@@ -159,7 +159,7 @@ class PageBuilder extends React.Component {
   }
 
   render() {
-    const { library, navigation, dirty, themes, spacings, onExit } = this.props;
+    const { library, navigation, dirty, themes, spacings, onExit, sidebarButtons } = this.props;
     const { page, reorderOpen } = this.state;
     const { widgets } = page;
 
@@ -184,6 +184,7 @@ class PageBuilder extends React.Component {
               onAddWidget={this.handleAdd}
               onReorderDialog={this.handleOpenReorder}
               onExit={onExit}
+              buttons={sidebarButtons}
             />
 
             <Canvas
