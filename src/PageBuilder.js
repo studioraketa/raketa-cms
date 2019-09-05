@@ -122,7 +122,7 @@ class PageBuilder extends React.Component {
     this.setState({ reorderOpen: false });
   }
 
-  handleAdd() {
+  handleAdd(widgetName) {
     const { page } = this.state;
     this.setState({
       page: Object.assign({}, page, { widgets: add(page.widgets, this.factory(widgetName)) })
