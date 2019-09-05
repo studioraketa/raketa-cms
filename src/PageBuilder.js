@@ -29,7 +29,7 @@ const EmptyCanvas = styled.div`
   height: 100vh;
 `;
 
-const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove }) => (
+const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove, identifier }) => (
   <React.Fragment>
     {(widgets.length > 0) &&
       <SortableList
@@ -48,6 +48,7 @@ const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUp
                 widgetComponent={widget.component}
                 onUpdate={onUpdate}
                 onDelete={onRemove}
+                identifier={identifier}
                 {...widget.settings}
               />
             </div>
@@ -121,7 +122,7 @@ class PageBuilder extends React.Component {
     this.setState({ reorderOpen: false });
   }
 
-  handleAdd(widgetName) {
+  handleAdd() {
     const { page } = this.state;
     this.setState({
       page: Object.assign({}, page, { widgets: add(page.widgets, this.factory(widgetName)) })
@@ -158,8 +159,31 @@ class PageBuilder extends React.Component {
     this.props.onSave(page);
   }
 
+  handlePasteWidget() {
+    const { page } = this.state;
+    const { identifier } = this.props;
+
+    const clipboardWidget = JSON.parse(localStorage.getItem(`clipboard–${this.props.identifier}`));
+
+    if (!clipboardWidget) {
+      return alert('Nothing to paste, yet');
+    }
+
+    const newWidget = {
+      widgetId: randomString(6),
+      component: clipboardWidget.widgetName,
+      settings: clipboardWidget.widget,
+    };
+
+    this.setState({
+      page: Object.assign({}, page, { widgets: add(page.widgets, newWidget) })
+    }, () => this.notifyChange(page));
+
+    localStorage.removeItem(`clipboard–${identifier}`);
+  }
+
   render() {
-    const { library, navigation, dirty, themes, spacings, onExit, sidebarButtons } = this.props;
+    const { library, navigation, dirty, themes, spacings, onExit, sidebarButtons, identifier } = this.props;
     const { page, reorderOpen } = this.state;
     const { widgets } = page;
 
@@ -185,6 +209,8 @@ class PageBuilder extends React.Component {
               onReorderDialog={this.handleOpenReorder}
               onExit={onExit}
               buttons={sidebarButtons}
+              identifier={identifier}
+              onPasteWidget={() => this.handlePasteWidget()}
             />
 
             <Canvas
@@ -195,6 +221,7 @@ class PageBuilder extends React.Component {
               onReorder={this.handleReorder}
               onUpdate={this.handleUpdate}
               onRemove={this.handleRemove}
+              identifier={identifier}
             />
           </div>
         </RaketaUIProvider>
