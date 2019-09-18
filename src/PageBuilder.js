@@ -38,7 +38,7 @@ const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUp
         onChange={onReorder}
       >
         {widgets.map((widget, idx) =>
-          <ErrorBoundary key={idx}>
+          <ErrorBoundary key={widget.widgetId}>
             <div data-id={idx}>
               <AdminWidget
                 library={library}
