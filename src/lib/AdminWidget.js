@@ -22,7 +22,7 @@ const colors = {
 };
 
 const IconButton = (props) => (
-  <button
+  <div
     type="button"
     style={{
       display: 'inline-block',
@@ -44,7 +44,7 @@ const IconButton = (props) => (
     }}
 
     {...props}
-  ></button>
+  ></div>
 );
 
 const AdminWidgetWrapper = styled.div`
@@ -169,7 +169,7 @@ class AdminWidget extends React.Component {
 
   handleCopyWidget() {
     const { widgetComponent, identifier } = this.props;
-    const storedWidget = JSON.stringify({ widgetName: widgetComponent, widget: this.getSettings()});
+    const storedWidget = JSON.stringify({ widgetName: widgetComponent, widget: this.getSettings() });
 
     localStorage.setItem(`clipboard–${identifier}`, storedWidget);
   }
