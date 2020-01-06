@@ -169,7 +169,6 @@ class PageBuilder extends React.Component {
 
   handlePasteWidget() {
     const { page } = this.state;
-    const { identifier } = this.props;
 
     const clipboardWidget = JSON.parse(localStorage.getItem(`clipboard–${this.props.identifier}`));
 
@@ -186,8 +185,6 @@ class PageBuilder extends React.Component {
     this.setState({
       page: Object.assign({}, page, { widgets: add(page.widgets, newWidget) })
     }, () => this.notifyChange(page));
-
-    localStorage.removeItem(`clipboard–${identifier}`);
   }
 
   render() {
