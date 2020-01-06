@@ -30,6 +30,7 @@ const ReorderDialog = ({
   onClose,
   onChange,
   onDelete,
+  onSelectedWidgetId,
 }) => (
   <Dialog
     open={open}
@@ -56,10 +57,17 @@ const ReorderDialog = ({
               </Title>
             </div>
 
-            <Button type="button" danger onClick={() => {
-              if (!confirm('Are you sure?')) return;
-              onDelete(widget.widgetId);
-            }}>&times;</Button>
+            <div>
+              <Button type="button" primary onClick={() => {
+                onClose();
+                onSelectedWidgetId(widget.widgetId);
+              }}>&#x270E;</Button>
+
+              <Button type="button" danger onClick={() => {
+                if (!confirm('Are you sure?')) return;
+                onDelete(widget.widgetId);
+              }}>&times;</Button>
+            </div>
           </ReorderDialogItem>
         </div>)}
     </SortableList>
