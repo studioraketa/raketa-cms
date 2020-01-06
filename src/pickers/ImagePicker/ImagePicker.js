@@ -166,7 +166,7 @@ class ImagePicker extends React.Component {
         <ImageControl>
           {selectedImage &&
             <ImageWrapper>
-              <Img src={selectedImage} variant="thumb" />
+              <Img src={selectedImage} variant="thumb" title={selectedImage.name} />
             </ImageWrapper>
           }
 
