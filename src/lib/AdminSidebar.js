@@ -12,6 +12,16 @@ import {
 import { SidebarItem } from '../lib/SidebarItem';
 import TextInput from '../forms/TextInput';
 
+const sortByTitle = (a, b) => {
+  var nameA = a.widgetTitle.toUpperCase();
+  var nameB = b.widgetTitle.toUpperCase();
+
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+
+  return 0;
+}
+
 class AdminSidebar extends React.Component {
   constructor(props) {
     super(props);
@@ -53,8 +63,15 @@ class AdminSidebar extends React.Component {
           <div key={idx} style={{ marginBottom: '25px' }}>
             <NavSectionTitle secondary>{categoryName}</NavSectionTitle>
 
-            {widgets.filter(widgetName => library[widgetName].category === categoryName).sort().map((widgetName, widgetIdx) =>
-              <SidebarItem key={widgetIdx} onClick={() => onAddWidget(widgetName)}>{library[widgetName].title}</SidebarItem>
+            {widgets.filter(widgetName => library[widgetName].category === categoryName).map((widgetName) =>
+              ({ widgetName, widgetTitle: library[widgetName].title })).sort(sortByTitle).map((item, idx) => (
+                <SidebarItem
+                  key={idx}
+                  onClick={() => onAddWidget(item.widgetName)}
+                >
+                  {item.widgetTitle}
+                </SidebarItem>
+              )
             )}
           </div>)}
       </div>
