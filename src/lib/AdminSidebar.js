@@ -64,15 +64,14 @@ class AdminSidebar extends React.Component {
             <NavSectionTitle secondary>{categoryName}</NavSectionTitle>
 
             {widgets.filter(widgetName => library[widgetName].category === categoryName).map((widgetName) =>
-              ({ widgetName, widgetTitle: library[widgetName].title })).sort((a, b) =>
-                sortByTitle(a, b)).map((item, idx) => (
-                  <SidebarItem
-                    key={idx}
-                    onClick={() => onAddWidget(item.widgetName)}
-                  >
-                    {item.widgetTitle}
-                  </SidebarItem>
-                )
+              ({ widgetName, widgetTitle: library[widgetName].title })).sort(sortByTitle).map((item, idx) => (
+                <SidebarItem
+                  key={idx}
+                  onClick={() => onAddWidget(item.widgetName)}
+                >
+                  {item.widgetTitle}
+                </SidebarItem>
+              )
             )}
           </div>)}
       </div>
