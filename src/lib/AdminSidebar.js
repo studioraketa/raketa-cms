@@ -53,7 +53,7 @@ class AdminSidebar extends React.Component {
           <div key={idx} style={{ marginBottom: '25px' }}>
             <NavSectionTitle secondary>{categoryName}</NavSectionTitle>
 
-            {widgets.filter(widgetName => library[widgetName].category === categoryName).map((widgetName, widgetIdx) =>
+            {widgets.filter(widgetName => library[widgetName].category === categoryName).sort().map((widgetName, widgetIdx) =>
               <SidebarItem key={widgetIdx} onClick={() => onAddWidget(widgetName)}>{library[widgetName].title}</SidebarItem>
             )}
           </div>)}
