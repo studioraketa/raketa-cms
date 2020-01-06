@@ -174,8 +174,13 @@ class AdminWidget extends React.Component {
     localStorage.setItem(`clipboard–${identifier}`, storedWidget);
   }
 
+  handleClose() {
+    this.setState({ open: false });
+    this.props.onAdminWidgetDialogClose();
+  }
+
   render() {
-    const { widgetId, themes, spacings } = this.props;
+    const { widgetId, themes, spacings, selectedWidgetId } = this.props;
 
     return (
       <AdminWidgetWrapper>
@@ -192,12 +197,15 @@ class AdminWidget extends React.Component {
         )}
 
         <SettingsDialog
-          open={this.state.open}
+          open={widgetId === selectedWidgetId || this.state.open}
           widget={this.getWidget()}
           settings={this.state}
           onChangeField={(field, value) => this.handleChange(field, value)}
-          onPrimary={() => this.handleSave()}
-          onClose={() => this.setState({ open: false })}
+          onPrimary={() => {
+            this.handleSave();
+            this.handleClose();
+          }}
+          onClose={() => this.handleClose()}
           renderCommonSettings={() =>
             <CommonSettings
               themes={themes}

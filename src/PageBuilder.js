@@ -29,7 +29,7 @@ const EmptyCanvas = styled.div`
   height: 100vh;
 `;
 
-const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove, identifier }) => (
+const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUpdate, onRemove, identifier, selectedWidgetId, onAdminWidgetDialogClose }) => (
   <React.Fragment>
     {(widgets.length > 0) &&
       <SortableList
@@ -49,6 +49,8 @@ const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUp
                 onUpdate={onUpdate}
                 onDelete={onRemove}
                 identifier={identifier}
+                selectedWidgetId={selectedWidgetId}
+                onAdminWidgetDialogClose={onAdminWidgetDialogClose}
                 {...widget.settings}
               />
             </div>
@@ -71,8 +73,9 @@ const Canvas = React.memo(({ widgets, library, themes, spacings, onReorder, onUp
   const themesAreEqual = JSON.stringify(props.themes) === JSON.stringify(nextProps.themes);
   const spacingsAreEqual = JSON.stringify(props.spacings) === JSON.stringify(nextProps.spacings);
   const widgetsAreEqual = JSON.stringify(props.widgets) === JSON.stringify(nextProps.widgets);
+  const selectedWidgetIdIsEqual = JSON.stringify(props.selectedWidgetId) === JSON.stringify(nextProps.selectedWidgetId);
 
-  return themesAreEqual && spacingsAreEqual && widgetsAreEqual;
+  return themesAreEqual && spacingsAreEqual && widgetsAreEqual && selectedWidgetIdIsEqual;
 });
 
 class PageBuilder extends React.Component {
@@ -83,6 +86,7 @@ class PageBuilder extends React.Component {
       page: props.page,
       dirty: false,
       reorderOpen: false,
+      selectedWidgetId: '',
     };
 
     this.handleSave = this.handleSave.bind(this);
@@ -159,6 +163,10 @@ class PageBuilder extends React.Component {
     this.props.onSave(page);
   }
 
+  handleSelectedWidgetId(id) {
+    this.setState({ selectedWidgetId: id });
+  }
+
   handlePasteWidget() {
     const { page } = this.state;
     const { identifier } = this.props;
@@ -184,7 +192,7 @@ class PageBuilder extends React.Component {
 
   render() {
     const { library, navigation, dirty, themes, spacings, onExit, sidebarButtons, identifier } = this.props;
-    const { page, reorderOpen } = this.state;
+    const { page, reorderOpen, selectedWidgetId } = this.state;
     const { widgets } = page;
 
     return (
@@ -198,6 +206,7 @@ class PageBuilder extends React.Component {
               onChange={this.handleReorder}
               onDelete={this.handleRemove}
               widgets={widgets}
+              onSelectedWidgetId={ id => this.handleSelectedWidgetId(id) }
             />
 
             <AdminSidebar
@@ -222,6 +231,8 @@ class PageBuilder extends React.Component {
               onUpdate={this.handleUpdate}
               onRemove={this.handleRemove}
               identifier={identifier}
+              selectedWidgetId={selectedWidgetId}
+              onAdminWidgetDialogClose={() => this.setState({ selectedWidgetId: '' })}
             />
           </div>
         </RaketaUIProvider>
