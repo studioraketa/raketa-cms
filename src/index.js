@@ -1,4 +1,4 @@
-import { RaketaUIProvider } from 'raketa-ui';
+import { RaketaUIProvider, Label } from 'raketa-ui';
 
 import PageBuilder from './PageBuilder';
 import TextInput from './forms/TextInput';
@@ -41,4 +41,5 @@ export {
   LinkSettings,
   Link,
   RaketaUIProvider,
+  Label,
 };
