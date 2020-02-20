@@ -84,7 +84,19 @@ class List extends React.Component {
   }
 
   handleChangeField(idx, field, value) {
-    this.setState({ items: updateFieldByIndex(this.state.items, field, value, idx) }, () => this.notifyChange());
+    const { items } = this.state;
+    let newItems;
+
+    if (Array.isArray(field)) {
+      newItems = field.reduce(
+        (accumulator, update) => updateFieldByIndex(accumulator, update.field, update.value, idx),
+        items
+      );
+    } else {
+      newItems = updateFieldByIndex(items, field, value, idx);
+    }
+
+    this.setState({ items: [...newItems] }, () => this.notifyChange());
   }
 
   notifyChange() {
