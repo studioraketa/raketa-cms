@@ -1,6 +1,6 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Page builder library for editing and rendering component libraries. ",
   "main": "dist/bundle.js",
   "scripts": {
@@ -58,7 +58,6 @@
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "prop-types": "^15.6.1",
     "raketa-ui": "^1.1.0",
-    "react-dropzone": "^4.2.8",
     "react-no-ssr": "^1.1.0",
     "react-sortablejs": "^1.4.0",
     "sortablejs": "^1.8.0-rc1"
