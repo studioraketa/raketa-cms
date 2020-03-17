@@ -3575,9 +3575,10 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
-raketa-ui@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/raketa-ui/-/raketa-ui-1.0.9.tgz#f7a239ad1e7db2ab8eea13beb4730559cae65645"
+raketa-ui@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/raketa-ui/-/raketa-ui-1.1.0.tgz#4c1744855b358fb9edb5627e0c0ac18660ed8121"
+  integrity sha512-lDNORG0pYm3ouunQ3eeTi5UbbIKnyYFdVnml906jk+YvPv01zRWQ9W/c+6UY13feQqyK2apSlUSrUfWCKGvMMg==
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.0.6"
