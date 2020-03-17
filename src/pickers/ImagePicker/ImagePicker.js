@@ -8,6 +8,6 @@ export default () => (
     <p><code>{`import { ImagePicker } from '@raketa-cms/raketa-image-picker';`}</code></p>
 
     <strong>Update JSON adminFields</strong>
-    <p><code>{`image: { type: 'image', component: ImagePicker },`}</code></p>
+    <p><code>{`image: { type: 'custom', component: ImagePicker },`}</code></p>
   </div>
 );
