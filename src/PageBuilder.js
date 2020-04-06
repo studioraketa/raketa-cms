@@ -203,7 +203,7 @@ class PageBuilder extends React.Component {
               onChange={this.handleReorder}
               onDelete={this.handleRemove}
               widgets={widgets}
-              onSelectedWidgetId={ id => this.handleSelectedWidgetId(id) }
+              onSelectedWidgetId={id => this.handleSelectedWidgetId(id)}
             />
 
             <AdminSidebar
