@@ -2,58 +2,55 @@ import React from 'react'
 import { PageBuilder, MediaManager } from '@raketa-cms/raketa-cms'
 import LIBRARY from './widgets'
 
-class AdminBuilder extends React.Component {
-  constructor(props) {
-    super(props)
+const THEMES = [
+  ['none', 'None'],
+  ['light', 'Light'],
+  ['dark', 'Dark'],
+  ['brand', 'Brand']
+]
 
-    this.state = {
-      dirty: false,
-      isLoading: false,
-      page: props.page
-    }
-
-    this.mediaManager = new MediaManager('/images/client/')
-  }
-
+class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
-    console.log('error', error, info)
-  }
-
-  handleChange() {
-    this.setState({ dirty: true })
-  }
-
-  handleSave(page) {
-    // const { save_url } = this.props;
-
-    this.setState({ isLoading: true, dirty: false })
+    console.error(error, info)
   }
 
   render() {
-    const { host, back_url } = this.props
-    const { dirty, page } = this.state
-
-    return (
-      <div className='widgets-spacings-reset'>
-        <PageBuilder
-          host={host}
-          dirty={dirty}
-          library={LIBRARY}
-          themes={[
-            ['none', 'None'],
-            ['light', 'Light'],
-            ['dark', 'Dark'],
-            ['brand', 'Brand']
-          ]}
-          page={page}
-          mediaManager={this.mediaManager}
-          onChange={(changedPage) => this.handleChange(changedPage)}
-          onSave={(pageToSave) => this.handleSave(pageToSave)}
-          onExit={() => (window.location.href = back_url)}
-        />
-      </div>
-    )
+    const { children } = this.props
+    return <React.Fragment>{children}</React.Fragment>
   }
+}
+
+const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
+  const [dirty, setDirty] = React.useState(false)
+  const [page, setPage] = React.useState(defaultPage)
+
+  const handleChange = (page) => {
+    setPage(page)
+    setDirty(true)
+  }
+
+  const handleSave = (page) => {
+    console.log('Saving...', page)
+    setDirty(false)
+  }
+
+  const mediaManager = new MediaManager('/images/client/')
+
+  return (
+    <ErrorBoundary>
+      <PageBuilder
+        host={host}
+        dirty={dirty}
+        library={LIBRARY}
+        themes={THEMES}
+        page={page}
+        mediaManager={mediaManager}
+        onChange={handleChange}
+        onSave={handleSave}
+        onExit={() => (window.location.href = back_url)}
+      />
+    </ErrorBoundary>
+  )
 }
 
 AdminBuilder.defaultProps = {

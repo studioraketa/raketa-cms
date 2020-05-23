@@ -1,138 +1,34 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import NoSSR from 'react-no-ssr'
-import { RaketaUIProvider, Title, Text } from 'raketa-ui'
+import { RaketaUIProvider } from 'raketa-ui'
 
-import {
-  add,
-  removeById,
-  updateFieldById,
-  reorder,
-  randomString
-} from './lists'
+import { add, removeById, updateFieldById, randomString } from './lists'
 
-import { ReactSortable } from 'react-sortablejs'
+import MediaManagerContext from './MediaManagerContext'
+import HostContext from './HostContext'
+import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
-import AdminWidget from './lib/AdminWidget'
 import ReorderDialog from './dialogs/ReorderDialog'
-import ErrorBoundary from './ErrorBoundary'
 
-const EmptyCanvas = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`
+const PageBuilder = ({
+  page: initialPage,
+  library,
+  spacings,
+  themes,
+  navigation,
+  dirty,
+  identifier,
+  sidebarButtons,
+  host,
+  mediaManager,
+  onChange,
+  onSave,
+  onExit
+}) => {
+  const [page, setPage] = React.useState(initialPage)
+  const [selectedWidgetId, setSelectedWidget] = React.useState(null)
+  const [reorderOpen, setReorderOpen] = React.useState(false)
 
-const Canvas = React.memo(
-  ({
-    widgets,
-    library,
-    themes,
-    spacings,
-    onReorder,
-    onUpdate,
-    onRemove,
-    identifier,
-    selectedWidgetId,
-    onAdminWidgetDialogClose
-  }) => (
-    <React.Fragment>
-      {widgets.length > 0 && (
-        <ReactSortable
-          list={widgets}
-          setList={onReorder}
-          handle='[data-drag]'
-          direction='horizontal'
-          dragoverBubble
-        >
-          {widgets.map((widget, idx) => (
-            <ErrorBoundary key={widget.widgetId}>
-              <div data-id={idx}>
-                <AdminWidget
-                  library={library}
-                  themes={themes}
-                  spacings={spacings}
-                  widgetId={widget.widgetId}
-                  widgetComponent={widget.component}
-                  onUpdate={onUpdate}
-                  onDelete={onRemove}
-                  identifier={identifier}
-                  selectedWidgetId={selectedWidgetId}
-                  onAdminWidgetDialogClose={onAdminWidgetDialogClose}
-                  {...widget.settings}
-                />
-              </div>
-            </ErrorBoundary>
-          ))}
-        </ReactSortable>
-      )}
-
-      {widgets.length === 0 && (
-        <EmptyCanvas>
-          <div>
-            <Title primary>
-              It's always good to start with a clean slate.{' '}
-            </Title>
-            <Text>Use the sidebar to add content. </Text>
-          </div>
-        </EmptyCanvas>
-      )}
-    </React.Fragment>
-  ),
-  (props, nextProps) => {
-    // TODO: Make this comparision quicker
-    const themesAreEqual =
-      JSON.stringify(props.themes) === JSON.stringify(nextProps.themes)
-    const spacingsAreEqual =
-      JSON.stringify(props.spacings) === JSON.stringify(nextProps.spacings)
-    const widgetsAreEqual =
-      JSON.stringify(props.widgets) === JSON.stringify(nextProps.widgets)
-    const selectedWidgetIdIsEqual =
-      JSON.stringify(props.selectedWidgetId) ===
-      JSON.stringify(nextProps.selectedWidgetId)
-
-    return (
-      themesAreEqual &&
-      spacingsAreEqual &&
-      widgetsAreEqual &&
-      selectedWidgetIdIsEqual
-    )
-  }
-)
-
-class PageBuilder extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      page: props.page,
-      dirty: false,
-      reorderOpen: false,
-      selectedWidgetId: ''
-    }
-
-    this.handleSave = this.handleSave.bind(this)
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleOpenReorder = this.handleOpenReorder.bind(this)
-    this.handleCloseReorder = this.handleCloseReorder.bind(this)
-    this.handleReorder = this.handleReorder.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
-    this.handleRemove = this.handleRemove.bind(this)
-  }
-
-  getChildContext() {
-    const { host, mediaManager } = this.props
-
-    return {
-      host,
-      mediaManager
-    }
-  }
-
-  factory(widgetName) {
-    const { library } = this.props
+  const factory = (widgetName) => {
     const widget = library[widgetName]
 
     return {
@@ -142,89 +38,58 @@ class PageBuilder extends React.Component {
     }
   }
 
-  handleOpenReorder() {
-    this.setState({ reorderOpen: true })
-  }
-
-  handleCloseReorder() {
-    this.setState({ reorderOpen: false })
-  }
-
-  handleAdd(widgetName) {
-    const { page } = this.state
-    this.setState(
-      {
-        page: Object.assign({}, page, {
-          widgets: add(page.widgets, this.factory(widgetName))
-        })
-      },
-      () => this.notifyChange(page)
+  const handleAdd = (widgetName) => {
+    setPage(
+      Object.assign({}, page, {
+        widgets: add(page.widgets, factory(widgetName))
+      })
     )
+    notifyChange(page)
   }
 
-  handleUpdate(id, settings) {
-    const { page } = this.state
-    this.setState(
-      {
-        page: Object.assign({}, page, {
-          widgets: updateFieldById(
-            page.widgets,
-            'settings',
-            settings,
-            id,
-            'widgetId'
-          )
-        })
-      },
-      () => this.notifyChange(page)
+  const handleUpdate = (id, settings) => {
+    setPage(
+      Object.assign({}, page, {
+        widgets: updateFieldById(
+          page.widgets,
+          'settings',
+          settings,
+          id,
+          'widgetId'
+        )
+      })
     )
+
+    notifyChange(page)
   }
 
-  handleRemove(id) {
-    const { page } = this.state
-    this.setState(
-      {
-        page: Object.assign({}, page, {
-          widgets: removeById(page.widgets, id, 'widgetId')
-        })
-      },
-      () => this.notifyChange(page)
+  const handleRemove = (id) => {
+    setPage(
+      Object.assign({}, page, {
+        widgets: removeById(page.widgets, id, 'widgetId')
+      })
     )
+
+    notifyChange(page)
   }
 
-  handleReorder(widgets) {
-    const { page } = this.state
-    this.setState(
-      {
-        page: Object.assign({}, page, { widgets })
-      },
-      () => this.notifyChange(page)
-    )
+  const handleReorder = (widgets) => {
+    setPage(Object.assign({}, page, { widgets }))
+    notifyChange(page)
   }
 
-  notifyChange(page) {
-    this.props.onChange(page)
-  }
+  const notifyChange = (page) => onChange(page)
 
-  handleSave() {
-    const { page } = this.state
-    this.props.onSave(page)
-  }
+  const handleSave = () => onSave(page)
 
-  handleSelectedWidgetId(id) {
-    this.setState({ selectedWidgetId: id })
-  }
+  const handleSelectedWidgetId = (id) => setSelectedWidget(id)
 
-  handlePasteWidget() {
-    const { page } = this.state
-
+  const handlePasteWidget = () => {
     const clipboardWidget = JSON.parse(
-      localStorage.getItem(`clipboard–${this.props.identifier}`)
+      window.localStorage.getItem(`clipboard–${identifier}`)
     )
 
-    if (!clipboardWidget) {
-      return alert('Nothing to paste, yet')
-    }
+    if (!clipboardWidget) return alert('Nothing to paste, yet')
 
     const newWidget = {
       widgetId: randomString(6),
@@ -232,74 +97,55 @@ class PageBuilder extends React.Component {
       settings: clipboardWidget.widget
     }
 
-    this.setState(
-      {
-        page: Object.assign({}, page, { widgets: add(page.widgets, newWidget) })
-      },
-      () => this.notifyChange(page)
-    )
+    setPage(Object.assign({}, page, { widgets: add(page.widgets, newWidget) }))
+    notifyChange(page)
   }
 
-  render() {
-    const {
-      library,
-      navigation,
-      dirty,
-      themes,
-      spacings,
-      onExit,
-      sidebarButtons,
-      identifier
-    } = this.props
-    const { page, reorderOpen, selectedWidgetId } = this.state
-    const { widgets } = page
-
-    return (
-      <NoSSR>
-        <RaketaUIProvider>
+  return (
+    <RaketaUIProvider>
+      <HostContext.Provider value={{ host }}>
+        <MediaManagerContext.Provider value={{ mediaManager }}>
           <div style={{ paddingLeft: '64px' }}>
             <ReorderDialog
               open={reorderOpen}
               library={library}
-              onClose={this.handleCloseReorder}
-              onChange={this.handleReorder}
-              onDelete={this.handleRemove}
-              widgets={widgets}
-              onSelectedWidgetId={(id) => this.handleSelectedWidgetId(id)}
+              onClose={() => setReorderOpen(false)}
+              onChange={handleReorder}
+              onDelete={handleRemove}
+              widgets={page.widgets}
+              onSelectedWidgetId={handleSelectedWidgetId}
             />
 
             <AdminSidebar
               library={library}
               navigation={navigation}
               dirty={dirty}
-              onSave={this.handleSave}
-              onAddWidget={this.handleAdd}
-              onReorderDialog={this.handleOpenReorder}
+              onSave={handleSave}
+              onAddWidget={handleAdd}
+              onReorderDialog={() => setReorderOpen(true)}
               onExit={onExit}
               buttons={sidebarButtons}
               identifier={identifier}
-              onPasteWidget={() => this.handlePasteWidget()}
+              onPasteWidget={handlePasteWidget}
             />
 
             <Canvas
-              widgets={widgets}
+              widgets={page.widgets}
               library={library}
               themes={themes}
               spacings={spacings}
-              onReorder={this.handleReorder}
-              onUpdate={this.handleUpdate}
-              onRemove={this.handleRemove}
+              onReorder={handleReorder}
+              onUpdate={handleUpdate}
+              onRemove={handleRemove}
               identifier={identifier}
               selectedWidgetId={selectedWidgetId}
-              onAdminWidgetDialogClose={() =>
-                this.setState({ selectedWidgetId: '' })
-              }
+              onAdminWidgetDialogClose={() => setSelectedWidget(null)}
             />
           </div>
-        </RaketaUIProvider>
-      </NoSSR>
-    )
-  }
+        </MediaManagerContext.Provider>
+      </HostContext.Provider>
+    </RaketaUIProvider>
+  )
 }
 
 PageBuilder.defaultProps = {
@@ -314,11 +160,6 @@ PageBuilder.defaultProps = {
     ['top', 'Top'],
     ['bottom', 'Bottom']
   ]
-}
-
-PageBuilder.childContextTypes = {
-  host: PropTypes.string,
-  mediaManager: PropTypes.object
 }
 
 export default PageBuilder

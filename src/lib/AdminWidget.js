@@ -4,8 +4,7 @@ import styled from 'styled-components'
 import { em } from 'raketa-ui'
 
 import SettingsDialog from '../dialogs/SettingsDialog'
-import SelectMenu from '../forms/SelectMenu'
-import TextInput from '../forms/TextInput'
+import CommonSettings from './CommonSettings'
 
 const icons = {
   iconMove:
@@ -69,184 +68,101 @@ const AdminWidgetToolbar = styled.div`
   z-index: 9;
 `
 
-const SegmentWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
+const AdminWidget = ({
+  library,
+  themes,
+  spacings,
+  identifier,
+  settings: initialSettings,
+  selectedWidgetId,
+  onUpdate,
+  onDelete,
+  onAdminWidgetDialogClose
+}) => {
+  const [open, setOpen] = React.useState(false)
+  const [widget, setWidget] = React.useState(initialSettings)
 
-const Segment = styled.div`
-  width: 32%;
-`
+  const currentWidget = library[widget.component]
 
-const CommonSettings = ({ settings, themes, spacings, onChange }) => (
-  <SegmentWrapper>
-    <Segment>
-      <SelectMenu
-        label='Spacing'
-        options={spacings}
-        value={settings.spacing}
-        onChange={(newValue) => onChange('spacing', newValue)}
-      />
-    </Segment>
-    <Segment>
-      <SelectMenu
-        label='Theme'
-        options={themes}
-        value={settings.theme}
-        onChange={(newValue) => onChange('theme', newValue)}
-      />
-    </Segment>
-    <Segment>
-      <TextInput
-        label='Section ID'
-        value={settings.sectionID}
-        onChange={(newValue) => onChange('sectionID', newValue)}
-      />
-    </Segment>
-  </SegmentWrapper>
-)
+  const handleChange = (field, value) => {
+    const settings = {
+      ...widget.settings,
+      [field]: value
+    }
 
-class AdminWidget extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const widgetProps = this.getWidgetProps()
-    this.state = Object.assign(
-      {
-        open: false,
-        containerSettings: this.getContainerProps() || {}
-      },
-      widgetProps
-    )
-  }
-
-  getWidget() {
-    const { library, widgetComponent } = this.props
-    return library[widgetComponent]
-  }
-
-  getWidgetProps() {
-    const widget = this.getWidget()
-    const fields = Object.keys(widget.defaults)
-
-    const widgetProps = fields.map((field) => ({ [field]: this.props[field] }))
-    return Object.assign(...widgetProps)
-  }
-
-  getContainerProps() {
-    return this.props.containerSettings
-      ? this.props.containerSettings
-      : { spacing: 'none' }
-  }
-
-  getContainerSettings() {
-    return this.state.containerSettings
-  }
-
-  getSettings() {
-    const widget = this.getWidget()
-    const fields = Object.keys(widget.defaults)
-
-    const widgetProps = fields.map((field) => ({ [field]: this.state[field] }))
-    return Object.assign(...widgetProps, {
-      containerSettings: this.getContainerSettings()
+    setWidget({
+      ...widget,
+      settings
     })
   }
 
-  handleChange(key, value) {
-    this.setState({ [key]: value })
+  const handleSave = () => {
+    onUpdate(widget.widgetId, widget)
+    setOpen(false)
   }
 
-  handleSave() {
-    const newState = Object.assign({}, { open: false }, this.getSettings())
-
-    const { widgetId, onUpdate } = this.props
-    this.setState(newState, () => {
-      onUpdate(widgetId, newState)
-    })
+  const handleClose = () => {
+    setOpen(false)
+    onAdminWidgetDialogClose()
   }
 
-  handleToolbarChange(field, value) {
-    const { containerSettings } = this.state
-    const newSettings = Object.assign({}, containerSettings, { [field]: value })
-    this.setState({ containerSettings: newSettings })
-  }
-
-  handleDeleteWidget(widgetId) {
+  const handleDeleteWidget = () => {
     if (!confirm('Are you sure?')) return
-    this.props.onDelete(widgetId)
+
+    onDelete(widget.widgetId)
   }
 
-  handleCopyWidget() {
-    const { widgetComponent, identifier } = this.props
+  const handleCopyWidget = () => {
     const storedWidget = JSON.stringify({
-      widgetName: widgetComponent,
-      widget: this.getSettings()
+      widgetName: widget.component,
+      widget
     })
 
-    localStorage.setItem(`clipboard–${identifier}`, storedWidget)
+    window.localStorage.setItem(`clipboard–${identifier}`, storedWidget)
   }
 
-  handleClose() {
-    this.setState({ open: false })
-    this.props.onAdminWidgetDialogClose()
-  }
-
-  render() {
-    const { widgetId, themes, spacings, selectedWidgetId } = this.props
-
-    return (
-      <AdminWidgetWrapper>
-        <AdminWidgetToolbar data-toolbar>
-          <IconButton icon='iconMove' data-drag />
-          <IconButton
-            icon='iconEdit'
-            type='primary'
-            onClick={() => this.setState({ open: true })}
-          />
-          <IconButton
-            icon='iconDelete'
-            type='danger'
-            onClick={() => this.handleDeleteWidget(widgetId)}
-          />
-          <IconButton
-            icon='iconCopy'
-            type='neutral'
-            onClick={() => this.handleCopyWidget()}
-          />
-        </AdminWidgetToolbar>
-
-        {React.createElement(
-          this.getWidget(),
-          Object.assign(this.getWidgetProps(), {
-            containerSettings: this.getContainerSettings()
-          })
-        )}
-
-        <SettingsDialog
-          open={widgetId === selectedWidgetId || this.state.open}
-          widget={this.getWidget()}
-          settings={this.state}
-          onChangeField={(field, value) => this.handleChange(field, value)}
-          onPrimary={() => {
-            this.handleSave()
-            this.handleClose()
-          }}
-          onClose={() => this.handleClose()}
-          renderCommonSettings={() => (
-            <CommonSettings
-              themes={themes}
-              spacings={spacings}
-              settings={this.state.containerSettings}
-              onChange={(field, value) =>
-                this.handleToolbarChange(field, value)
-              }
-            />
-          )}
+  return (
+    <AdminWidgetWrapper>
+      <AdminWidgetToolbar data-toolbar>
+        <IconButton icon='iconMove' data-drag />
+        <IconButton
+          icon='iconEdit'
+          type='primary'
+          onClick={() => setOpen(true)}
         />
-      </AdminWidgetWrapper>
-    )
-  }
+        <IconButton
+          icon='iconDelete'
+          type='danger'
+          onClick={() => handleDeleteWidget(widget.widgetId)}
+        />
+        <IconButton icon='iconCopy' type='neutral' onClick={handleCopyWidget} />
+      </AdminWidgetToolbar>
+
+      {React.createElement(currentWidget, widget.settings)}
+
+      <SettingsDialog
+        open={widget.widgetId === selectedWidgetId || open}
+        widget={currentWidget}
+        settings={widget.settings}
+        onChangeField={handleChange}
+        onPrimary={() => {
+          handleSave()
+          handleClose()
+        }}
+        onClose={handleClose}
+        renderCommonSettings={() => (
+          <CommonSettings
+            themes={themes}
+            spacings={spacings}
+            settings={widget.containerSettings}
+            onChange={(containerSettings) =>
+              handleChange('containerSettings', containerSettings)
+            }
+          />
+        )}
+      />
+    </AdminWidgetWrapper>
+  )
 }
 
 AdminWidget.defaultProps = {

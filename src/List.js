@@ -3,42 +3,48 @@ import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
 import { em, Button } from 'raketa-ui'
 
-import {
-  add,
-  removeByIndex,
-  updateFieldByIndex,
-  reorder,
-  randomId
-} from './lists'
+import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
 
 const Handle = (props) => (
-  <img
-    {...props}
-    src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4='
-  />
+  <span
+    data-drag
+    style={{
+      display: 'inline-block',
+      width: '16px',
+      cursor: 'move'
+    }}
+  >
+    <img
+      {...props}
+      src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4='
+      style={{ width: '16px' }}
+    />
+  </span>
 )
 const IconDelete = () => (
-  <img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2giPjxwb2x5bGluZSBwb2ludHM9IjMgNiA1IDYgMjEgNiI+PC9wb2x5bGluZT48cGF0aCBkPSJNMTkgNnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY2bTMgMFY0YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiPjwvcGF0aD48L3N2Zz4=' />
+  <img
+    src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2giPjxwb2x5bGluZSBwb2ludHM9IjMgNiA1IDYgMjEgNiI+PC9wb2x5bGluZT48cGF0aCBkPSJNMTkgNnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY2bTMgMFY0YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiPjwvcGF0aD48L3N2Zz4='
+    style={{ width: '16px' }}
+  />
 )
 
-const ListItem = styled.div`
+const Item = styled.div`
   margin-bottom: ${em(1)};
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 3px;
 `
 
-const ListItemToolbar = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 38px;
+  align-items: center;
   padding: 8px;
-  background-color: #efefef;
   border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  background-color: #efefef;
 `
 
-const ListItemWrapper = styled.div`
+const ContentWrapper = styled.div`
   padding: 8px;
-  ${(props) => (props.minimized ? 'display: none' : '')}
 `
 
 const ListButton = styled.button`
@@ -50,13 +56,9 @@ const ListButton = styled.button`
   background: transparent;
   cursor: pointer;
   margin-left: 8px;
-
-  img {
-    width: 16px;
-  }
 `
 
-const ItemTitle = styled.span`
+const Title = styled.span`
   position: relative;
   top: -3px;
   margin-left: 2px;
@@ -65,147 +67,109 @@ const ItemTitle = styled.span`
   text-transform: uppercase;
 `
 
-class List extends React.Component {
-  static factory(items, template) {
-    if (template) return Object.assign({}, template, { id: randomId() })
-    if (!template && items.length === 0)
-      throw 'List without a template needs the first element of the items to be present in order to reuse it for the creation of a new element'
+const List = ({
+  items: defaultItems,
+  listItem,
+  template,
+  primaryField,
+  onChangeList
+}) => {
+  const [items, setItems] = React.useState(defaultItems)
 
-    const item = Object.keys(items[0]).reduce(
-      (obj, key) => Object.assign({}, obj, { [key]: '' }),
-      {}
-    )
+  const factory = (template) => {
+    if (!template) throw new Error('Template not specified for this list')
 
-    return Object.assign({}, item, { id: randomId() })
+    return Object.assign({}, template, { id: randomId() })
   }
 
-  constructor(props) {
-    super(props)
+  const handleChangeField = (idx, field, value) => {
+    // let newItems
+    // if (Array.isArray(field)) {
+    //   newItems = field.reduce(
+    //     (accumulator, update) =>
+    //       updateFieldByIndex(accumulator, update.field, update.value, idx),
+    //     items
+    //   )
+    // } else {
+    //   newItems = updateFieldByIndex(items, field, value, idx)
+    // }
 
-    this.state = {
-      items: props.items || []
-    }
-
-    if (!props.template)
-      console.warn(
-        `DEPRECATED: List without template: ${JSON.stringify(props.items)}`
-      )
-    if (!props.primaryField)
-      console.warn(
-        `DEPRECATED: List without primaryField: ${JSON.stringify(props.items)}`
-      )
+    const newItems = updateFieldByIndex(items, field, value, idx)
+    setItems([...newItems])
+    notifyChange()
   }
 
-  handleChangeField(idx, field, value) {
-    const { items } = this.state
-    let newItems
-
-    if (Array.isArray(field)) {
-      newItems = field.reduce(
-        (accumulator, update) =>
-          updateFieldByIndex(accumulator, update.field, update.value, idx),
-        items
-      )
-    } else {
-      newItems = updateFieldByIndex(items, field, value, idx)
-    }
-
-    this.setState({ items: [...newItems] }, () => this.notifyChange())
+  const notifyChange = () => {
+    onChangeList('list', items)
   }
 
-  notifyChange() {
-    this.props.onChangeList('list', this.state.items)
+  const handleAdd = () => {
+    setItems(add(items, factory(template)))
+    notifyChange()
   }
 
-  handleAdd() {
-    const { template } = this.props
-    const { items } = this.state
-
-    this.setState({ items: add(items, List.factory(items, template)) }, () =>
-      this.notifyChange()
-    )
+  const handleReorder = (items) => {
+    setItems(items)
+    notifyChange()
   }
 
-  handleReorder(order) {
-    this.setState({ items: reorder(this.state.items, order) }, () =>
-      this.notifyChange()
-    )
-  }
-
-  handleRemove(idx) {
-    const { template } = this.props
-    const { items } = this.state
+  const handleRemove = (idx) => {
     if (!template && items.length === 1) return
 
-    this.setState({ items: removeByIndex(items, idx) }, () =>
-      this.notifyChange()
-    )
+    setItems(removeByIndex(items, idx))
+    notifyChange()
   }
 
-  render() {
-    const { template, listItem, primaryField } = this.props
-    const { items } = this.state
+  return (
+    <div>
+      {!items && <h4>There are no items yet.</h4>}
 
-    return (
-      <div>
-        {!items && <h4>There are no items yet.</h4>}
+      {items && (
+        <ReactSortable
+          list={items}
+          setList={handleReorder}
+          handle='[data-drag]'
+          direction='horizontal'
+          dragoverBubble
+        >
+          {items.map((item, idx) => (
+            <Item key={item.id} data-id={idx}>
+              <TitleWrapper>
+                <div>
+                  <Handle />
+                  <Title>
+                    {primaryField ? item[primaryField] : `Item ${idx + 1}`}
+                  </Title>
+                </div>
 
-        {items && (
-          <ReactSortable
-            list={items}
-            setList={this.handleReorder}
-            handle='[data-drag]'
-            direction='horizontal'
-            dragoverBubble
-          >
-            {items.map((item, idx) => (
-              <ListItem key={item.id} data-id={idx}>
-                <ListItemToolbar>
-                  <div>
-                    <Handle
-                      data-drag
-                      style={{
-                        display: 'inline-block',
-                        width: '16px',
-                        cursor: 'move'
-                      }}
-                    />
-                    <ItemTitle>
-                      {primaryField ? item[primaryField] : `Item ${idx + 1}`}
-                    </ItemTitle>
-                  </div>
+                {(template || (!template && items.length !== 1)) && (
+                  <ListButton
+                    type='button'
+                    danger
+                    onClick={() => handleRemove(idx)}
+                  >
+                    <IconDelete />
+                  </ListButton>
+                )}
+              </TitleWrapper>
 
-                  <div>
-                    {(template || (!template && items.length !== 1)) && (
-                      <ListButton
-                        type='button'
-                        danger
-                        onClick={() => this.handleRemove(idx)}
-                      >
-                        <IconDelete />
-                      </ListButton>
-                    )}
-                  </div>
-                </ListItemToolbar>
+              <ContentWrapper>
+                {listItem(
+                  item,
+                  (field, value) => handleChangeField(idx, field, value),
+                  idx
+                )}
+              </ContentWrapper>
+            </Item>
+          ))}
+        </ReactSortable>
+      )}
 
-                <ListItemWrapper>
-                  {listItem(
-                    item,
-                    (field, value) => this.handleChangeField(idx, field, value),
-                    idx
-                  )}
-                </ListItemWrapper>
-              </ListItem>
-            ))}
-          </ReactSortable>
-        )}
-
-        <Button type='button' sm success onClick={() => this.handleAdd()}>
-          Add Item
-        </Button>
-      </div>
-    )
-  }
+      <Button type='button' sm success onClick={handleAdd}>
+        Add item
+      </Button>
+    </div>
+  )
 }
 
 List.defaultProps = {

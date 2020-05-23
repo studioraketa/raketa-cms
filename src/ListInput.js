@@ -3,14 +3,10 @@ import { RaketaUIProvider } from 'raketa-ui'
 
 import List from './List'
 
-class ListInput extends React.Component {
-  render() {
-    return (
-      <RaketaUIProvider>
-        <List {...this.props} />
-      </RaketaUIProvider>
-    )
-  }
-}
+const ListInput = (props) => (
+  <RaketaUIProvider>
+    <List {...props} />
+  </RaketaUIProvider>
+)
 
 export default ListInput
