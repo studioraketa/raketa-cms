@@ -131,29 +131,37 @@ const SettingsDialog = ({
   themes,
   widget,
   settings,
-  onChangeField,
-  onClose,
-  onPrimary
+  onSave,
+  onClose
 }) => {
-  let fields
+  const [localSettings, setLocalSettings] = React.useState(settings)
 
-  if (typeof widget.adminFields === 'object') {
-    fields = renderAdminFields(widget, settings, onChangeField)
-  }
-
-  if (typeof widget.adminFields === 'function') {
-    const items = settings.list ? settings.list : []
-    fields = widget.adminFields(items, onChangeField, settings)
-  }
-
-  const handleUpdateLayoutSettings = (field, value) => {
-    onChangeField('containerSettings', {
-      ...settings.containerSettings,
+  const handleChangeField = (field, value) => {
+    setLocalSettings({
+      ...localSettings,
       [field]: value
     })
   }
 
-  const { containerSettings } = settings
+  const handleUpdateLayoutSettings = (field, value) => {
+    handleChangeField('containerSettings', {
+      ...localSettings.containerSettings,
+      [field]: value
+    })
+  }
+
+  let fields
+
+  if (typeof widget.adminFields === 'object') {
+    fields = renderAdminFields(widget, localSettings, handleChangeField)
+  }
+
+  if (typeof widget.adminFields === 'function') {
+    const items = localSettings.list ? localSettings.list : []
+    fields = widget.adminFields(items, handleChangeField, localSettings)
+  }
+
+  const { containerSettings } = localSettings
 
   return (
     <Dialog
@@ -161,7 +169,7 @@ const SettingsDialog = ({
       title={widget.title}
       primaryLabel='OK'
       width='700px'
-      onPrimary={onPrimary}
+      onPrimary={() => onSave(localSettings)}
       onClose={onClose}
       dialogSize={widget.dialogSize}
     >

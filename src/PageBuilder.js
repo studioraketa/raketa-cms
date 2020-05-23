@@ -106,20 +106,12 @@ const PageBuilder = ({
     notifyChange(page)
   }
 
-  const handleChange = (field, value) => {
-    const settings = {
-      ...selectedWidget.settings,
-      [field]: value
-    }
-
-    setSelectedWidget({
+  const handleSaveWidget = (settings) => {
+    handleUpdate({
       ...selectedWidget,
       settings
     })
-  }
 
-  const handleSaveWidget = () => {
-    handleUpdate(selectedWidget)
     setSelectedWidget(null)
   }
 
@@ -179,11 +171,7 @@ const PageBuilder = ({
                 themes={themes}
                 widget={currentWidget}
                 settings={selectedWidget.settings}
-                onChangeField={handleChange}
-                onPrimary={() => {
-                  handleSaveWidget()
-                  handleClose()
-                }}
+                onSave={handleSaveWidget}
                 onClose={handleClose}
               />
             )}
