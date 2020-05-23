@@ -127,7 +127,6 @@ const renderAdminFields = (widget, settings, onChange) =>
   })
 
 const SettingsDialog = ({
-  open,
   spacings,
   themes,
   widget,
@@ -158,7 +157,7 @@ const SettingsDialog = ({
 
   return (
     <Dialog
-      open={open}
+      open
       title={widget.title}
       primaryLabel='OK'
       width='700px'

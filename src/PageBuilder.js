@@ -26,7 +26,6 @@ const PageBuilder = ({
   onExit
 }) => {
   const [page, setPage] = React.useState(initialPage)
-  const [selectedWidgetId, setSelectedWidgetId] = React.useState(null)
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
@@ -80,15 +79,15 @@ const PageBuilder = ({
   }
 
   const handleReorder = (widgets) => {
-    setPage(Object.assign({}, page, { widgets }))
-    notifyChange(page)
+    if (JSON.stringify(widgets) !== JSON.stringify(page.widgets)) {
+      setPage(Object.assign({}, page, { widgets }))
+      notifyChange(page)
+    }
   }
 
   const notifyChange = (page) => onChange(page)
 
   const handleSave = () => onSave(page)
-
-  const handleSelectedWidgetId = (id) => setSelectedWidgetId(id)
 
   const handlePasteWidget = () => {
     const clipboardWidget = JSON.parse(
@@ -108,8 +107,6 @@ const PageBuilder = ({
   }
 
   const handleChange = (field, value) => {
-    console.log(field, value)
-
     const settings = {
       ...selectedWidget.settings,
       [field]: value
@@ -130,46 +127,54 @@ const PageBuilder = ({
     setSelectedWidget(null)
   }
 
+  const { widgets } = page
+  const sortableWidgets = widgets.map((widget) => ({
+    ...widget,
+    id: widget.widgetId,
+    chosen: false,
+    selected: false
+  }))
+
   return (
     <RaketaUIProvider>
       <HostContext.Provider value={{ host }}>
         <MediaManagerContext.Provider value={{ mediaManager }}>
           <div style={{ paddingLeft: '64px' }}>
-            <ReorderDialog
-              open={reorderOpen}
-              library={library}
-              onClose={() => setReorderOpen(false)}
-              onChange={handleReorder}
-              onDelete={handleRemove}
-              widgets={page.widgets}
-              onSelectedWidgetId={handleSelectedWidgetId}
-            />
+            {reorderOpen && (
+              <ReorderDialog
+                library={library}
+                widgets={sortableWidgets}
+                onChange={handleReorder}
+                onDelete={handleRemove}
+                onSelectWidget={setSelectedWidget}
+                onClose={() => setReorderOpen(false)}
+              />
+            )}
 
             <AdminSidebar
               library={library}
               navigation={navigation}
               dirty={dirty}
+              buttons={sidebarButtons}
+              identifier={identifier}
               onSave={handleSave}
               onAddWidget={handleAdd}
               onReorderDialog={() => setReorderOpen(true)}
               onExit={onExit}
-              buttons={sidebarButtons}
-              identifier={identifier}
               onPasteWidget={handlePasteWidget}
             />
 
             <Canvas
-              widgets={page.widgets}
+              widgets={sortableWidgets}
               library={library}
               identifier={identifier}
               onReorder={handleReorder}
-              onEdit={(widget) => setSelectedWidget(widget)}
+              onEdit={setSelectedWidget}
               onRemove={handleRemove}
             />
 
             {selectedWidget && (
               <SettingsDialog
-                open
                 spacings={spacings}
                 themes={themes}
                 widget={currentWidget}

@@ -29,16 +29,15 @@ const ReorderDialogItem = styled.div`
 `
 
 const ReorderDialog = ({
-  open,
   library,
   widgets,
   onClose,
   onChange,
   onDelete,
-  onSelectedWidgetId
+  onSelectWidget
 }) => (
   <Dialog
-    open={open}
+    open
     onClose={onClose}
     title='Reorder'
     primaryLabel=''
@@ -53,8 +52,8 @@ const ReorderDialog = ({
       direction='horizontal'
       dragoverBubble
     >
-      {widgets.map((widget, idx) => (
-        <div key={widget.widgetId} data-id={idx}>
+      {widgets.map((widget) => (
+        <div key={widget.widgetId}>
           <ReorderDialogItem data-drag>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Handle
@@ -89,10 +88,10 @@ const ReorderDialog = ({
                 primary
                 onClick={() => {
                   onClose()
-                  onSelectedWidgetId(widget.widgetId)
+                  onSelectWidget(widget)
                 }}
               >
-                &#x270E;
+                Edit
               </Button>
 
               <Button
