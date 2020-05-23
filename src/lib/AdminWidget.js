@@ -3,9 +3,6 @@ import styled from 'styled-components'
 
 import { em } from 'raketa-ui'
 
-import SettingsDialog from '../dialogs/SettingsDialog'
-import CommonSettings from './CommonSettings'
-
 const icons = {
   iconMove:
     'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyMnB4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAyMiAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5tb3ZlPC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPjwvZGVmcz4gICAgPGcgaWQ9Im1vdmUiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+ICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjAwMDAwMCwgMS4wMDAwMDApIiBpZD0iU2hhcGUiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyIj4gICAgICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSIzIDcgMCAxMCAzIDEzIj48L3BvbHlsaW5lPiAgICAgICAgICAgIDxwb2x5bGluZSBwb2ludHM9IjcgMyAxMCAwIDEzIDMiPjwvcG9seWxpbmU+ICAgICAgICAgICAgPHBvbHlsaW5lIHBvaW50cz0iMTMgMTcgMTAgMjAgNyAxNyI+PC9wb2x5bGluZT4gICAgICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSIxNyA3IDIwIDEwIDE3IDEzIj48L3BvbHlsaW5lPiAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLDEwIEwyMCwxMCI+PC9wYXRoPiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMCwwIEwxMCwyMCI+PC9wYXRoPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+',
@@ -68,43 +65,8 @@ const AdminWidgetToolbar = styled.div`
   z-index: 9;
 `
 
-const AdminWidget = ({
-  library,
-  themes,
-  spacings,
-  identifier,
-  settings: initialSettings,
-  selectedWidgetId,
-  onUpdate,
-  onDelete,
-  onAdminWidgetDialogClose
-}) => {
-  const [open, setOpen] = React.useState(false)
-  const [widget, setWidget] = React.useState(initialSettings)
-
+const AdminWidget = ({ library, identifier, widget, onEdit, onDelete }) => {
   const currentWidget = library[widget.component]
-
-  const handleChange = (field, value) => {
-    const settings = {
-      ...widget.settings,
-      [field]: value
-    }
-
-    setWidget({
-      ...widget,
-      settings
-    })
-  }
-
-  const handleSave = () => {
-    onUpdate(widget.widgetId, widget)
-    setOpen(false)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-    onAdminWidgetDialogClose()
-  }
 
   const handleDeleteWidget = () => {
     if (!confirm('Are you sure?')) return
@@ -128,7 +90,7 @@ const AdminWidget = ({
         <IconButton
           icon='iconEdit'
           type='primary'
-          onClick={() => setOpen(true)}
+          onClick={() => onEdit(widget)}
         />
         <IconButton
           icon='iconDelete'
@@ -139,28 +101,6 @@ const AdminWidget = ({
       </AdminWidgetToolbar>
 
       {React.createElement(currentWidget, widget.settings)}
-
-      <SettingsDialog
-        open={widget.widgetId === selectedWidgetId || open}
-        widget={currentWidget}
-        settings={widget.settings}
-        onChangeField={handleChange}
-        onPrimary={() => {
-          handleSave()
-          handleClose()
-        }}
-        onClose={handleClose}
-        renderCommonSettings={() => (
-          <CommonSettings
-            themes={themes}
-            spacings={spacings}
-            settings={widget.containerSettings}
-            onChange={(containerSettings) =>
-              handleChange('containerSettings', containerSettings)
-            }
-          />
-        )}
-      />
     </AdminWidgetWrapper>
   )
 }

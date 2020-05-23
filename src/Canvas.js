@@ -14,18 +14,7 @@ const EmptyCanvas = styled.div`
 `
 
 const Canvas = React.memo(
-  ({
-    widgets,
-    library,
-    themes,
-    spacings,
-    onReorder,
-    onUpdate,
-    onRemove,
-    identifier,
-    selectedWidgetId,
-    onAdminWidgetDialogClose
-  }) => (
+  ({ widgets, library, onReorder, onEdit, onRemove, identifier }) => (
     <React.Fragment>
       {widgets.length > 0 && (
         <ReactSortable
@@ -39,14 +28,10 @@ const Canvas = React.memo(
             <ErrorBoundary key={widget.widgetId}>
               <AdminWidget
                 library={library}
-                themes={themes}
-                spacings={spacings}
-                settings={widget}
-                onUpdate={onUpdate}
-                onDelete={onRemove}
                 identifier={identifier}
-                selectedWidgetId={selectedWidgetId}
-                onAdminWidgetDialogClose={onAdminWidgetDialogClose}
+                widget={widget}
+                onEdit={onEdit}
+                onDelete={onRemove}
               />
             </ErrorBoundary>
           ))}

@@ -8,6 +8,8 @@ import HostContext from './HostContext'
 import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
+import SettingsDialog from './dialogs/SettingsDialog'
+import CommonSettings from './dialogs/CommonSettings'
 
 const PageBuilder = ({
   page: initialPage,
@@ -25,8 +27,13 @@ const PageBuilder = ({
   onExit
 }) => {
   const [page, setPage] = React.useState(initialPage)
-  const [selectedWidgetId, setSelectedWidget] = React.useState(null)
+  const [selectedWidgetId, setSelectedWidgetId] = React.useState(null)
+  const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
+
+  const currentWidget = selectedWidget
+    ? library[selectedWidget.component]
+    : null
 
   const factory = (widgetName) => {
     const widget = library[widgetName]
@@ -47,14 +54,14 @@ const PageBuilder = ({
     notifyChange(page)
   }
 
-  const handleUpdate = (id, settings) => {
+  const handleUpdate = (widget) => {
     setPage(
       Object.assign({}, page, {
         widgets: updateFieldById(
           page.widgets,
           'settings',
-          settings,
-          id,
+          widget.settings,
+          widget.widgetId,
           'widgetId'
         )
       })
@@ -82,7 +89,7 @@ const PageBuilder = ({
 
   const handleSave = () => onSave(page)
 
-  const handleSelectedWidgetId = (id) => setSelectedWidget(id)
+  const handleSelectedWidgetId = (id) => setSelectedWidgetId(id)
 
   const handlePasteWidget = () => {
     const clipboardWidget = JSON.parse(
@@ -99,6 +106,27 @@ const PageBuilder = ({
 
     setPage(Object.assign({}, page, { widgets: add(page.widgets, newWidget) }))
     notifyChange(page)
+  }
+
+  const handleChange = (field, value) => {
+    const settings = {
+      ...selectedWidget.settings,
+      [field]: value
+    }
+
+    setSelectedWidget({
+      ...selectedWidget,
+      settings
+    })
+  }
+
+  const handleSaveWidget = () => {
+    handleUpdate(selectedWidget)
+    setSelectedWidget(null)
+  }
+
+  const handleClose = () => {
+    setSelectedWidget(null)
   }
 
   return (
@@ -132,15 +160,35 @@ const PageBuilder = ({
             <Canvas
               widgets={page.widgets}
               library={library}
-              themes={themes}
-              spacings={spacings}
-              onReorder={handleReorder}
-              onUpdate={handleUpdate}
-              onRemove={handleRemove}
               identifier={identifier}
-              selectedWidgetId={selectedWidgetId}
-              onAdminWidgetDialogClose={() => setSelectedWidget(null)}
+              onReorder={handleReorder}
+              onEdit={(widget) => setSelectedWidget(widget)}
+              onRemove={handleRemove}
             />
+
+            {selectedWidget && (
+              <SettingsDialog
+                open
+                widget={currentWidget}
+                settings={selectedWidget.settings}
+                onChangeField={handleChange}
+                onPrimary={() => {
+                  handleSaveWidget()
+                  handleClose()
+                }}
+                onClose={handleClose}
+                renderCommonSettings={() => (
+                  <CommonSettings
+                    themes={themes}
+                    spacings={spacings}
+                    settings={selectedWidget.containerSettings}
+                    onChange={(containerSettings) =>
+                      handleChange('containerSettings', containerSettings)
+                    }
+                  />
+                )}
+              />
+            )}
           </div>
         </MediaManagerContext.Provider>
       </HostContext.Provider>
