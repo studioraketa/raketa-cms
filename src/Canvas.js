@@ -14,40 +14,40 @@ const EmptyCanvas = styled.div`
 `
 
 const Canvas = React.memo(
-  ({ widgets, library, onReorder, onEdit, onRemove, identifier }) => (
-    <React.Fragment>
-      {widgets.length > 0 && (
-        <ReactSortable
-          list={widgets}
-          setList={onReorder}
-          handle='[data-drag]'
-          direction='horizontal'
-          dragoverBubble
-        >
-          {widgets.map((widget) => (
-            <ErrorBoundary key={widget.widgetId}>
-              <AdminWidget
-                library={library}
-                identifier={identifier}
-                widget={widget}
-                onEdit={onEdit}
-                onDelete={onRemove}
-              />
-            </ErrorBoundary>
-          ))}
-        </ReactSortable>
-      )}
-
-      {widgets.length === 0 && (
+  ({ widgets, library, onReorder, onEdit, onRemove, identifier }) => {
+    if (widgets.length === 0) {
+      return (
         <EmptyCanvas>
           <div>
             <Title primary>It's always good to start with a clean slate.</Title>
             <Text>Use the sidebar to add content.</Text>
           </div>
         </EmptyCanvas>
-      )}
-    </React.Fragment>
-  ),
+      )
+    }
+
+    return (
+      <ReactSortable
+        list={widgets}
+        setList={onReorder}
+        handle='[data-drag]'
+        direction='horizontal'
+        dragoverBubble
+      >
+        {widgets.map((widget) => (
+          <ErrorBoundary key={widget.widgetId}>
+            <AdminWidget
+              library={library}
+              identifier={identifier}
+              widget={widget}
+              onEdit={onEdit}
+              onDelete={onRemove}
+            />
+          </ErrorBoundary>
+        ))}
+      </ReactSortable>
+    )
+  },
   (props, nextProps) => {
     // TODO: Make the comparision quicker
     const themesAreEqual =
@@ -56,16 +56,8 @@ const Canvas = React.memo(
       JSON.stringify(props.spacings) === JSON.stringify(nextProps.spacings)
     const widgetsAreEqual =
       JSON.stringify(props.widgets) === JSON.stringify(nextProps.widgets)
-    const selectedWidgetIdIsEqual =
-      JSON.stringify(props.selectedWidgetId) ===
-      JSON.stringify(nextProps.selectedWidgetId)
 
-    return (
-      themesAreEqual &&
-      spacingsAreEqual &&
-      widgetsAreEqual &&
-      selectedWidgetIdIsEqual
-    )
+    return themesAreEqual && spacingsAreEqual && widgetsAreEqual
   }
 )
 

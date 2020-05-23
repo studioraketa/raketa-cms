@@ -9,7 +9,6 @@ import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
 import SettingsDialog from './dialogs/SettingsDialog'
-import CommonSettings from './dialogs/CommonSettings'
 
 const PageBuilder = ({
   page: initialPage,
@@ -109,6 +108,8 @@ const PageBuilder = ({
   }
 
   const handleChange = (field, value) => {
+    console.log(field, value)
+
     const settings = {
       ...selectedWidget.settings,
       [field]: value
@@ -169,6 +170,8 @@ const PageBuilder = ({
             {selectedWidget && (
               <SettingsDialog
                 open
+                spacings={spacings}
+                themes={themes}
                 widget={currentWidget}
                 settings={selectedWidget.settings}
                 onChangeField={handleChange}
@@ -177,16 +180,6 @@ const PageBuilder = ({
                   handleClose()
                 }}
                 onClose={handleClose}
-                renderCommonSettings={() => (
-                  <CommonSettings
-                    themes={themes}
-                    spacings={spacings}
-                    settings={selectedWidget.containerSettings}
-                    onChange={(containerSettings) =>
-                      handleChange('containerSettings', containerSettings)
-                    }
-                  />
-                )}
               />
             )}
           </div>

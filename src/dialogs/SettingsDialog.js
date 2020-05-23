@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Tabs } from 'raketa-ui'
 
 import TextArea from '../forms/TextArea'
@@ -9,6 +10,15 @@ import ButtonSettings from '../forms/ButtonSettings'
 import { humanize } from '../helpers/humanize'
 import Dialog from './Dialog'
 import ImagePicker from '../pickers/ImagePicker/ImagePicker'
+
+const SegmentWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const Segment = styled.div`
+  width: 32%;
+`
 
 const renderField = (field, value, onChange, opts) => {
   const handleChange = (newValue) => onChange(field, newValue)
@@ -118,12 +128,13 @@ const renderAdminFields = (widget, settings, onChange) =>
 
 const SettingsDialog = ({
   open,
+  spacings,
+  themes,
   widget,
   settings,
   onChangeField,
   onClose,
-  onPrimary,
-  renderCommonSettings
+  onPrimary
 }) => {
   let fields
 
@@ -135,6 +146,15 @@ const SettingsDialog = ({
     const items = settings.list ? settings.list : []
     fields = widget.adminFields(items, onChangeField, settings)
   }
+
+  const handleUpdateLayoutSettings = (field, value) => {
+    onChangeField('containerSettings', {
+      ...settings.containerSettings,
+      [field]: value
+    })
+  }
+
+  const { containerSettings } = settings
 
   return (
     <Dialog
@@ -148,7 +168,39 @@ const SettingsDialog = ({
     >
       <Tabs>
         <div title='Content'>{fields}</div>
-        <div title='Settings'>{renderCommonSettings()}</div>
+        <div title='Settings'>
+          <SegmentWrapper>
+            <Segment>
+              <SelectMenu
+                label='Spacing'
+                options={spacings}
+                value={containerSettings.spacing}
+                onChange={(newValue) =>
+                  handleUpdateLayoutSettings('spacing', newValue)
+                }
+              />
+            </Segment>
+            <Segment>
+              <SelectMenu
+                label='Theme'
+                options={themes}
+                value={containerSettings.theme}
+                onChange={(newValue) =>
+                  handleUpdateLayoutSettings('theme', newValue)
+                }
+              />
+            </Segment>
+            <Segment>
+              <TextInput
+                label='Section ID'
+                value={containerSettings.sectionID}
+                onChange={(newValue) =>
+                  handleUpdateLayoutSettings('sectionID', newValue)
+                }
+              />
+            </Segment>
+          </SegmentWrapper>
+        </div>
       </Tabs>
     </Dialog>
   )
