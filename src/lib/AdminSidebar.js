@@ -143,8 +143,3 @@ const AdminSidebar = ({
 }
 
 export default AdminSidebar
-
-// export default React.memo(
-//   AdminSidebar,
-//   (prevProps, nextProps) => prevProps.dirty === nextProps.dirty
-// )

@@ -31,17 +31,12 @@ class ErrorBoundary extends React.Component {
 }
 
 const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
-  const [dirty, setDirty] = React.useState(false)
   const [page, setPage] = React.useState(defaultPage)
 
-  const handleChange = (page) => {
-    setPage(page)
-    setDirty(true)
-  }
+  const handleChange = (page) => setPage(page)
 
   const handleSave = (page) => {
     console.log('Saving...', page)
-    setDirty(false)
   }
 
   return (
@@ -49,7 +44,6 @@ const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
       <MediaManagerContext.Provider value={mediaManager}>
         <PageBuilder
           host={host}
-          dirty={dirty}
           library={LIBRARY}
           themes={THEMES}
           page={page}

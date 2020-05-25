@@ -17,7 +17,6 @@ const PageBuilder = ({
   spacings,
   themes,
   navigation,
-  dirty,
   identifier,
   sidebarButtons,
   host,
@@ -26,6 +25,7 @@ const PageBuilder = ({
   onExit
 }) => {
   const [page, setPage] = React.useState(initialPage)
+  const [dirty, setDirty] = React.useState(false)
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
@@ -51,6 +51,7 @@ const PageBuilder = ({
     }
 
     setPage(newPage)
+    setDirty(true)
 
     notifyChange(newPage)
   }
@@ -81,18 +82,23 @@ const PageBuilder = ({
     }
 
     setPage(newPage)
+    setDirty(true)
 
     notifyChange(newPage)
   }
 
   const handleReorder = (widgets) => {
-    if (JSON.stringify(widgets) !== JSON.stringify(page.widgets)) {
+    if (
+      page.widgets.map((w) => w.widgetId).join() !==
+      widgets.map((w) => w.widgetId).join()
+    ) {
       const newPage = {
         ...page,
         widgets
       }
 
       setPage(newPage)
+      setDirty(true)
 
       notifyChange(newPage)
     }
@@ -100,7 +106,10 @@ const PageBuilder = ({
 
   const notifyChange = (page) => onChange(page)
 
-  const handleSave = () => onSave(page)
+  const handleSave = () => {
+    onSave(page)
+    setDirty(false)
+  }
 
   const handlePasteWidget = () => {
     const clipboardWidget = JSON.parse(
@@ -122,6 +131,7 @@ const PageBuilder = ({
     }
 
     setPage(newPage)
+    setDirty(true)
 
     notifyChange(newPage)
   }
@@ -132,6 +142,7 @@ const PageBuilder = ({
       settings
     })
 
+    setDirty(true)
     setSelectedWidget(null)
   }
 
