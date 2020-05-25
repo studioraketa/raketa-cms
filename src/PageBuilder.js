@@ -4,7 +4,6 @@ import { RaketaUIProvider } from 'raketa-ui'
 
 import { add, removeById, updateFieldById, randomString } from './lists'
 
-import MediaManagerContext from './MediaManagerContext'
 import HostContext from './HostContext'
 import LibraryContext from './LibraryContext'
 import Canvas from './Canvas'
@@ -22,7 +21,6 @@ const PageBuilder = ({
   identifier,
   sidebarButtons,
   host,
-  mediaManager,
   onChange,
   onSave,
   onExit
@@ -153,50 +151,48 @@ const PageBuilder = ({
     <RaketaUIProvider>
       <HostContext.Provider value={{ host }}>
         <LibraryContext.Provider value={library}>
-          <MediaManagerContext.Provider value={{ mediaManager }}>
-            <div style={{ paddingLeft: '64px' }}>
-              {reorderOpen && (
-                <ReorderDialog
-                  widgets={sortableWidgets}
-                  onChange={handleReorder}
-                  onDelete={handleRemove}
-                  onSelectWidget={setSelectedWidget}
-                  onClose={() => setReorderOpen(false)}
-                />
-              )}
-
-              <AdminSidebar
-                navigation={navigation}
-                dirty={dirty}
-                buttons={sidebarButtons}
-                identifier={identifier}
-                onSave={handleSave}
-                onAddWidget={handleAdd}
-                onReorderDialog={() => setReorderOpen(true)}
-                onExit={onExit}
-                onPasteWidget={handlePasteWidget}
-              />
-
-              <Canvas
+          <div style={{ paddingLeft: '64px' }}>
+            {reorderOpen && (
+              <ReorderDialog
                 widgets={sortableWidgets}
-                identifier={identifier}
-                onReorder={handleReorder}
-                onEdit={setSelectedWidget}
-                onRemove={handleRemove}
+                onChange={handleReorder}
+                onDelete={handleRemove}
+                onSelectWidget={setSelectedWidget}
+                onClose={() => setReorderOpen(false)}
               />
+            )}
 
-              {selectedWidget && (
-                <SettingsDialog
-                  spacings={spacings}
-                  themes={themes}
-                  widget={currentWidget}
-                  settings={selectedWidget.settings}
-                  onSave={handleSaveWidget}
-                  onClose={handleClose}
-                />
-              )}
-            </div>
-          </MediaManagerContext.Provider>
+            <AdminSidebar
+              navigation={navigation}
+              dirty={dirty}
+              buttons={sidebarButtons}
+              identifier={identifier}
+              onSave={handleSave}
+              onAddWidget={handleAdd}
+              onReorderDialog={() => setReorderOpen(true)}
+              onExit={onExit}
+              onPasteWidget={handlePasteWidget}
+            />
+
+            <Canvas
+              widgets={sortableWidgets}
+              identifier={identifier}
+              onReorder={handleReorder}
+              onEdit={setSelectedWidget}
+              onRemove={handleRemove}
+            />
+
+            {selectedWidget && (
+              <SettingsDialog
+                spacings={spacings}
+                themes={themes}
+                widget={currentWidget}
+                settings={selectedWidget.settings}
+                onSave={handleSaveWidget}
+                onClose={handleClose}
+              />
+            )}
+          </div>
         </LibraryContext.Provider>
       </HostContext.Provider>
     </RaketaUIProvider>

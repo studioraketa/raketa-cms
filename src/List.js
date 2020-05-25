@@ -83,41 +83,39 @@ const List = ({
   }
 
   const handleChangeField = (idx, field, value) => {
-    // let newItems
-    // if (Array.isArray(field)) {
-    //   newItems = field.reduce(
-    //     (accumulator, update) =>
-    //       updateFieldByIndex(accumulator, update.field, update.value, idx),
-    //     items
-    //   )
-    // } else {
-    //   newItems = updateFieldByIndex(items, field, value, idx)
-    // }
-
     const newItems = updateFieldByIndex(items, field, value, idx)
-    setItems([...newItems])
-    notifyChange()
+
+    setItems(newItems)
+
+    notifyChange(newItems)
   }
 
-  const notifyChange = () => {
+  const notifyChange = (items) => {
     onChangeList('list', items)
   }
 
   const handleAdd = () => {
-    setItems(add(items, factory(template)))
-    notifyChange()
+    const newItems = add(items, factory(template))
+
+    setItems(newItems)
+
+    notifyChange(newItems)
   }
 
   const handleReorder = (items) => {
     setItems(items)
-    notifyChange()
+
+    notifyChange(items)
   }
 
   const handleRemove = (idx) => {
     if (!template && items.length === 1) return
 
-    setItems(removeByIndex(items, idx))
-    notifyChange()
+    const newItems = removeByIndex(items, idx)
+
+    setItems(newItems)
+
+    notifyChange(newItems)
   }
 
   return (

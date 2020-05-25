@@ -1,6 +1,16 @@
 import React from 'react'
-import { PageBuilder, MediaManager } from '@raketa-cms/raketa-cms'
+import { PageBuilder } from '@raketa-cms/raketa-cms'
+import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
 import LIBRARY from './widgets'
+import IMAGES from './IMAGES'
+
+class FakeMediaManager {
+  findAll(callback, params = {}) {
+    return callback(IMAGES)
+  }
+}
+
+const mediaManager = new FakeMediaManager('/')
 
 const THEMES = [
   ['none', 'None'],
@@ -34,21 +44,20 @@ const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
     setDirty(false)
   }
 
-  const mediaManager = new MediaManager('/images/client/')
-
   return (
     <ErrorBoundary>
-      <PageBuilder
-        host={host}
-        dirty={dirty}
-        library={LIBRARY}
-        themes={THEMES}
-        page={page}
-        mediaManager={mediaManager}
-        onChange={handleChange}
-        onSave={handleSave}
-        onExit={() => (window.location.href = back_url)}
-      />
+      <MediaManagerContext.Provider value={mediaManager}>
+        <PageBuilder
+          host={host}
+          dirty={dirty}
+          library={LIBRARY}
+          themes={THEMES}
+          page={page}
+          onChange={handleChange}
+          onSave={handleSave}
+          onExit={() => (window.location.href = back_url)}
+        />
+      </MediaManagerContext.Provider>
     </ErrorBoundary>
   )
 }

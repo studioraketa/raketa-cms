@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Img, ImagePicker } from '@raketa-cms/raketa-cms'
+import { Container, Img } from '@raketa-cms/raketa-cms'
+import { ImagePicker } from '@raketa-cms/raketa-image-picker'
 
 const ImageWidget = ({ variant, image, description, containerSettings }) => (
   <Container settings={containerSettings}>
