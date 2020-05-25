@@ -12,20 +12,20 @@ const Modal = ({
   width,
   dialogSize
 }) => (
-    <Dialog
-      open={open}
-      title={title}
-      primaryLabel={primaryLabel}
-      secondaryLabel={secondaryLabel}
-      width={width}
-      onClose={onClose}
-      onPrimary={onPrimary}
-      onSecondary={onClose}
-      dialogSize={dialogSize}
-    >
-      {children}
-    </Dialog>
-  )
+  <Dialog
+    open={open}
+    title={title}
+    primaryLabel={primaryLabel}
+    secondaryLabel={secondaryLabel}
+    width={width}
+    onClose={onClose}
+    onPrimary={onPrimary}
+    onSecondary={onClose}
+    dialogSize={dialogSize}
+  >
+    {children}
+  </Dialog>
+)
 
 Modal.defaultProps = {
   children: [],

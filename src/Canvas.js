@@ -5,6 +5,7 @@ import { Title, Text } from 'raketa-ui'
 import { ReactSortable } from 'react-sortablejs'
 import AdminWidget from './lib/AdminWidget'
 import ErrorBoundary from './ErrorBoundary'
+import LibraryContext from './LibraryContext'
 
 const EmptyCanvas = styled.div`
   display: flex;
@@ -14,7 +15,9 @@ const EmptyCanvas = styled.div`
 `
 
 const Canvas = React.memo(
-  ({ widgets, library, onReorder, onEdit, onRemove, identifier }) => {
+  ({ widgets, onReorder, onEdit, onRemove, identifier }) => {
+    const library = React.useContext(LibraryContext)
+
     if (widgets.length === 0) {
       return (
         <EmptyCanvas>

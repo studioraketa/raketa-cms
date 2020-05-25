@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
 import { em, Title, Button } from 'raketa-ui'
 import Dialog from './Dialog'
+import LibraryContext from '../LibraryContext'
 
 const Handle = (props) => (
   <img
@@ -28,89 +29,104 @@ const ReorderDialogItem = styled.div`
   }
 `
 
+const cleanup = (string) => string.replace(/<[^>]*>?/gm, '')
+
+const truncate = (str, num) => {
+  if (str.length <= num) return str
+
+  return str.slice(0, num) + '…'
+}
+
+const getWidgetTitle = (library, widget) => {
+  const widgetComponent = library[widget.component]
+  const widgetName = widgetComponent.title || widget.component
+
+  const widgetTitle = widgetComponent.primaryField
+    ? truncate(cleanup(widget.settings[widgetComponent.primaryField]), 32)
+    : ''
+
+  return [widgetName, widgetTitle].filter((s) => s !== '').join(': ')
+}
+
 const ReorderDialog = ({
-  library,
   widgets,
   onClose,
   onChange,
   onDelete,
   onSelectWidget
-}) => (
-  <Dialog
-    open
-    onClose={onClose}
-    title='Reorder'
-    primaryLabel=''
-    secondaryLabel='Close'
-  >
-    <p>Drag and drop elements below to reorder the page layout.</p>
+}) => {
+  const library = React.useContext(LibraryContext)
 
-    <ReactSortable
-      list={widgets}
-      setList={onChange}
-      handle='[data-drag]'
-      direction='horizontal'
-      dragoverBubble
+  return (
+    <Dialog
+      open
+      onClose={onClose}
+      title='Reorder'
+      primaryLabel=''
+      secondaryLabel='Close'
     >
-      {widgets.map((widget) => (
-        <div key={widget.widgetId}>
-          <ReorderDialogItem data-drag>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Handle
-                style={{
-                  display: 'inline-block',
-                  width: '16px',
-                  marginRight: '.5em'
-                }}
-              />
-              <Title
-                third
-                style={{
-                  display: 'inline-block',
-                  fontSize: '1em',
-                  fontWeight: 500
-                }}
-              >
-                {library[widget.component].title
-                  ? library[widget.component].title
-                  : widget.component}
-                {library[widget.component].primaryField
-                  ? `: ${
-                      widget.settings[library[widget.component].primaryField]
-                    }`
-                  : ''}
-              </Title>
-            </div>
+      <p>Drag and drop elements below to reorder the page layout.</p>
 
-            <div>
-              <Button
-                type='button'
-                primary
-                onClick={() => {
-                  onClose()
-                  onSelectWidget(widget)
-                }}
-              >
-                Edit
-              </Button>
+      <ReactSortable
+        list={widgets}
+        setList={onChange}
+        handle='[data-drag]'
+        direction='horizontal'
+        dragoverBubble
+      >
+        {widgets.map((widget) => (
+          <div key={widget.widgetId}>
+            <ReorderDialogItem data-drag>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Handle
+                  style={{
+                    display: 'inline-block',
+                    width: '16px',
+                    marginRight: '.5em'
+                  }}
+                />
+                <Title
+                  third
+                  style={{
+                    display: 'inline-block',
+                    fontSize: '1em',
+                    fontWeight: 500
+                  }}
+                >
+                  {getWidgetTitle(library, widget)}
+                </Title>
+              </div>
 
-              <Button
-                type='button'
-                danger
-                onClick={() => {
-                  if (!confirm('Are you sure?')) return
-                  onDelete(widget.widgetId)
-                }}
-              >
-                &times;
-              </Button>
-            </div>
-          </ReorderDialogItem>
-        </div>
-      ))}
-    </ReactSortable>
-  </Dialog>
-)
+              <div>
+                <Button
+                  type='button'
+                  primary
+                  onClick={() => {
+                    onClose()
+                    onSelectWidget(widget)
+                  }}
+                >
+                  Edit
+                </Button>
+
+                <Button
+                  type='button'
+                  danger
+                  onClick={() => {
+                    if (!confirm('Are you sure?')) return
+                    onDelete(widget.widgetId)
+                  }}
+                >
+                  &times;
+                </Button>
+              </div>
+            </ReorderDialogItem>
+          </div>
+        ))}
+      </ReactSortable>
+    </Dialog>
+  )
+}
 
 ReorderDialog.defaultProps = {
   widgets: []

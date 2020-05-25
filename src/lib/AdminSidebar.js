@@ -11,6 +11,7 @@ import {
 
 import { SidebarItem } from '../lib/SidebarItem'
 import TextInput from '../forms/TextInput'
+import LibraryContext from '../LibraryContext'
 
 const sortByTitle = (a, b) => {
   var nameA = a.widgetTitle.toUpperCase()
@@ -23,7 +24,6 @@ const sortByTitle = (a, b) => {
 }
 
 const AdminSidebar = ({
-  library,
   identifier,
   dirty,
   buttons,
@@ -33,6 +33,7 @@ const AdminSidebar = ({
   onSave,
   onExit
 }) => {
+  const library = React.useContext(LibraryContext)
   const [q, setQ] = React.useState('')
 
   const handlePasteWidget = () => {
@@ -141,7 +142,9 @@ const AdminSidebar = ({
   )
 }
 
-export default React.memo(
-  AdminSidebar,
-  (prevProps, nextProps) => prevProps.dirty === nextProps.dirty
-)
+export default AdminSidebar
+
+// export default React.memo(
+//   AdminSidebar,
+//   (prevProps, nextProps) => prevProps.dirty === nextProps.dirty
+// )

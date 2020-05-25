@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import { RaketaUIProvider } from 'raketa-ui'
 
@@ -5,6 +6,7 @@ import { add, removeById, updateFieldById, randomString } from './lists'
 
 import MediaManagerContext from './MediaManagerContext'
 import HostContext from './HostContext'
+import LibraryContext from './LibraryContext'
 import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
@@ -29,6 +31,10 @@ const PageBuilder = ({
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
+  // React.useEffect(() => {
+  //   setPage(initialPage)
+  // }, [])
+
   const currentWidget = selectedWidget
     ? library[selectedWidget.component]
     : null
@@ -44,44 +50,57 @@ const PageBuilder = ({
   }
 
   const handleAdd = (widgetName) => {
-    setPage(
-      Object.assign({}, page, {
-        widgets: add(page.widgets, factory(widgetName))
-      })
-    )
-    notifyChange(page)
+    const widgets = add(page.widgets, factory(widgetName))
+    const newPage = {
+      ...page,
+      widgets
+    }
+
+    setPage(newPage)
+
+    notifyChange(newPage)
   }
 
   const handleUpdate = (widget) => {
-    setPage(
-      Object.assign({}, page, {
-        widgets: updateFieldById(
-          page.widgets,
-          'settings',
-          widget.settings,
-          widget.widgetId,
-          'widgetId'
-        )
-      })
+    const widgets = updateFieldById(
+      page.widgets,
+      'settings',
+      widget.settings,
+      widget.widgetId,
+      'widgetId'
     )
+    const newPage = {
+      ...page,
+      widgets
+    }
 
-    notifyChange(page)
+    setPage(newPage)
+
+    notifyChange(newPage)
   }
 
   const handleRemove = (id) => {
-    setPage(
-      Object.assign({}, page, {
-        widgets: removeById(page.widgets, id, 'widgetId')
-      })
-    )
+    const widgets = removeById(page.widgets, id, 'widgetId')
+    const newPage = {
+      ...page,
+      widgets
+    }
 
-    notifyChange(page)
+    setPage(newPage)
+
+    notifyChange(newPage)
   }
 
   const handleReorder = (widgets) => {
     if (JSON.stringify(widgets) !== JSON.stringify(page.widgets)) {
-      setPage(Object.assign({}, page, { widgets }))
-      notifyChange(page)
+      const newPage = {
+        ...page,
+        widgets
+      }
+
+      setPage(newPage)
+
+      notifyChange(newPage)
     }
   }
 
@@ -102,8 +121,15 @@ const PageBuilder = ({
       settings: clipboardWidget.widget
     }
 
-    setPage(Object.assign({}, page, { widgets: add(page.widgets, newWidget) }))
-    notifyChange(page)
+    const widgets = add(page.widgets, newWidget)
+    const newPage = {
+      ...page,
+      widgets
+    }
+
+    setPage(newPage)
+
+    notifyChange(newPage)
   }
 
   const handleSaveWidget = (settings) => {
@@ -130,53 +156,52 @@ const PageBuilder = ({
   return (
     <RaketaUIProvider>
       <HostContext.Provider value={{ host }}>
-        <MediaManagerContext.Provider value={{ mediaManager }}>
-          <div style={{ paddingLeft: '64px' }}>
-            {reorderOpen && (
-              <ReorderDialog
-                library={library}
+        <LibraryContext.Provider value={library}>
+          <MediaManagerContext.Provider value={{ mediaManager }}>
+            <div style={{ paddingLeft: '64px' }}>
+              {reorderOpen && (
+                <ReorderDialog
+                  widgets={sortableWidgets}
+                  onChange={handleReorder}
+                  onDelete={handleRemove}
+                  onSelectWidget={setSelectedWidget}
+                  onClose={() => setReorderOpen(false)}
+                />
+              )}
+
+              <AdminSidebar
+                navigation={navigation}
+                dirty={dirty}
+                buttons={sidebarButtons}
+                identifier={identifier}
+                onSave={handleSave}
+                onAddWidget={handleAdd}
+                onReorderDialog={() => setReorderOpen(true)}
+                onExit={onExit}
+                onPasteWidget={handlePasteWidget}
+              />
+
+              <Canvas
                 widgets={sortableWidgets}
-                onChange={handleReorder}
-                onDelete={handleRemove}
-                onSelectWidget={setSelectedWidget}
-                onClose={() => setReorderOpen(false)}
+                identifier={identifier}
+                onReorder={handleReorder}
+                onEdit={setSelectedWidget}
+                onRemove={handleRemove}
               />
-            )}
 
-            <AdminSidebar
-              library={library}
-              navigation={navigation}
-              dirty={dirty}
-              buttons={sidebarButtons}
-              identifier={identifier}
-              onSave={handleSave}
-              onAddWidget={handleAdd}
-              onReorderDialog={() => setReorderOpen(true)}
-              onExit={onExit}
-              onPasteWidget={handlePasteWidget}
-            />
-
-            <Canvas
-              widgets={sortableWidgets}
-              library={library}
-              identifier={identifier}
-              onReorder={handleReorder}
-              onEdit={setSelectedWidget}
-              onRemove={handleRemove}
-            />
-
-            {selectedWidget && (
-              <SettingsDialog
-                spacings={spacings}
-                themes={themes}
-                widget={currentWidget}
-                settings={selectedWidget.settings}
-                onSave={handleSaveWidget}
-                onClose={handleClose}
-              />
-            )}
-          </div>
-        </MediaManagerContext.Provider>
+              {selectedWidget && (
+                <SettingsDialog
+                  spacings={spacings}
+                  themes={themes}
+                  widget={currentWidget}
+                  settings={selectedWidget.settings}
+                  onSave={handleSaveWidget}
+                  onClose={handleClose}
+                />
+              )}
+            </div>
+          </MediaManagerContext.Provider>
+        </LibraryContext.Provider>
       </HostContext.Provider>
     </RaketaUIProvider>
   )
