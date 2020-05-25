@@ -29,6 +29,16 @@ const PageBuilder = ({
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
+  React.useEffect(() => {
+    window.addEventListener('beforeunload', (e) => {
+      if (dirty) {
+        e.preventDefault()
+        e.returnValue = ''
+        return 'You have unsaved changes'
+      }
+    })
+  }, [dirty])
+
   const currentWidget = selectedWidget
     ? library[selectedWidget.component]
     : null
