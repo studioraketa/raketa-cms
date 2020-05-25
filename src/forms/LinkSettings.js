@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { em, reset } from 'raketa-ui'
 
 import TextInput from './TextInput'
-import Textarea from './TextArea'
 import SelectMenu from './SelectMenu'
 
 const SettingsIcon = styled.span`

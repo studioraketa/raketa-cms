@@ -11,7 +11,7 @@ const Link = ({ settings, children, className }) => {
       target={target}
       rel={rel}
     >
-      {children || settings.label}
+      {children || label}
     </a>
   )
 }

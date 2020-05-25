@@ -31,10 +31,6 @@ const PageBuilder = ({
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   setPage(initialPage)
-  // }, [])
-
   const currentWidget = selectedWidget
     ? library[selectedWidget.component]
     : null

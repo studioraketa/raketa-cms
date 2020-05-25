@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextField } from 'raketa-ui';
+import React from 'react'
+import { TextField } from 'raketa-ui'
 
 const TextArea = ({ label, onChange, value, placeholder }) => (
   <TextField
@@ -9,11 +9,11 @@ const TextArea = ({ label, onChange, value, placeholder }) => (
     placeholder={placeholder}
     onChange={onChange}
   />
-);
+)
 
 TextArea.defaultProps = {
   value: '',
-  placeholder: '',
-};
+  placeholder: ''
+}
 
-export default TextArea;
+export default TextArea
