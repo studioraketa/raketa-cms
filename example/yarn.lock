@@ -1243,10 +1243,10 @@
   version "0.0.0"
   uid ""
 
-"@raketa-cms/raketa-image-picker@^1.1.0-pre":
-  version "1.1.0-pre"
-  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-image-picker/-/raketa-image-picker-1.1.0-pre.tgz#a743f4918ca024404e038bd3278006da40b19ae8"
-  integrity sha512-/cq0JG+OAY5K+oYHm01O+JwDRgjVGGVjcwCmP68Ac+6EHxGy96L63Rbp8qmKinyMy3pB16Zt2SPCj6NSce2h0Q==
+"@raketa-cms/raketa-image-picker@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-image-picker/-/raketa-image-picker-1.1.1.tgz#54c5e0fee25119b86795af2c92d59aa67d51d7b3"
+  integrity sha512-0AlEZWdCo/BWNh/2Q29hQxhhxB5GDBwLpL037UCREi6XiQ3WAYoGcyKWrglY8tHmW0roAGJn6YUGKAh+rstxaA==
   dependencies:
     prop-types "^15.7.2"
     raketa-ui "^1.1.1-pre"
