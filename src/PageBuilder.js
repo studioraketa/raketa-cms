@@ -11,6 +11,20 @@ import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
 import SettingsDialog from './dialogs/SettingsDialog'
 
+const usePreventWindowUnload = (preventDefault) => {
+  React.useEffect(() => {
+    if (!preventDefault) return
+    const handleBeforeUnload = (event) => {
+      event.preventDefault()
+      event.returnValue = ''
+
+      return ''
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [preventDefault])
+}
+
 const PageBuilder = ({
   page: initialPage,
   library,
@@ -29,15 +43,7 @@ const PageBuilder = ({
   const [selectedWidget, setSelectedWidget] = React.useState(null)
   const [reorderOpen, setReorderOpen] = React.useState(false)
 
-  React.useEffect(() => {
-    window.addEventListener('beforeunload', (e) => {
-      if (dirty) {
-        e.preventDefault()
-        e.returnValue = ''
-        return 'You have unsaved changes'
-      }
-    })
-  }, [dirty])
+  usePreventWindowUnload(dirty)
 
   const currentWidget = selectedWidget
     ? library[selectedWidget.component]
