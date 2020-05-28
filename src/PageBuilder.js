@@ -137,8 +137,10 @@ const PageBuilder = ({
     const newWidget = {
       widgetId: randomString(6),
       component: clipboardWidget.widgetName,
-      settings: clipboardWidget.widget
+      settings: clipboardWidget.widget.settings
     }
+
+    console.log(newWidget)
 
     const widgets = add(page.widgets, newWidget)
     const newPage = {
