@@ -10,13 +10,7 @@ class DirectEmbed extends React.Component {
     };
   }
 
-  handlePlay = () => {
-    const videoWrapper = this.videoWrapper;
-
-    this.setState({ play: true }, () => {
-      videoWrapper.getElementsByTagName('iframe').item(0).src += '?autoplay=1';
-    });
-  }
+  handlePlay = () => this.setState({ play: true })
 
   render() {
     const { play } = this.state;
@@ -26,7 +20,7 @@ class DirectEmbed extends React.Component {
       <div onClick={this.handlePlay} ref={videoWrapper => this.videoWrapper = videoWrapper}>
         {play || !image ?
           <div className="full-image full-video" style={{ display: 'block' }}>
-            <EmbeddedVideo videoUrl={videoUrl} className="content" />
+            <EmbeddedVideo videoUrl={videoUrl} autoplay={play} />
           </div>
           :
           <div className="full-image-anchor" style={{ cursor: 'pointer' }}>

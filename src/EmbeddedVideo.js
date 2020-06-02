@@ -1,20 +1,20 @@
 import React from 'react';
 
-const VimeoEmbed = ({ videoId }) => (
+const VimeoEmbed = ({ videoId, autoplay }) => (
   <iframe
     frameBorder="0"
     allowFullScreen="0"
-    src={`https://player.vimeo.com/video/${videoId}?color=ffffff&title=0&byline=0&portrait=0&autoplay=1`}
+    src={`https://player.vimeo.com/video/${videoId}?color=ffffff&title=0&byline=0&portrait=0&autoplay=${autoplay === true ? '1' : '0'}`}
     className="content"
     allow="autoplay"
   />
 );
 
-const YoukuEmbed = ({ videoId }) => (
+const YoukuEmbed = ({ videoId, autoplay }) => (
   <iframe
     height="0"
     width="0"
-    src={`https://player.youku.com/embed/${videoId}?autoplay=1`}
+    src={`https://player.youku.com/embed/${videoId}?autoplay=${autoplay === true ? '1' : '0'}`}
     frameBorder="0"
     allowFullScreen
     className="content"
@@ -22,11 +22,11 @@ const YoukuEmbed = ({ videoId }) => (
   />
 );
 
-const YouTubeEmbed = ({ videoId }) => (
+const YouTubeEmbed = ({ videoId, autoplay }) => (
   <iframe
     frameBorder="0"
     allowFullScreen="0"
-    src={`https://youtube.com/embed/${videoId}?autoplay=1`}
+    src={`https://youtube.com/embed/${videoId}?autoplay=${autoplay === true ? '1' : '0'}`}
     className="content"
     allow="autoplay"
   />
@@ -65,12 +65,12 @@ const VideoComponentType = {
   youku: YoukuEmbed,
 }
 
-const EmbeddedVideo = ({ videoUrl }) => {
+const EmbeddedVideo = ({ videoUrl, autoplay = false }) => {
   const vType = videoType(videoUrl);
   const vId = videoId(videoUrl);
   const VideoComponent = VideoComponentType[vType];
 
-  if (VideoComponent) { return <VideoComponent videoId={vId} /> }
+  if (VideoComponent) { return <VideoComponent videoId={vId} autoplay={autoplay} /> }
 
   return null;
 };
