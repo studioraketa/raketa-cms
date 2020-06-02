@@ -1,46 +1,76 @@
 import React from 'react';
 
-const youtubeParser = (url) => {
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#]*).*/;
-  const match = url.match(regExp);
-  return (match && match[7].length === 11) ? match[7] : false;
+const VimeoEmbed = ({ videoId }) => (
+  <iframe
+    frameBorder="0"
+    allowFullScreen="0"
+    src={`https://player.vimeo.com/video/${videoId}?color=ffffff&title=0&byline=0&portrait=0&autoplay=1`}
+    className="content"
+    allow="autoplay"
+  />
+);
+
+const YoukuEmbed = ({ videoId }) => (
+  <iframe
+    height="0"
+    width="0"
+    src={`https://player.youku.com/embed/${videoId}?autoplay=1`}
+    frameBorder="0"
+    allowFullScreen
+    className="content"
+    allow="autoplay"
+  />
+);
+
+const YouTubeEmbed = ({ videoId }) => (
+  <iframe
+    frameBorder="0"
+    allowFullScreen="0"
+    src={`https://youtube.com/embed/${videoId}?autoplay=1`}
+    className="content"
+    allow="autoplay"
+  />
+);
+
+const videoType = (url) => {
+  if (url.includes('youtu')) return 'youtube';
+  if (url.includes('vimeo')) return 'vimeo';
+  if (url.includes('youku')) return 'youku';
 };
 
-const vimeoParser = (url) => {
-  const regExp = /https:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
-  const match = url.match(regExp);
-
-  return (match && match[2].length > 0) ? match[2] : false;
+const youtubeId = (url) => {
+  const matches = url.match(/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"'>]+)/);
+  return ((matches !== '' && matches !== null) ? matches[5] : '');
 };
 
-const videoParser = (videoUrl) => {
-  if (videoUrl.indexOf('youtu') !== -1) {
-    const videoId = youtubeParser(videoUrl);
-    return { type: 'youtube', videoId };
-  }
-
-  if (videoUrl.indexOf('vimeo') !== -1) {
-    const videoId = vimeoParser(videoUrl);
-    return { type: 'vimeo', videoId };
-  }
-
-  return false;
+const vimeoId = (url) => {
+  const matches = url.match(/http(s?):\/\/(www\.)?vimeo\.com\/(\d+)($|\/)/);
+  return ((matches !== '' && matches !== null) ? matches[3] : '');
 };
+
+const youkuId = (url) => {
+  const matches = url.match(/http(s?):\/\/v\.youku\.com\/v_show\/id_([A-Za-z0-9=]+)\.html/);
+  return ((matches !== '' && matches !== null) ? matches[2] : '');
+};
+
+const videoId = (url) => {
+  if (videoType(url) === 'youtube') return youtubeId(url);
+  if (videoType(url) === 'vimeo') return vimeoId(url);
+  if (videoType(url) === 'youku') return youkuId(url);
+};
+
+const VideoComponentType = {
+  youtube: YouTubeEmbed,
+  vimeo: VimeoEmbed,
+  youku: YoukuEmbed,
+}
 
 const EmbeddedVideo = ({ videoUrl }) => {
-  const video = videoParser(videoUrl);
+  const vType = videoType(videoUrl);
+  const vId = videoId(videoUrl);
+  const VideoComponent = VideoComponentType[vType];
 
-  if (video.type === 'youtube') {
-    return (
-      <iframe frameBorder="0" allowFullScreen="0" src={`https://youtube.com/embed/${video.videoId}`} className="content" />
-    );
-  }
-
-  if (video.type === 'vimeo') {
-    return (
-      <iframe frameBorder="0" allowFullScreen="0" src={`https://player.vimeo.com/video/${video.videoId}?color=ffffff&title=0&byline=0&portrait=0`} className="content" />
-    );
-  }
+  if (VideoComponent) { return <VideoComponent videoId={vId} /> }
 
   return null;
 };
