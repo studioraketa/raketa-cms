@@ -161,7 +161,7 @@ const SettingsDialog = ({
     fields = widget.adminFields(items, handleChangeField, localSettings)
   }
 
-  const { containerSettings } = localSettings
+  const { containerSettings = {} } = localSettings
 
   return (
     <Dialog
@@ -181,7 +181,7 @@ const SettingsDialog = ({
               <SelectMenu
                 label='Spacing'
                 options={spacings}
-                value={containerSettings.spacing}
+                value={containerSettings.spacing || ''}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('spacing', newValue)
                 }
@@ -191,7 +191,7 @@ const SettingsDialog = ({
               <SelectMenu
                 label='Theme'
                 options={themes}
-                value={containerSettings.theme}
+                value={containerSettings.theme || ''}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('theme', newValue)
                 }
@@ -200,7 +200,7 @@ const SettingsDialog = ({
             <Segment>
               <TextInput
                 label='Section ID'
-                value={containerSettings.sectionID}
+                value={containerSettings.sectionID || ''}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('sectionID', newValue)
                 }
