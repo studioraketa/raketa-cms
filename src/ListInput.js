@@ -1,12 +1,13 @@
 import React from 'react'
-import { RaketaUIProvider } from 'raketa-ui'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '@raketa-cms/raketa-mir'
 
 import List from './List'
 
 const ListInput = (props) => (
-  <RaketaUIProvider>
+  <ThemeProvider theme={theme}>
     <List {...props} />
-  </RaketaUIProvider>
+  </ThemeProvider>
 )
 
 export default ListInput

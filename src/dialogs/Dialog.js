@@ -1,5 +1,8 @@
 import React from 'react'
-import { Dialog } from 'raketa-ui'
+import styled from 'styled-components'
+import { Modal as UIModal, Button } from '@raketa-cms/raketa-mir'
+
+const ModalFooter = styled.div``
 
 const Modal = ({
   open,
@@ -9,22 +12,29 @@ const Modal = ({
   primaryLabel,
   secondaryLabel = 'Cancel',
   onPrimary,
+  onSecondary,
   width,
   dialogSize
 }) => (
-  <Dialog
-    open={open}
-    title={title}
-    primaryLabel={primaryLabel}
-    secondaryLabel={secondaryLabel}
-    width={width}
-    onClose={onClose}
-    onPrimary={onPrimary}
-    onSecondary={onClose}
-    dialogSize={dialogSize}
-  >
+  <UIModal open={open} title={title} onClose={onClose}>
     {children}
-  </Dialog>
+
+    {(primaryLabel || secondaryLabel) && (
+      <ModalFooter>
+        {primaryLabel && (
+          <Button type='button' variant='primary' onClick={onPrimary}>
+            {primaryLabel}
+          </Button>
+        )}
+
+        {secondaryLabel && (
+          <Button type='button' variant='secondary' onClick={onSecondary}>
+            {secondaryLabel}
+          </Button>
+        )}
+      </ModalFooter>
+    )}
+  </UIModal>
 )
 
 Modal.defaultProps = {

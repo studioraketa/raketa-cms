@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
-import { RaketaUIProvider } from 'raketa-ui'
+import { ThemeProvider } from 'styled-components'
+import { theme } from '@raketa-cms/raketa-mir'
 
 import { add, removeById, updateFieldById, randomString } from './lists'
 
@@ -177,7 +178,7 @@ const PageBuilder = ({
   }))
 
   return (
-    <RaketaUIProvider>
+    <ThemeProvider theme={theme}>
       <HostContext.Provider value={{ host }}>
         <LibraryContext.Provider value={library}>
           <div style={{ paddingLeft: '64px' }}>
@@ -224,7 +225,7 @@ const PageBuilder = ({
           </div>
         </LibraryContext.Provider>
       </HostContext.Provider>
-    </RaketaUIProvider>
+    </ThemeProvider>
   )
 }
 

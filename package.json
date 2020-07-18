@@ -53,6 +53,7 @@
     "dist"
   ],
   "dependencies": {
+    "@raketa-cms/raketa-mir": "^1.0.7",
     "prop-types": "^15.7.2",
     "raketa-ui": "^1.1.1-pre",
     "react-sortablejs": "^2.0.11"

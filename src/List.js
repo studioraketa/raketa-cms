@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { em, Button } from 'raketa-ui'
+import { Button } from '@raketa-cms/raketa-mir'
 
 import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
 
@@ -29,7 +29,7 @@ const IconDelete = () => (
 )
 
 const Item = styled.div`
-  margin-bottom: ${em(1)};
+  margin-bottom: ${(props) => props.theme.font.base};
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 3px;
 `
@@ -163,7 +163,7 @@ const List = ({
         </ReactSortable>
       )}
 
-      <Button type='button' sm success onClick={handleAdd}>
+      <Button type='button' size='sm' variant='success' onClick={handleAdd}>
         Add item
       </Button>
     </div>

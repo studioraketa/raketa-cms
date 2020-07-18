@@ -1,4 +1,4 @@
-import { RaketaUIProvider, Label, defaultTheme, FormControl } from 'raketa-ui'
+import { theme, Label, FormGroup } from '@raketa-cms/raketa-mir'
 
 import PageBuilder from './PageBuilder'
 import TextInput from './forms/TextInput'
@@ -40,8 +40,7 @@ export {
   ButtonSettings,
   LinkSettings,
   Link,
-  RaketaUIProvider,
   Label,
-  defaultTheme,
-  FormControl
+  theme,
+  FormGroup
 }

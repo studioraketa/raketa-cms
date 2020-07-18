@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Tabs } from 'raketa-ui'
+import { Tabs } from '@raketa-cms/raketa-mir'
 
 import TextArea from '../forms/TextArea'
 import RichText from '../forms/RichText'
