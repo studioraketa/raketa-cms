@@ -9,7 +9,7 @@ const ModalContent = styled.div`
 
 const ModalFooter = styled.div`
   padding-top: ${(props) => props.theme.font.base};
-  border-top: 1px solid ${(props) => props.theme.colors.gray};
+  border-top: 2px solid ${(props) => props.theme.colors.lightGray};
 `
 
 const Dialog = ({

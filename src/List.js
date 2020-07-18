@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { Button } from '@raketa-cms/raketa-mir'
+import { reset, Button } from '@raketa-cms/raketa-mir'
 
 import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
 
 const ListWrapper = styled.div`
+  ${reset};
   margin-bottom: ${(props) => props.theme.font.base};
 `
 
@@ -21,7 +22,11 @@ const Handle = (props) => (
     <img
       {...props}
       src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4='
-      style={{ width: '16px' }}
+      style={{
+        position: 'relative',
+        top: '3px',
+        width: '16px'
+      }}
     />
   </span>
 )
@@ -33,25 +38,33 @@ const IconDelete = () => (
 )
 
 const Item = styled.div`
+  ${reset};
   margin-bottom: ${(props) => props.theme.font.base};
   border: 1px solid ${(props) => props.theme.colors.gray};
-  border-radius: 3px;
+  border-radius: 5px;
 `
 
 const TitleWrapper = styled.div`
+  ${reset};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray};
+  padding: 8px;
   background-color: #efefef;
 `
 
 const ContentWrapper = styled.div`
+  ${reset};
   padding: 8px;
 `
 
 const ListButton = styled.button`
+  ${reset};
+  position: relative;
+  top: 2px;
   -webkit-appearance: none;
   padding: 0;
   margin: 0;
@@ -63,12 +76,9 @@ const ListButton = styled.button`
 `
 
 const Title = styled.span`
-  position: relative;
-  top: -3px;
-  margin-left: 2px;
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
+  ${reset};
+  margin-left: 0.5em;
+  font-weight: 700;
 `
 
 const List = ({
@@ -167,7 +177,7 @@ const List = ({
         </ReactSortable>
       )}
 
-      <Button type='button' size='sm' variant='success' onClick={handleAdd}>
+      <Button type='button' variant='success' onClick={handleAdd}>
         Add item
       </Button>
     </ListWrapper>

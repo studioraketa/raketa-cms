@@ -8,7 +8,7 @@
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
     "@raketa-cms/raketa-cms": "link:..",
-    "@raketa-cms/raketa-image-picker": "^1.2.0"
+    "@raketa-cms/raketa-image-picker": "^1.2.2"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
