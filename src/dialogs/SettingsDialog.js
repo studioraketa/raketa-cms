@@ -7,7 +7,7 @@ import RichText from '../forms/RichText'
 import TextInput from '../forms/TextInput'
 import SelectMenu from '../forms/SelectMenu'
 import ButtonSettings from '../forms/ButtonSettings'
-import { humanize } from '../helpers/humanize'
+import { humanize, capitalize } from '../helpers/humanize'
 import Dialog from './Dialog'
 import ImagePicker from '../pickers/ImagePicker/ImagePicker'
 
@@ -120,7 +120,7 @@ const renderField = (field, value, onChange, opts) => {
 const renderAdminFields = (widget, settings, onChange) =>
   Object.keys(widget.adminFields).map((field) => {
     const opts = Object.assign(
-      { label: humanize(field) },
+      { label: capitalize(humanize(field)) },
       widget.adminFields[field]
     )
     return renderField(field, settings[field], onChange, opts)

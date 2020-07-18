@@ -1,10 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Modal as UIModal, Button } from '@raketa-cms/raketa-mir'
+import { Modal, Button } from '@raketa-cms/raketa-mir'
 
-const ModalFooter = styled.div``
+const ModalContent = styled.div`
+  max-height: 85vh;
+  overflow-y: auto;
+`
 
-const Modal = ({
+const ModalFooter = styled.div`
+  padding-top: ${(props) => props.theme.font.base};
+  border-top: 1px solid ${(props) => props.theme.colors.gray};
+`
+
+const Dialog = ({
   open,
   onClose,
   title,
@@ -12,12 +20,11 @@ const Modal = ({
   primaryLabel,
   secondaryLabel = 'Cancel',
   onPrimary,
-  onSecondary,
   width,
   dialogSize
 }) => (
-  <UIModal open={open} title={title} onClose={onClose}>
-    {children}
+  <Modal open={open} title={title} onClose={onClose}>
+    <ModalContent>{children}</ModalContent>
 
     {(primaryLabel || secondaryLabel) && (
       <ModalFooter>
@@ -28,18 +35,18 @@ const Modal = ({
         )}
 
         {secondaryLabel && (
-          <Button type='button' variant='secondary' onClick={onSecondary}>
+          <Button type='button' variant='secondary' onClick={onClose}>
             {secondaryLabel}
           </Button>
         )}
       </ModalFooter>
     )}
-  </UIModal>
+  </Modal>
 )
 
-Modal.defaultProps = {
+Dialog.defaultProps = {
   children: [],
   dialogSize: ''
 }
 
-export default Modal
+export default Dialog

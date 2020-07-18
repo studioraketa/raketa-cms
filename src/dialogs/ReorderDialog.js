@@ -19,9 +19,9 @@ const ReorderDialogItem = styled.div`
   align-items: center;
   padding: ${(props) => `calc(${props.theme.font.base} / 2)`};
   margin-bottom: ${(props) => `calc(${props.theme.font.base} / 2)`};
-  border: 1px solid ${(props) => props.theme.buttonColor};
+  border: 1px solid ${(props) => props.theme.colors.gray};
   border-radius: 3px;
-  color: ${(props) => props.theme.sideNavColor};
+  color: ${(props) => props.theme.colors.black};
   cursor: move;
 
   h6 {
@@ -87,10 +87,9 @@ const ReorderDialog = ({
                   }}
                 />
                 <H
-                  size='large'
+                  size='base'
                   style={{
-                    display: 'inline-block',
-                    fontSize: '1em',
+                    paddingBottom: 0,
                     fontWeight: 500
                   }}
                 >

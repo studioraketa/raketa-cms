@@ -9051,11 +9051,6 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-raketa-ui@^1.1.1-pre:
-  version "1.1.1-pre"
-  resolved "https://registry.yarnpkg.com/raketa-ui/-/raketa-ui-1.1.1-pre.tgz#48ba31a09a3decb22e15938789160943d20fb130"
-  integrity sha512-J8g5rNsrwg2j9qEJTf3kD5LQQrOyjXlACd+ZF9rrWsgDSEJ1aVMtgsRPxhVZxSmjGl32CrmnejRTFTFG9d6g9g==
-
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"

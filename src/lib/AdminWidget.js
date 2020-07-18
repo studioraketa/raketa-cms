@@ -49,7 +49,7 @@ const AdminWidgetWrapper = styled.div`
   ${(props) => `
     &:hover {
       position: relative;
-      box-shadow: inset 0 0 0 1px ${props.theme.borderColor};
+      box-shadow: inset 0 0 0 1px ${props.theme.colors.gray};
 
       & > div[data-toolbar] { display: flex; }
     }
