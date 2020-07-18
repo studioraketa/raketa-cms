@@ -1,4 +1,6 @@
-import { RaketaUIProvider, Label, defaultTheme, FormControl } from 'raketa-ui'
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import { theme, Label, FormGroup } from '@raketa-cms/raketa-mir'
 
 import PageBuilder from './PageBuilder'
 import TextInput from './forms/TextInput'
@@ -20,6 +22,14 @@ import ButtonSettings from './forms/ButtonSettings'
 import LinkSettings from './forms/LinkSettings'
 import Link from './lib/Link'
 
+const RaketaUIProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+)
+
+RaketaUIProvider.defaultProps = {
+  theme: theme
+}
+
 export {
   PageBuilder,
   TextInput,
@@ -40,8 +50,8 @@ export {
   ButtonSettings,
   LinkSettings,
   Link,
-  RaketaUIProvider,
   Label,
-  defaultTheme,
-  FormControl
+  theme,
+  FormGroup,
+  RaketaUIProvider
 }

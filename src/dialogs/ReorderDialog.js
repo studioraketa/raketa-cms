@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { em, Title, Button } from 'raketa-ui'
+import { H, P, Button } from '@raketa-cms/raketa-mir'
 import Dialog from './Dialog'
 import LibraryContext from '../LibraryContext'
 
@@ -16,16 +17,16 @@ const ReorderDialogItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${em(0.5)};
-  margin-bottom: ${em(0.5)};
-  border: 1px solid ${(props) => props.theme.buttonColor};
+  padding: ${(props) => `calc(${props.theme.font.base} / 2)`};
+  margin-bottom: ${(props) => `calc(${props.theme.font.base} / 2)`};
+  border: 1px solid ${(props) => props.theme.colors.gray};
   border-radius: 3px;
-  color: ${(props) => props.theme.sideNavColor};
+  color: ${(props) => props.theme.colors.black};
   cursor: move;
 
   h6 {
     margin-bottom: 0;
-    margin-left: ${em(0.5)};
+    margin-left: ${(props) => `calc(${props.theme.font.base} / 2)`};
   }
 `
 
@@ -65,7 +66,7 @@ const ReorderDialog = ({
       primaryLabel=''
       secondaryLabel='Close'
     >
-      <p>Drag and drop elements below to reorder the page layout.</p>
+      <P>Drag and drop elements below to reorder the page layout.</P>
 
       <ReactSortable
         list={widgets}
@@ -85,22 +86,21 @@ const ReorderDialog = ({
                     marginRight: '.5em'
                   }}
                 />
-                <Title
-                  third
+                <H
+                  size='base'
                   style={{
-                    display: 'inline-block',
-                    fontSize: '1em',
+                    paddingBottom: 0,
                     fontWeight: 500
                   }}
                 >
                   {getWidgetTitle(library, widget)}
-                </Title>
+                </H>
               </div>
 
               <div>
                 <Button
                   type='button'
-                  primary
+                  variant='primary'
                   onClick={() => {
                     onClose()
                     onSelectWidget(widget)
@@ -111,7 +111,7 @@ const ReorderDialog = ({
 
                 <Button
                   type='button'
-                  danger
+                  variant='danger'
                   onClick={() => {
                     if (!confirm('Are you sure?')) return
                     onDelete(widget.widgetId)

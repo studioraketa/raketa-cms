@@ -1,19 +1,20 @@
 import styled from 'styled-components'
-import { em, reset, resetButton } from 'raketa-ui'
+import { reset, buttonReset } from '@raketa-cms/raketa-mir'
 
 export const SidebarItem = styled.button`
+  ${reset}
+  ${buttonReset}
   position: relative;
-  ${reset()}
-  ${resetButton()}
   background-color: transparent;
   width: 100%;
-  margin-bottom: ${em(1)};
-  font-size: ${em(1)};
+  padding: 0;
+  margin-bottom: ${(props) => props.theme.font.base};
+  font-size: ${(props) => props.theme.font.base};
   color: #999;
   text-align: left;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    color: ${(props) => props.theme.whiteColor};
+    color: ${(props) => props.theme.colors.white};
   }
 `

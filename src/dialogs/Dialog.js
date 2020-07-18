@@ -1,7 +1,18 @@
 import React from 'react'
-import { Dialog } from 'raketa-ui'
+import styled from 'styled-components'
+import { Modal, Button } from '@raketa-cms/raketa-mir'
 
-const Modal = ({
+const ModalContent = styled.div`
+  max-height: 85vh;
+  overflow-y: auto;
+`
+
+const ModalFooter = styled.div`
+  padding-top: ${(props) => props.theme.font.base};
+  border-top: 1px solid ${(props) => props.theme.colors.gray};
+`
+
+const Dialog = ({
   open,
   onClose,
   title,
@@ -12,24 +23,30 @@ const Modal = ({
   width,
   dialogSize
 }) => (
-  <Dialog
-    open={open}
-    title={title}
-    primaryLabel={primaryLabel}
-    secondaryLabel={secondaryLabel}
-    width={width}
-    onClose={onClose}
-    onPrimary={onPrimary}
-    onSecondary={onClose}
-    dialogSize={dialogSize}
-  >
-    {children}
-  </Dialog>
+  <Modal open={open} title={title} onClose={onClose}>
+    <ModalContent>{children}</ModalContent>
+
+    {(primaryLabel || secondaryLabel) && (
+      <ModalFooter>
+        {primaryLabel && (
+          <Button type='button' variant='primary' onClick={onPrimary}>
+            {primaryLabel}
+          </Button>
+        )}
+
+        {secondaryLabel && (
+          <Button type='button' variant='secondary' onClick={onClose}>
+            {secondaryLabel}
+          </Button>
+        )}
+      </ModalFooter>
+    )}
+  </Modal>
 )
 
-Modal.defaultProps = {
+Dialog.defaultProps = {
   children: [],
   dialogSize: ''
 }
 
-export default Modal
+export default Dialog

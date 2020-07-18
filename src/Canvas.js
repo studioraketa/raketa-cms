@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Title, Text } from 'raketa-ui'
+import { H, P } from '@raketa-cms/raketa-mir'
 
 import { ReactSortable } from 'react-sortablejs'
 import AdminWidget from './lib/AdminWidget'
@@ -22,8 +22,8 @@ const Canvas = React.memo(
       return (
         <EmptyCanvas>
           <div>
-            <Title primary>It's always good to start with a clean slate.</Title>
-            <Text>Use the sidebar to add content.</Text>
+            <H size='xxlarge'>It's always good to start with a clean slate.</H>
+            <P>Use the sidebar to add content.</P>
           </div>
         </EmptyCanvas>
       )

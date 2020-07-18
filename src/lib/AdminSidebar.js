@@ -1,11 +1,11 @@
 import React from 'react'
+import { H } from '@raketa-cms/raketa-mir'
 
 import {
   SideNav,
   NavItem,
   NavButton,
   NavPanel,
-  NavSectionTitle,
   SideNavSearchWrapper
 } from '../lib/SideNav'
 
@@ -64,7 +64,9 @@ const AdminSidebar = ({
 
         {widgetsCategories.map((categoryName, idx) => (
           <div key={idx} style={{ marginBottom: '25px' }}>
-            <NavSectionTitle secondary>{categoryName}</NavSectionTitle>
+            <H size='medium' style={{ color: '#fff' }}>
+              {categoryName}
+            </H>
 
             {widgets
               .filter(
@@ -94,7 +96,9 @@ const AdminSidebar = ({
       <NavItem>
         <NavButton icon='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSIyMnB4IiBoZWlnaHQ9IjIycHgiIHZpZXdCb3g9IjAgMCAyMiAyMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5wbHVzLWNpcmNsZTwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJwbHVzLWNpcmNsZSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4gICAgICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEuMDAwMDAwLCAxLjAwMDAwMCkiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyIj4gICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsIiBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiPjwvY2lyY2xlPiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMCw2IEwxMCwxNCIgaWQ9IlNoYXBlIj48L3BhdGg+ICAgICAgICAgICAgPHBhdGggZD0iTTYsMTAgTDE0LDEwIiBpZD0iU2hhcGUiPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==' />
         <NavPanel>
-          <NavSectionTitle>Library</NavSectionTitle>
+          <H size='large' style={{ color: '#fff' }}>
+            Library
+          </H>
           {renderWidgets()}
         </NavPanel>
       </NavItem>

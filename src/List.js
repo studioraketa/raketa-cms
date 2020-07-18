@@ -1,9 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { em, Button } from 'raketa-ui'
+import { Button } from '@raketa-cms/raketa-mir'
 
 import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
+
+const ListWrapper = styled.div`
+  margin-bottom: ${(props) => props.theme.font.base};
+`
 
 const Handle = (props) => (
   <span
@@ -29,8 +33,8 @@ const IconDelete = () => (
 )
 
 const Item = styled.div`
-  margin-bottom: ${em(1)};
-  border: 1px solid ${(props) => props.theme.borderColor};
+  margin-bottom: ${(props) => props.theme.font.base};
+  border: 1px solid ${(props) => props.theme.colors.gray};
   border-radius: 3px;
 `
 
@@ -39,7 +43,7 @@ const TitleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 8px;
-  border-bottom: 1px solid ${(props) => props.theme.borderColor};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   background-color: #efefef;
 `
 
@@ -119,7 +123,7 @@ const List = ({
   }
 
   return (
-    <div>
+    <ListWrapper>
       {!items && <h4>There are no items yet.</h4>}
 
       {items && (
@@ -163,10 +167,10 @@ const List = ({
         </ReactSortable>
       )}
 
-      <Button type='button' sm success onClick={handleAdd}>
+      <Button type='button' size='sm' variant='success' onClick={handleAdd}>
         Add item
       </Button>
-    </div>
+    </ListWrapper>
   )
 }
 

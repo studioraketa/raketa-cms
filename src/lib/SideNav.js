@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { reset, resetButton, em } from 'raketa-ui'
+import { reset, buttonReset } from '@raketa-cms/raketa-mir'
 
 export const SideNav = styled.div`
-  ${reset()}
+  ${reset}
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10,9 +10,9 @@ export const SideNav = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: ${em(4)};
-  background-color: ${(props) => props.theme.sideNavColor};
-  border-right: 1px solid ${(props) => props.theme.sideNavBorderColor};
+  width: 64px;
+  background-color: ${(props) => props.theme.colors.black};
+  border-right: 1px solid ${(props) => props.theme.colors.darkerGray};
   z-index: 10;
 `
 
@@ -22,7 +22,7 @@ export const NavItem = styled.div`
       ? `
     position: absolute;
     bottom: 0;
-    border-top: 1px solid #444;
+    border-top: 1px solid ${props.theme.colors.darkerGray};
   `
       : ''}
   z-index: 10;
@@ -33,57 +33,51 @@ export const NavItem = styled.div`
 `
 
 export const NavButton = styled.button`
-  ${reset()}
-  ${resetButton()}
+  ${reset}
+  ${buttonReset}
   display: block;
-  font-size: ${em(1.2)};
-  color: ${(props) => props.theme.whiteColor};
+  font-size: ${(props) => props.theme.font.medium};
+  color: ${(props) => props.theme.colors.white};
   background-repeat: no-repeat;
   background-position: center;
   background-color: ${(props) =>
     props.active
-      ? props.theme.sideNavBorderColor
+      ? props.theme.colors.darkerGray
       : props.success
-      ? props.theme.successColor
+      ? props.theme.colors.success
       : 'transparent'};
   ${(props) => (props.icon ? `background-image: url("${props.icon}");` : '')}
-  width: ${em(4)};
-  height: ${em(4)};
-  border-bottom: 1px solid ${(props) => props.theme.sideNavBorderColor};
+  width: 64px;
+  height: 64px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.darkerGray};
   z-index: 12;
 
   &:hover {
     background-color: ${(props) =>
       props.success
-        ? props.theme.successColor
-        : props.theme.sideNavBorderColor};
+        ? props.theme.colors.success
+        : props.theme.colors.darkerGray};
   }
 
-  &:active { opacity: .9; }
+  &:active {
+    opacity: 0.9;
+  }
 `
 
 export const NavPanel = styled.div`
-  ${reset()}
+  ${reset}
   display: none;
   position: fixed;
   top: 0;
   bottom: 0;
-  left: ${em(4)};
-  width: ${em(20)};
-  padding: ${em(2)};
+  left: 64px;
+  width: 300px;
+  padding: ${(props) => `calc(${props.theme.font.base} * 2)`};
   background-color: rgba(0, 0, 0, 0.9);
-  color: ${(props) => props.theme.whiteColor};
-  backdrop-filter: blur(${em(0.5)});
+  color: ${(props) => props.theme.colors.white};
+  backdrop-filter: blur(8px);
   overflow-y: auto;
   z-index: 11;
-`
-
-export const NavSectionTitle = styled.h2`
-  ${reset()}
-  margin-bottom: ${em(1.5)};
-  font-size: ${(props) => (props.secondary ? em(1.333) : em(1.777))};
-  font-weight: 300;
-  color: ${(props) => props.theme.whiteColor};
 `
 
 export const NavSectionMenu = styled.div`
@@ -92,47 +86,42 @@ export const NavSectionMenu = styled.div`
 `
 
 export const NavSectionMenuItem = styled.button`
-  ${reset()}
-  ${resetButton()}
+  ${reset}
+  ${buttonReset}
   display: block;
   width: 100%;
-  padding-bottom: ${em(0.5)};
-  margin-bottom: ${em(0.5)};
-  font-size: ${em(1.333)};
+  padding-bottom: ${(props) => `calc(${props.theme.font.base} / 2)`};
+  margin-bottom: ${(props) => `calc(${props.theme.font.base} / 2)`};
+  font-size: ${(props) => props.theme.font.medium};
   font-weight: 300;
   text-align: left;
-  color: ${(props) => props.theme.whiteColor};
-  border-bottom: 1px solid ${(props) => props.theme.sideNavBorderColor};
+  color: ${(props) => props.theme.colors.white};
+  border-bottom: 1px solid ${(props) => props.theme.colors.darkerGray};
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    padding-left: ${em(0.5)};
+    padding-left: ${(props) => `calc(${props.theme.font.base} / 2)`};
   }
-`
-
-export const SideNavSpacer = styled.div`
-  ${reset()}
-  height: ${(props) => em(4 * props.size)};
-  border-bottom: 1px solid ${(props) => props.theme.sideNavBorderColor};
 `
 
 export const SideNavSearchWrapper = styled.div`
   position: relative;
-  height: ${em(3.125)};
-  margin-bottom: ${em(1)};
+  height: ${(props) => `calc(${props.theme.font.base} * 3.125)`};
+  margin-bottom: ${(props) => props.theme.font.base};
 
   input:not([type]) {
     position: absolute;
     top: 0;
-    right: ${em(-2)};
-    left: ${em(-2)};
+    right: ${(props) => `calc(${props.theme.font.base} * -2)`};
+    left: ${(props) => `calc(${props.theme.font.base} * -2)`};
     bottom: 0;
     width: 125%;
-    padding-left: ${em(2)};
-    padding-right: ${em(2)};
-    font-size: ${em(1.2)};
+    padding-left: ${(props) => `calc(${props.theme.font.base} * 2)`};
+    padding-right: ${(props) => `calc(${props.theme.font.base} * 2)`};
+    font-size: ${(props) => props.theme.font.medium};
     border: 0 !important;
     border-radius: 0;
-    color: ${(props) => props.theme.whiteColor};
+    background-color: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.white};
   }
 `

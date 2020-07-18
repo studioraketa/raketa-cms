@@ -1,15 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-import { em, reset } from 'raketa-ui'
+import { reset } from '@raketa-cms/raketa-mir'
 
 import TextInput from './TextInput'
 import SelectMenu from './SelectMenu'
 
 const SettingsIcon = styled.span`
   display: inline-block;
-  width: ${em(1)};
-  height: ${em(1)};
-  margin-right: ${em(0.5)};
+  width: ${(props) => props.theme.font.base};
+  height: ${(props) => props.theme.font.base};
+  margin-right: ${(props) => `calc(${props.theme.font.base} / 2)`};
   background-size: 100% auto;
   background-repeat: none;
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItc2xpZGVycyI+PGxpbmUgeDE9IjQiIHkxPSIyMSIgeDI9IjQiIHkyPSIxNCI+PC9saW5lPjxsaW5lIHgxPSI0IiB5MT0iMTAiIHgyPSI0IiB5Mj0iMyI+PC9saW5lPjxsaW5lIHgxPSIxMiIgeTE9IjIxIiB4Mj0iMTIiIHkyPSIxMiI+PC9saW5lPjxsaW5lIHgxPSIxMiIgeTE9IjgiIHgyPSIxMiIgeTI9IjMiPjwvbGluZT48bGluZSB4MT0iMjAiIHkxPSIyMSIgeDI9IjIwIiB5Mj0iMTYiPjwvbGluZT48bGluZSB4MT0iMjAiIHkxPSIxMiIgeDI9IjIwIiB5Mj0iMyI+PC9saW5lPjxsaW5lIHgxPSIxIiB5MT0iMTQiIHgyPSI3IiB5Mj0iMTQiPjwvbGluZT48bGluZSB4MT0iOSIgeTE9IjgiIHgyPSIxNSIgeTI9IjgiPjwvbGluZT48bGluZSB4MT0iMTciIHkxPSIxNiIgeDI9IjIzIiB5Mj0iMTYiPjwvbGluZT48L3N2Zz4=);
@@ -17,12 +17,12 @@ const SettingsIcon = styled.span`
 }`
 
 const ThreeColumns = styled.div`
-  ${reset()}
+  ${reset}
   display: flex;
 
   & > div {
     width: 33.33%;
-    padding-right: ${em(1)};
+    padding-right: ${(props) => props.theme.font.base};
 
     &:last-child {
       padding-right: 0;
@@ -37,30 +37,22 @@ const ThreeColumns = styled.div`
 `
 
 const FormSectionTitle = styled.h6`
-  ${reset()}
+  ${reset}
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: ${em(0.5)};
-  font-size: ${em(0.8)};
+  margin-bottom: ${(props) => `calc(${props.theme.font.base} / 2)`};
+  font-size: ${(props) => props.theme.font.small};
   text-transform: uppercase;
   font-weight: bold;
 `
 
-const ButtonSubLine = styled.div`
-  ${reset()}
-
-  & > div {
-    margin-bottom: 0;
-  }
-`
-
 const ButtonControl = styled.div`
-  ${reset()}
+  ${reset}
   margin-bottom: 0;
 
   & + div {
-    margin-top: ${em(1)};
+    margin-top: ${(props) => props.theme.font.base};
   }
 `
 

@@ -1,15 +1,7 @@
 import React from 'react'
-import { TextField } from 'raketa-ui'
+import TextInput from './TextInput'
 
-const TextArea = ({ label, onChange, value, placeholder }) => (
-  <TextField
-    multiline
-    label={label}
-    value={value}
-    placeholder={placeholder}
-    onChange={onChange}
-  />
-)
+const TextArea = (props) => <TextInput multiline {...props} />
 
 TextArea.defaultProps = {
   value: '',
