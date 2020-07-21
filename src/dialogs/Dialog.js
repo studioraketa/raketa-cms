@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Modal, Button } from '@raketa-cms/raketa-mir'
 
 const ModalContent = styled.div`
-  max-height: 85vh;
+  max-height: 75vh;
   overflow-y: auto;
 `
 

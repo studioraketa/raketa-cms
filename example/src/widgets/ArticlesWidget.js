@@ -3,6 +3,7 @@ import {
   Container,
   List,
   TextInput,
+  TextArea,
   SelectMenu,
   LinkSettings,
   Img
@@ -43,11 +44,15 @@ ArticlesWidget.defaults = {
     {
       id: 1,
       title: 'Title',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
       image: 'http://placehold.it/400x300'
     },
     {
       id: 2,
       title: 'Title',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
       image: 'http://placehold.it/400x300'
     }
   ],
@@ -66,6 +71,13 @@ const ListItem = ({ settings, onChangeItem }) => (
       label='Title'
       onChange={(value) => onChangeItem('title', value)}
       value={settings.title}
+    />
+
+    <TextArea
+      label='Description'
+      hint='Keep it brief – 1 or 2 sentences'
+      onChange={(value) => onChangeItem('description', value)}
+      value={settings.description}
     />
   </div>
 )

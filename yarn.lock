@@ -1277,10 +1277,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@raketa-cms/raketa-mir@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.0.tgz#055bf59d9d6fd9eb799861f4eb46db3dab77b646"
-  integrity sha512-K2R0Ha/sGTpX3zLQYTFtDBJFYgxF9q03hLDId8QhndLqJcXCe/Arz6/vFLhcKl2wg3bETfIe3yK1oFLxm1mNcw==
+"@raketa-cms/raketa-mir@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.1.tgz#536fe43f590207d78a22b930c674f58937280444"
+  integrity sha512-FGlCz7Eu3EHpSiSEaTBPaLjXTERh+U50vkRObCGzrV3siuIRc6K0hcdnS+UlEauge3LZ/ri35M0wxPRAXC8bHg==
 
 "@rollup/plugin-alias@^3.0.1":
   version "3.1.0"

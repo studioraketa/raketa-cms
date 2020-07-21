@@ -1,46 +1,27 @@
 import React from 'react'
-import { FormGroup, Label, Input, Textarea, P } from '@raketa-cms/raketa-mir'
+import { FormGroup, Label, Input, Textarea, Hint } from '@raketa-cms/raketa-mir'
 import { randomString } from '../lists'
 
-const TextField = (props) => {
+const TextField = ({ label, hint, multiline, error, onChange, ...rest }) => {
   const id = randomString()
-  const { label, hint, multiline, onChange } = props
-
-  const inputProps = Object.assign({}, props)
-  delete inputProps.label
-  delete inputProps.hint
-  delete inputProps.multiline
-  delete inputProps.onChange
-
   const Component = multiline ? Textarea : Input
 
   return (
     <FormGroup>
       {label ? (
-        <Label htmlFor={id} error={props.error}>
+        <Label htmlFor={id} error={error}>
           {label}
         </Label>
       ) : (
         ''
       )}
-      <Component
-        id={id}
-        onChange={(e) => onChange(e.target.value)}
-        {...inputProps}
-      />
-      {hint ? <P>{hint}</P> : ''}
+      <Component id={id} onChange={(e) => onChange(e.target.value)} {...rest} />
+      {hint ? <Hint>{hint}</Hint> : ''}
     </FormGroup>
   )
 }
 
-const TextInput = ({ label, onChange, value, placeholder }) => (
-  <TextField
-    label={label}
-    value={value}
-    placeholder={placeholder}
-    onChange={onChange}
-  />
-)
+const TextInput = (props) => <TextField {...props} />
 
 TextInput.defaultProps = {
   value: '',

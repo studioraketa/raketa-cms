@@ -30,7 +30,7 @@ SectionTitleWidget.adminFields = {
       ['text-left', 'Left']
     ]
   },
-  title: { type: 'text' }
+  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' }
 }
 
 export default SectionTitleWidget

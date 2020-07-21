@@ -31,6 +31,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -42,6 +43,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -53,6 +55,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -65,6 +68,7 @@ const renderField = (field, value, onChange, opts) => {
           options={opts.options}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -76,6 +80,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -87,6 +92,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }
@@ -100,6 +106,7 @@ const renderField = (field, value, onChange, opts) => {
           label={opts.label}
           value={value}
           onChange={handleChange}
+          {...opts}
         />
       )
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormGroup, Label, Select, P } from '@raketa-cms/raketa-mir'
+import { FormGroup, Label, Select, Hint } from '@raketa-cms/raketa-mir'
 import { randomString } from '../lists'
 
 const getOptions = (options, placeholder) => {
@@ -46,7 +46,7 @@ const SelectField = (props) => {
           </option>
         ))}
       </Select>
-      {hint ? <P>{hint}</P> : ''}
+      {hint ? <Hint>{hint}</Hint> : ''}
     </FormGroup>
   )
 }
