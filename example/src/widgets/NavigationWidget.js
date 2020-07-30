@@ -57,11 +57,14 @@ NavigationItem.defaultProps = {
 NavigationWidget.adminFields = (items, onChange, settings) => (
   <div>
     <List
+      label='Navigation items'
+      primaryField='title'
       listItem={(settings, onChangeItem) => (
         <NavigationItem settings={settings} onChangeItem={onChangeItem} />
       )}
       onChangeList={onChange}
       items={items}
+      template={{ title: 'Title', link: '#' }}
     />
   </div>
 )

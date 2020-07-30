@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { reset, Button } from '@raketa-cms/raketa-mir'
+import { reset, Button, P, H } from '@raketa-cms/raketa-mir'
 
 import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
 
@@ -30,6 +30,7 @@ const Handle = (props) => (
     />
   </span>
 )
+
 const IconDelete = () => (
   <img
     src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItdHJhc2giPjxwb2x5bGluZSBwb2ludHM9IjMgNiA1IDYgMjEgNiI+PC9wb2x5bGluZT48cGF0aCBkPSJNMTkgNnYxNGEyIDIgMCAwIDEtMiAySDdhMiAyIDAgMCAxLTItMlY2bTMgMFY0YTIgMiAwIDAgMSAyLTJoNGEyIDIgMCAwIDEgMiAydjIiPjwvcGF0aD48L3N2Zz4='
@@ -37,7 +38,21 @@ const IconDelete = () => (
   />
 )
 
-const Item = styled.div`
+const IconMaximize = () => (
+  <img
+    src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZXZyb24tZG93biI+PHBvbHlsaW5lIHBvaW50cz0iNiA5IDEyIDE1IDE4IDkiPjwvcG9seWxpbmU+PC9zdmc+'
+    style={{ width: '16px' }}
+  />
+)
+
+const IconMinimize = () => (
+  <img
+    src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZXZyb24tdXAiPjxwb2x5bGluZSBwb2ludHM9IjE4IDE1IDEyIDkgNiAxNSI+PC9wb2x5bGluZT48L3N2Zz4='
+    style={{ width: '16px' }}
+  />
+)
+
+const ItemWrapper = styled.div`
   ${reset};
   margin-bottom: ${(props) => props.theme.font.base};
   border: 1px solid ${(props) => props.theme.colors.gray};
@@ -81,7 +96,54 @@ const Title = styled.span`
   font-weight: 700;
 `
 
+const Item = ({
+  idx,
+  items,
+  item,
+  primaryField,
+  template,
+  handleRemove,
+  handleChangeField,
+  listItem
+}) => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <ItemWrapper>
+      <TitleWrapper>
+        <div>
+          <Handle />
+          <Title>{primaryField ? item[primaryField] : `Item ${idx + 1}`}</Title>
+        </div>
+
+        <div>
+          <ListButton type='button' danger onClick={() => setOpen(!open)}>
+            {open ? <IconMinimize /> : <IconMaximize />}
+          </ListButton>
+
+          {(template || (!template && items.length !== 1)) && (
+            <ListButton type='button' danger onClick={() => handleRemove(idx)}>
+              <IconDelete />
+            </ListButton>
+          )}
+        </div>
+      </TitleWrapper>
+
+      {open && (
+        <ContentWrapper>
+          {listItem(
+            item,
+            (field, value) => handleChangeField(idx, field, value),
+            idx
+          )}
+        </ContentWrapper>
+      )}
+    </ItemWrapper>
+  )
+}
+
 const List = ({
+  label,
   items: defaultItems,
   listItem,
   template,
@@ -132,9 +194,18 @@ const List = ({
     notifyChange(newItems)
   }
 
+  if (!primaryField) console.warn('No primaryField provided for a list', items)
+  if (!label) console.warn('No label provided for a list', items)
+
   return (
     <ListWrapper>
-      {!items && <h4>There are no items yet.</h4>}
+      {label && (
+        <H size='base' style={{ fontWeight: 700 }}>
+          {label}
+        </H>
+      )}
+
+      {items.length === 0 && <P>There are no items yet.</P>}
 
       {items && (
         <ReactSortable
@@ -145,34 +216,18 @@ const List = ({
           dragoverBubble
         >
           {items.map((item, idx) => (
-            <Item key={item.id} data-id={idx}>
-              <TitleWrapper>
-                <div>
-                  <Handle />
-                  <Title>
-                    {primaryField ? item[primaryField] : `Item ${idx + 1}`}
-                  </Title>
-                </div>
-
-                {(template || (!template && items.length !== 1)) && (
-                  <ListButton
-                    type='button'
-                    danger
-                    onClick={() => handleRemove(idx)}
-                  >
-                    <IconDelete />
-                  </ListButton>
-                )}
-              </TitleWrapper>
-
-              <ContentWrapper>
-                {listItem(
-                  item,
-                  (field, value) => handleChangeField(idx, field, value),
-                  idx
-                )}
-              </ContentWrapper>
-            </Item>
+            <Item
+              key={item.id}
+              data-id={idx}
+              idx={idx}
+              items={items}
+              item={item}
+              primaryField={primaryField}
+              template={template}
+              handleRemove={handleRemove}
+              handleChangeField={handleChangeField}
+              listItem={listItem}
+            />
           ))}
         </ReactSortable>
       )}
