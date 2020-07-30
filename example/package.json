@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@raketa-cms/raketa-cms": "link:..",
+    "@raketa-cms/raketa-image-picker": "^1.2.2",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
-    "react-scripts": "link:../node_modules/react-scripts",
-    "@raketa-cms/raketa-cms": "link:..",
-    "@raketa-cms/raketa-image-picker": "^1.2.2"
+    "react-scripts": "link:../node_modules/react-scripts"
   },
   "scripts": {
     "start": "node ../node_modules/react-scripts/bin/react-scripts.js start",
