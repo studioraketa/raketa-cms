@@ -23,6 +23,56 @@ const sortByTitle = (a, b) => {
   return 0
 }
 
+const WidgetsList = ({ library, onAddWidget }) => {
+  const [q, setQ] = React.useState('')
+
+  const widgets = Object.keys(library)
+    .filter((widgetName) => !library[widgetName].deprecated)
+    .filter((widgetName) => {
+      return (
+        library[widgetName].title.toLowerCase().indexOf(q.toLowerCase()) !== -1
+      )
+    })
+
+  const widgetsCategories = widgets
+    .map((widgetName) => library[widgetName].category)
+    .filter((c, idx, self) => self.indexOf(c) === idx)
+
+  return (
+    <div>
+      <SideNavSearchWrapper>
+        <TextInput value={q} onChange={setQ} placeholder='Search...' />
+      </SideNavSearchWrapper>
+
+      {widgetsCategories.map((categoryName, idx) => (
+        <div key={idx} style={{ marginBottom: '25px' }}>
+          <H size='medium' style={{ color: '#fff' }}>
+            {categoryName}
+          </H>
+
+          {widgets
+            .filter(
+              (widgetName) => library[widgetName].category === categoryName
+            )
+            .map((widgetName) => ({
+              widgetName,
+              widgetTitle: library[widgetName].title
+            }))
+            .sort(sortByTitle)
+            .map((item, idx) => (
+              <SidebarItem
+                key={idx}
+                onClick={() => onAddWidget(item.widgetName)}
+              >
+                {item.widgetTitle}
+              </SidebarItem>
+            ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const AdminSidebar = ({
   identifier,
   dirty,
@@ -34,61 +84,11 @@ const AdminSidebar = ({
   onExit
 }) => {
   const library = React.useContext(LibraryContext)
-  const [q, setQ] = React.useState('')
 
   const handlePasteWidget = () => {
     window.localStorage.getItem(`clipboard–${identifier}`)
 
     onPasteWidget()
-  }
-
-  const renderWidgets = () => {
-    const widgets = Object.keys(library)
-      .filter((widgetName) => !library[widgetName].deprecated)
-      .filter((widgetName) => {
-        return (
-          library[widgetName].title.toLowerCase().indexOf(q.toLowerCase()) !==
-          -1
-        )
-      })
-
-    const widgetsCategories = widgets
-      .map((widgetName) => library[widgetName].category)
-      .filter((c, idx, self) => self.indexOf(c) === idx)
-
-    return (
-      <div>
-        <SideNavSearchWrapper>
-          <TextInput value={q} onChange={setQ} placeholder='Search...' />
-        </SideNavSearchWrapper>
-
-        {widgetsCategories.map((categoryName, idx) => (
-          <div key={idx} style={{ marginBottom: '25px' }}>
-            <H size='medium' style={{ color: '#fff' }}>
-              {categoryName}
-            </H>
-
-            {widgets
-              .filter(
-                (widgetName) => library[widgetName].category === categoryName
-              )
-              .map((widgetName) => ({
-                widgetName,
-                widgetTitle: library[widgetName].title
-              }))
-              .sort(sortByTitle)
-              .map((item, idx) => (
-                <SidebarItem
-                  key={idx}
-                  onClick={() => onAddWidget(item.widgetName)}
-                >
-                  {item.widgetTitle}
-                </SidebarItem>
-              ))}
-          </div>
-        ))}
-      </div>
-    )
   }
 
   return (
@@ -99,7 +99,8 @@ const AdminSidebar = ({
           <H size='large' style={{ color: '#fff' }}>
             Library
           </H>
-          {renderWidgets()}
+
+          <WidgetsList library={library} onAddWidget={onAddWidget} />
         </NavPanel>
       </NavItem>
       <NavItem>
