@@ -36,7 +36,6 @@ const ArticlesWidget = ({ variant, list, containerSettings }) => (
 
 ArticlesWidget.title = 'Articles'
 ArticlesWidget.category = 'Feeds'
-ArticlesWidget.dialogSize = 'large'
 
 ArticlesWidget.defaults = {
   variant: 'col-6',

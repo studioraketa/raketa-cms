@@ -19,9 +19,7 @@ const Dialog = ({
   children,
   primaryLabel,
   secondaryLabel = 'Cancel',
-  onPrimary,
-  width,
-  dialogSize
+  onPrimary
 }) => (
   <Modal open={open} title={title} onClose={onClose}>
     <ModalContent>{children}</ModalContent>
@@ -45,8 +43,7 @@ const Dialog = ({
 )
 
 Dialog.defaultProps = {
-  children: [],
-  dialogSize: ''
+  children: []
 }
 
 export default Dialog

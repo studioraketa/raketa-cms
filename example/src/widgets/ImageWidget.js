@@ -21,8 +21,6 @@ const ImageWidget = ({ variant, image, description, containerSettings }) => (
 
 ImageWidget.title = 'Image'
 ImageWidget.category = 'General'
-// ImageWidget.primaryField = 'description';
-ImageWidget.dialogSize = 'large'
 
 ImageWidget.defaults = {
   variant: 'col-12',

@@ -4,6 +4,8 @@ import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
 import LIBRARY from './widgets'
 import IMAGES from './IMAGES'
 
+const ADMIN_LIBRARY = LIBRARY
+
 class FakeMediaManager {
   findAll(callback, params = {}) {
     return callback(IMAGES)
@@ -45,6 +47,7 @@ const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
         <PageBuilder
           host={host}
           library={LIBRARY}
+          adminLibrary={ADMIN_LIBRARY}
           themes={THEMES}
           page={page}
           onChange={handleChange}

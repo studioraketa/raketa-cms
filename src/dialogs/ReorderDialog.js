@@ -56,7 +56,7 @@ const ReorderDialog = ({
   onDelete,
   onSelectWidget
 }) => {
-  const library = React.useContext(LibraryContext)
+  const { library } = React.useContext(LibraryContext)
 
   return (
     <Dialog

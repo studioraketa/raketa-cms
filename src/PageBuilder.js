@@ -29,6 +29,7 @@ const usePreventWindowUnload = (preventDefault) => {
 const PageBuilder = ({
   page: initialPage,
   library,
+  adminLibrary,
   spacings,
   themes,
   navigation,
@@ -180,7 +181,7 @@ const PageBuilder = ({
   return (
     <ThemeProvider theme={theme}>
       <HostContext.Provider value={{ host }}>
-        <LibraryContext.Provider value={library}>
+        <LibraryContext.Provider value={{ library, adminLibrary }}>
           <div style={{ paddingLeft: '64px' }}>
             {reorderOpen && (
               <ReorderDialog

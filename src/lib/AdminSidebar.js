@@ -83,7 +83,7 @@ const AdminSidebar = ({
   onSave,
   onExit
 }) => {
-  const library = React.useContext(LibraryContext)
+  const { library } = React.useContext(LibraryContext)
 
   const handlePasteWidget = () => {
     window.localStorage.getItem(`clipboard–${identifier}`)

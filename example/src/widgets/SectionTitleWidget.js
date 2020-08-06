@@ -14,7 +14,6 @@ const SectionTitleWidget = ({ align, title, containerSettings }) => (
 SectionTitleWidget.title = 'Section title'
 SectionTitleWidget.category = 'General'
 SectionTitleWidget.primaryField = 'title'
-SectionTitleWidget.dialogSize = 'large'
 
 SectionTitleWidget.defaults = {
   align: 'text-center',
