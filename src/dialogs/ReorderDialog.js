@@ -56,7 +56,7 @@ const ReorderDialog = ({
   onDelete,
   onSelectWidget
 }) => {
-  const { library } = React.useContext(LibraryContext)
+  const { adminLibrary } = React.useContext(LibraryContext)
 
   return (
     <Dialog
@@ -93,7 +93,7 @@ const ReorderDialog = ({
                     fontWeight: 500
                   }}
                 >
-                  {getWidgetTitle(library, widget)}
+                  {getWidgetTitle(adminLibrary, widget)}
                 </H>
               </div>
 

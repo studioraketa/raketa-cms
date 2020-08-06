@@ -83,7 +83,7 @@ const AdminSidebar = ({
   onSave,
   onExit
 }) => {
-  const { library } = React.useContext(LibraryContext)
+  const { adminLibrary } = React.useContext(LibraryContext)
 
   const handlePasteWidget = () => {
     window.localStorage.getItem(`clipboard–${identifier}`)
@@ -100,7 +100,7 @@ const AdminSidebar = ({
             Library
           </H>
 
-          <WidgetsList library={library} onAddWidget={onAddWidget} />
+          <WidgetsList library={adminLibrary} onAddWidget={onAddWidget} />
         </NavPanel>
       </NavItem>
       <NavItem>

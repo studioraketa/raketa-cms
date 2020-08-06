@@ -21,7 +21,7 @@ const colors = {
 }
 
 const IconButton = (props) => (
-  <div
+  <button
     type='button'
     style={{
       display: 'inline-block',

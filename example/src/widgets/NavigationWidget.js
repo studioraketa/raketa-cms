@@ -15,25 +15,6 @@ const NavigationWidget = ({ list, containerSettings }) => (
   </Container>
 )
 
-NavigationWidget.title = 'Navigation'
-NavigationWidget.category = 'General'
-
-NavigationWidget.defaultProps = {
-  list: []
-}
-
-NavigationWidget.defaults = {
-  list: [
-    { id: 1, title: 'All', link: '#' },
-    { id: 2, title: 'Houses', link: '#' },
-    { id: 3, title: 'Offices', link: '#' },
-    { id: 4, title: 'Apartments', link: '#' },
-    { id: 5, title: 'Infrastructure', link: '#' }
-  ],
-  variant: '3_columns',
-  containerSettings: {}
-}
-
 const NavigationItem = ({ settings, onChangeItem }) => (
   <div>
     <TextInput
@@ -50,23 +31,34 @@ const NavigationItem = ({ settings, onChangeItem }) => (
   </div>
 )
 
-NavigationItem.defaultProps = {
-  settings: {}
+export const Spec = {
+  title: 'Navigation',
+  category: 'General',
+  defaults: {
+    list: [
+      { id: 1, title: 'All', link: '#' },
+      { id: 2, title: 'Houses', link: '#' },
+      { id: 3, title: 'Offices', link: '#' },
+      { id: 4, title: 'Apartments', link: '#' },
+      { id: 5, title: 'Infrastructure', link: '#' }
+    ],
+    variant: '3_columns',
+    containerSettings: {}
+  },
+  adminFields: (items, onChange, settings) => (
+    <div>
+      <List
+        label='Navigation items'
+        primaryField='title'
+        listItem={(settings, onChangeItem) => (
+          <NavigationItem settings={settings} onChangeItem={onChangeItem} />
+        )}
+        onChangeList={onChange}
+        items={items}
+        template={{ title: 'Title', link: '#' }}
+      />
+    </div>
+  )
 }
-
-NavigationWidget.adminFields = (items, onChange, settings) => (
-  <div>
-    <List
-      label='Navigation items'
-      primaryField='title'
-      listItem={(settings, onChangeItem) => (
-        <NavigationItem settings={settings} onChangeItem={onChangeItem} />
-      )}
-      onChangeList={onChange}
-      items={items}
-      template={{ title: 'Title', link: '#' }}
-    />
-  </div>
-)
 
 export default NavigationWidget

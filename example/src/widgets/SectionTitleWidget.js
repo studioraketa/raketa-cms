@@ -11,25 +11,25 @@ const SectionTitleWidget = ({ align, title, containerSettings }) => (
   </Container>
 )
 
-SectionTitleWidget.title = 'Section title'
-SectionTitleWidget.category = 'General'
-SectionTitleWidget.primaryField = 'title'
-
-SectionTitleWidget.defaults = {
-  align: 'text-center',
+export const Spec = {
   title: 'Section title',
-  containerSettings: {}
-}
-
-SectionTitleWidget.adminFields = {
-  align: {
-    type: 'select',
-    options: [
-      ['text-center', 'Center'],
-      ['text-left', 'Left']
-    ]
+  category: 'General',
+  primaryField: 'title',
+  defaults: {
+    align: 'text-center',
+    title: 'Section title',
+    containerSettings: {}
   },
-  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' }
+  adminFields: {
+    align: {
+      type: 'select',
+      options: [
+        ['text-center', 'Center'],
+        ['text-left', 'Left']
+      ]
+    },
+    title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' }
+  }
 }
 
 export default SectionTitleWidget

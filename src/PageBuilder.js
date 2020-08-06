@@ -48,11 +48,11 @@ const PageBuilder = ({
   usePreventWindowUnload(dirty)
 
   const currentWidget = selectedWidget
-    ? library[selectedWidget.component]
+    ? adminLibrary[selectedWidget.component]
     : null
 
   const factory = (widgetName) => {
-    const widget = library[widgetName]
+    const widget = adminLibrary[widgetName]
 
     return {
       widgetId: randomString(6),
