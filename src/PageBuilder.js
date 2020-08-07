@@ -47,6 +47,10 @@ const PageBuilder = ({
 
   usePreventWindowUnload(dirty)
 
+  if (!adminLibrary) {
+    console.warn('No adminLibrary provided to AdminBuilder. ')
+  }
+
   const currentWidget = selectedWidget
     ? adminLibrary[selectedWidget.component]
     : null
