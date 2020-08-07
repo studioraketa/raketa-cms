@@ -16,7 +16,7 @@ const EmptyCanvas = styled.div`
 
 const Canvas = React.memo(
   ({ widgets, onReorder, onEdit, onRemove, identifier }) => {
-    const library = React.useContext(LibraryContext)
+    const { library } = React.useContext(LibraryContext)
 
     if (widgets.length === 0) {
       return (

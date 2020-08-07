@@ -1,6 +1,6 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.7.5",
+  "version": "1.8.0",
   "description": "Visual page building framework for editing and rendering component libraries",
   "author": "studioraketa",
   "license": "MIT",

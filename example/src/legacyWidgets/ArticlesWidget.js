@@ -34,6 +34,31 @@ const ArticlesWidget = ({ variant, list, containerSettings }) => (
   </Container>
 )
 
+ArticlesWidget.title = 'Articles'
+ArticlesWidget.category = 'Feeds'
+ArticlesWidget.dialogSize = 'large'
+
+ArticlesWidget.defaults = {
+  variant: 'col-6',
+  list: [
+    {
+      id: 1,
+      title: 'Title',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
+      image: 'http://placehold.it/400x300'
+    },
+    {
+      id: 2,
+      title: 'Title',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
+      image: 'http://placehold.it/400x300'
+    }
+  ],
+  containerSettings: {}
+}
+
 const ListItem = ({ settings, onChangeItem }) => (
   <div>
     <ImagePicker
@@ -57,59 +82,35 @@ const ListItem = ({ settings, onChangeItem }) => (
   </div>
 )
 
-export const Spec = {
-  title: 'Articles',
-  category: 'Feeds',
-  defaults: {
-    variant: 'col-6',
-    list: [
-      {
-        id: 1,
-        title: 'Title',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-        image: 'http://placehold.it/400x300'
-      },
-      {
-        id: 2,
-        title: 'Title',
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-        image: 'http://placehold.it/400x300'
-      }
-    ],
-    containerSettings: {}
-  },
-  adminFields: (items, onChange, settings) => (
-    <div>
-      <SelectMenu
-        label='Variant'
-        options={[
-          ['col-6', '2 columns'],
-          ['col-4', '3 columns'],
-          ['col-3', '4 columns']
-        ]}
-        value={settings.variant}
-        onChange={(value) => onChange('variant', value)}
-      />
+ArticlesWidget.adminFields = (items, onChange, settings) => (
+  <div>
+    <SelectMenu
+      label='Variant'
+      options={[
+        ['col-6', '2 columns'],
+        ['col-4', '3 columns'],
+        ['col-3', '4 columns']
+      ]}
+      value={settings.variant}
+      onChange={(value) => onChange('variant', value)}
+    />
 
-      <List
-        listItem={(settings, onChangeItem) => (
-          <ListItem settings={settings} onChangeItem={onChangeItem} />
-        )}
-        items={items}
-        template={{
-          title: 'Title',
-          link: LinkSettings.defaults,
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-          image: 'http://placehold.it/400x300'
-        }}
-        primaryField='title'
-        onChangeList={onChange}
-      />
-    </div>
-  )
-}
+    <List
+      listItem={(settings, onChangeItem) => (
+        <ListItem settings={settings} onChangeItem={onChangeItem} />
+      )}
+      items={items}
+      template={{
+        title: 'Title',
+        link: LinkSettings.defaults,
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
+        image: 'http://placehold.it/400x300'
+      }}
+      primaryField='title'
+      onChangeList={onChange}
+    />
+  </div>
+)
 
 export default ArticlesWidget

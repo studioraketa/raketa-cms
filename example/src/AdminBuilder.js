@@ -2,6 +2,9 @@ import React from 'react'
 import { PageBuilder } from '@raketa-cms/raketa-cms'
 import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
 import LIBRARY from './widgets'
+import ADMIN_LIBRARY from './widgets/admin'
+// import LIBRARY from './legacyWidgets'
+// import ADMIN_LIBRARY from './legacyWidgets'
 import IMAGES from './IMAGES'
 
 class FakeMediaManager {
@@ -45,6 +48,7 @@ const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
         <PageBuilder
           host={host}
           library={LIBRARY}
+          adminLibrary={ADMIN_LIBRARY}
           themes={THEMES}
           page={page}
           onChange={handleChange}

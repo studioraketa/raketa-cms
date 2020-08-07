@@ -178,7 +178,6 @@ const SettingsDialog = ({
       width='700px'
       onPrimary={() => onSave(localSettings)}
       onClose={onClose}
-      dialogSize={widget.dialogSize}
     >
       <Tabs>
         <div title='Content'>{fields}</div>

@@ -19,27 +19,29 @@ const ImageWidget = ({ variant, image, description, containerSettings }) => (
   </Container>
 )
 
-export const Spec = {
-  title: 'Image',
-  category: 'General',
-  defaults: {
-    variant: 'col-12',
-    image: 'https://placehold.it/1920x1080',
-    description: 'Example image',
-    containerSettings: {}
+ImageWidget.title = 'Image'
+ImageWidget.category = 'General'
+// ImageWidget.primaryField = 'description';
+ImageWidget.dialogSize = 'large'
+
+ImageWidget.defaults = {
+  variant: 'col-12',
+  image: 'https://placehold.it/1920x1080',
+  description: 'Example image',
+  containerSettings: {}
+}
+
+ImageWidget.adminFields = {
+  variant: {
+    type: 'select',
+    options: [
+      ['col-12', 'Full width'],
+      ['shift-1', 'Shift 1'],
+      ['shift-2', 'Shift 2']
+    ]
   },
-  adminFields: {
-    variant: {
-      type: 'select',
-      options: [
-        ['col-12', 'Full width'],
-        ['shift-1', 'Shift 1'],
-        ['shift-2', 'Shift 2']
-      ]
-    },
-    image: { type: 'custom', component: ImagePicker },
-    description: { type: 'text' }
-  }
+  image: { type: 'custom', component: ImagePicker },
+  description: { type: 'text' }
 }
 
 export default ImageWidget

@@ -29,6 +29,7 @@ const usePreventWindowUnload = (preventDefault) => {
 const PageBuilder = ({
   page: initialPage,
   library,
+  adminLibrary,
   spacings,
   themes,
   navigation,
@@ -46,12 +47,16 @@ const PageBuilder = ({
 
   usePreventWindowUnload(dirty)
 
+  if (!adminLibrary) {
+    console.warn('No adminLibrary provided to AdminBuilder. ')
+  }
+
   const currentWidget = selectedWidget
-    ? library[selectedWidget.component]
+    ? adminLibrary[selectedWidget.component]
     : null
 
   const factory = (widgetName) => {
-    const widget = library[widgetName]
+    const widget = adminLibrary[widgetName]
 
     return {
       widgetId: randomString(6),
@@ -180,7 +185,7 @@ const PageBuilder = ({
   return (
     <ThemeProvider theme={theme}>
       <HostContext.Provider value={{ host }}>
-        <LibraryContext.Provider value={library}>
+        <LibraryContext.Provider value={{ library, adminLibrary }}>
           <div style={{ paddingLeft: '64px' }}>
             {reorderOpen && (
               <ReorderDialog
