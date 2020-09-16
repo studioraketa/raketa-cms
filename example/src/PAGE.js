@@ -63,8 +63,9 @@ const PAGE = {
       settings: {
         variant: 'col-6',
         list: [
-          { id: 1, title: 'Title', image: 'http://placehold.it/400x300' },
-          { id: 2, title: 'Title', image: 'http://placehold.it/400x300' }
+          { id: 1, title: 'Title 1', image: 'http://placehold.it/400x300' },
+          { id: 2, title: 'Title 2', image: 'http://placehold.it/400x300' },
+          { id: 3, title: 'Title 3', image: 'http://placehold.it/400x300' }
         ],
         containerSettings: {}
       }
