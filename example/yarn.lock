@@ -1336,6 +1336,11 @@
   resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.2.tgz#a0d093010bd6efa38deee0013c099dc5ac5c3585"
   integrity sha512-iCccWMGZW8N6jDBye6VXaIG3ZPikiuFtMt22n4d71mb3NLDEOPMTatXlQLXuB21f4uDWeSWvwCAdP1lxp/zqOA==
 
+"@raketa-cms/raketa-mir@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.4.tgz#b693742360b3eca64c750244ed23df220144223c"
+  integrity sha512-hTB/v8H8oHSRUz2ZhhDZm7iym7s/XPE9ZDCdCfKiEtU29B2mcIXr1A69DsUy50zJJg34JWAQ2I4weIs1gf5Bgw==
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"

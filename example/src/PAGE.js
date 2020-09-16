@@ -15,6 +15,18 @@ const PAGE = {
       selected: false
     },
     {
+      widgetId: 'xsmkf2i',
+      component: 'DeprecatedWidget',
+      settings: {
+        align: 'text-center',
+        title: 'Deprecated title',
+        containerSettings: {}
+      },
+      id: 'xsmkf2i',
+      chosen: false,
+      selected: false
+    },
+    {
       widgetId: 'hwvm3ul',
       component: 'NavigationWidget',
       settings: {

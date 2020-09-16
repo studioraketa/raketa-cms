@@ -96,7 +96,14 @@ const AdminWidget = ({ library, identifier, widget, onEdit, onDelete }) => {
           type='danger'
           onClick={() => handleDeleteWidget(widget.widgetId)}
         />
-        <IconButton icon='iconCopy' type='neutral' onClick={handleCopyWidget} />
+
+        {!currentWidget.deprecated && (
+          <IconButton
+            icon='iconCopy'
+            type='neutral'
+            onClick={handleCopyWidget}
+          />
+        )}
       </AdminWidgetToolbar>
 
       {React.createElement(currentWidget, widget.settings)}
