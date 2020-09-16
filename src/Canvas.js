@@ -16,7 +16,7 @@ const EmptyCanvas = styled.div`
 
 const Canvas = React.memo(
   ({ widgets, onReorder, onEdit, onRemove, identifier }) => {
-    const { library } = React.useContext(LibraryContext)
+    const { library, adminLibrary } = React.useContext(LibraryContext)
 
     if (widgets.length === 0) {
       return (
@@ -41,6 +41,7 @@ const Canvas = React.memo(
           <ErrorBoundary key={widget.widgetId}>
             <AdminWidget
               library={library}
+              adminLibrary={adminLibrary}
               identifier={identifier}
               widget={widget}
               onEdit={onEdit}

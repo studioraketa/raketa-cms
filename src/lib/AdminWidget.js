@@ -64,8 +64,16 @@ const AdminWidgetToolbar = styled.div`
   z-index: 9;
 `
 
-const AdminWidget = ({ library, identifier, widget, onEdit, onDelete }) => {
+const AdminWidget = ({
+  library,
+  adminLibrary,
+  identifier,
+  widget,
+  onEdit,
+  onDelete
+}) => {
   const currentWidget = library[widget.component]
+  const currentAdminWidhet = adminLibrary[widget.component]
 
   const handleDeleteWidget = () => {
     if (!confirm('Are you sure?')) return
@@ -97,7 +105,7 @@ const AdminWidget = ({ library, identifier, widget, onEdit, onDelete }) => {
           onClick={() => handleDeleteWidget(widget.widgetId)}
         />
 
-        {!currentWidget.deprecated && (
+        {!currentAdminWidhet.deprecated && (
           <IconButton
             icon='iconCopy'
             type='neutral'

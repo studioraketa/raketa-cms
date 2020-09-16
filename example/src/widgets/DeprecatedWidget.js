@@ -11,8 +11,6 @@ const DeprecatedWidget = ({ align, title, containerSettings }) => (
   </Container>
 )
 
-DeprecatedWidget.deprecated = true
-
 export const Spec = {
   title: 'Deprecated Widget',
   deprecated: true,
