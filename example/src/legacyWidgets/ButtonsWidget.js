@@ -56,7 +56,7 @@ ButtonsWidget.adminFields = (items, onChange, settings) => (
       )}
       onChangeList={onChange}
       items={items}
-      template={ButtonSettings.defaults}
+      template={{ id: 1, button: ButtonSettings.defaults }}
     />
   </div>
 )

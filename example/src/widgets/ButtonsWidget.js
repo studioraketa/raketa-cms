@@ -54,7 +54,7 @@ export const Spec = {
         )}
         onChangeList={onChange}
         items={items}
-        template={ButtonSettings.defaults}
+        template={{ id: 1, button: ButtonSettings.defaults }}
       />
     </div>
   )

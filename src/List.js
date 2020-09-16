@@ -119,7 +119,7 @@ const extractPrimaryField = (primaryField, item, idx) => {
   }
 
   return primaryField.split('.').reduce((acc, key) => {
-    const newValue = acc[key]
+    const newValue = (acc && acc[key]) || ''
 
     return newValue
   }, item)
@@ -137,7 +137,7 @@ const Item = ({
   listItem
 }) => {
   const [open, setOpen] = React.useState(alwaysOpened)
-  console.log('alwaysOpened: ', alwaysOpened)
+
   return (
     <ItemWrapper>
       <TitleWrapper>
@@ -248,7 +248,7 @@ const List = ({
 
       {items.length === 0 && <P>There are no items yet.</P>}
 
-      {items && (
+      {items.length > 0 && (
         <React.Fragment>
           <AddButtonWrapepr>
             <Button
@@ -287,7 +287,7 @@ const List = ({
       )}
 
       <Button type='button' variant='success' onClick={handleAdd}>
-        Add item (End)
+        Add item {items.length > 0 ? '(End)' : ''}
       </Button>
     </ListWrapper>
   )
