@@ -3,9 +3,20 @@ import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
 import { reset, Button, P, H } from '@raketa-cms/raketa-mir'
 
-import { add, removeByIndex, updateFieldByIndex, randomId } from './lists'
+import {
+  add,
+  addAtBeggining,
+  removeByIndex,
+  updateFieldByIndex,
+  randomId
+} from './lists'
 
 const ListWrapper = styled.div`
+  ${reset};
+  margin-bottom: ${(props) => props.theme.font.base};
+`
+
+const AddButtonWrapepr = styled.div`
   ${reset};
   margin-bottom: ${(props) => props.theme.font.base};
 `
@@ -96,24 +107,43 @@ const Title = styled.span`
   font-weight: 700;
 `
 
+const extractPrimaryField = (primaryField, item, idx) => {
+  if (!primaryField) {
+    return `Item ${idx + 1}`
+  }
+
+  const keys = primaryField.split('.')
+
+  if (keys.length === 1) {
+    return item[primaryField]
+  }
+
+  return primaryField.split('.').reduce((acc, key) => {
+    const newValue = acc[key]
+
+    return newValue
+  }, item)
+}
+
 const Item = ({
   idx,
   items,
   item,
+  opened,
   primaryField,
   template,
   handleRemove,
   handleChangeField,
   listItem
 }) => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(opened)
 
   return (
     <ItemWrapper>
       <TitleWrapper>
         <div>
           <Handle />
-          <Title>{primaryField ? item[primaryField] : `Item ${idx + 1}`}</Title>
+          <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
         </div>
 
         <div>
@@ -148,7 +178,8 @@ const List = ({
   listItem,
   template,
   primaryField,
-  onChangeList
+  onChangeList,
+  itemsOpen = false
 }) => {
   const [items, setItems] = React.useState(defaultItems)
 
@@ -172,6 +203,14 @@ const List = ({
 
   const handleAdd = () => {
     const newItems = add(items, factory(template))
+
+    setItems(newItems)
+
+    notifyChange(newItems)
+  }
+
+  const handleAddAtBeggining = () => {
+    const newItems = addAtBeggining(items, factory(template))
 
     setItems(newItems)
 
@@ -208,32 +247,45 @@ const List = ({
       {items.length === 0 && <P>There are no items yet.</P>}
 
       {items && (
-        <ReactSortable
-          list={items}
-          setList={handleReorder}
-          handle='[data-drag]'
-          direction='horizontal'
-          dragoverBubble
-        >
-          {items.map((item, idx) => (
-            <Item
-              key={item.id}
-              data-id={idx}
-              idx={idx}
-              items={items}
-              item={item}
-              primaryField={primaryField}
-              template={template}
-              handleRemove={handleRemove}
-              handleChangeField={handleChangeField}
-              listItem={listItem}
-            />
-          ))}
-        </ReactSortable>
+        <React.Fragment>
+          <AddButtonWrapepr>
+            <Button
+              type='button'
+              variant='success'
+              onClick={handleAddAtBeggining}
+            >
+              Add item (Beggining)
+            </Button>
+          </AddButtonWrapepr>
+
+          <ReactSortable
+            list={items}
+            setList={handleReorder}
+            handle='[data-drag]'
+            direction='horizontal'
+            dragoverBubble
+          >
+            {items.map((item, idx) => (
+              <Item
+                key={item.id}
+                data-id={idx}
+                idx={idx}
+                items={items}
+                item={item}
+                opened={itemsOpen}
+                primaryField={primaryField}
+                template={template}
+                handleRemove={handleRemove}
+                handleChangeField={handleChangeField}
+                listItem={listItem}
+              />
+            ))}
+          </ReactSortable>
+        </React.Fragment>
       )}
 
       <Button type='button' variant='success' onClick={handleAdd}>
-        Add item
+        Add item (End)
       </Button>
     </ListWrapper>
   )

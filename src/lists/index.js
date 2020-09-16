@@ -1,4 +1,5 @@
 const add = (items, item) => [...items, item]
+const addAtBeggining = (items, item) => [item, ...items]
 const addAt = (items, item, idx) => console.log('TODO: Implement me')
 const removeByIndex = (items, idx) => [
   ...items.slice(0, idx),
@@ -28,6 +29,7 @@ const randomString = (length) => Math.random().toString(36).substring(length)
 
 export {
   add,
+  addAtBeggining,
   addAt,
   removeByIndex,
   removeById,

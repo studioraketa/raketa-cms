@@ -15,6 +15,64 @@ const PAGE = {
       selected: false
     },
     {
+      widgetId: 'xsmdwfai',
+      component: 'ButtonsWidget',
+      settings: {
+        variant: '"3_columns"',
+        containerSettings: {},
+        list: [
+          {
+            id: 1,
+            button: {
+              id: '',
+              label: 'Button 1',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          },
+          {
+            id: 2,
+            button: {
+              id: '',
+              label: 'Button 2',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          },
+          {
+            id: 3,
+            button: {
+              id: '',
+              label: 'Button 3',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          }
+        ]
+      },
+      id: 'xsmdwfai',
+      chosen: false,
+      selected: false
+    },
+    {
+      widgetId: 'xsmkf2i',
+      component: 'DeprecatedWidget',
+      settings: {
+        align: 'text-center',
+        title: 'Deprecated title',
+        containerSettings: {}
+      },
+      id: 'xsmkf2i',
+      chosen: false,
+      selected: false
+    },
+    {
       widgetId: 'hwvm3ul',
       component: 'NavigationWidget',
       settings: {
@@ -51,8 +109,9 @@ const PAGE = {
       settings: {
         variant: 'col-6',
         list: [
-          { id: 1, title: 'Title', image: 'http://placehold.it/400x300' },
-          { id: 2, title: 'Title', image: 'http://placehold.it/400x300' }
+          { id: 1, title: 'Title 1', image: 'http://placehold.it/400x300' },
+          { id: 2, title: 'Title 2', image: 'http://placehold.it/400x300' },
+          { id: 3, title: 'Title 3', image: 'http://placehold.it/400x300' }
         ],
         containerSettings: {}
       }
