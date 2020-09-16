@@ -100,13 +100,14 @@ const Item = ({
   idx,
   items,
   item,
+  opened,
   primaryField,
   template,
   handleRemove,
   handleChangeField,
   listItem
 }) => {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(opened)
 
   return (
     <ItemWrapper>
@@ -148,7 +149,8 @@ const List = ({
   listItem,
   template,
   primaryField,
-  onChangeList
+  onChangeList,
+  itemsOpen = false
 }) => {
   const [items, setItems] = React.useState(defaultItems)
 
@@ -222,6 +224,7 @@ const List = ({
               idx={idx}
               items={items}
               item={item}
+              opened={itemsOpen}
               primaryField={primaryField}
               template={template}
               handleRemove={handleRemove}
