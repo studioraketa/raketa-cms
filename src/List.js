@@ -107,6 +107,24 @@ const Title = styled.span`
   font-weight: 700;
 `
 
+const extractPrimaryField = (primaryField, item, idx) => {
+  if (!primaryField) {
+    return `Item ${idx + 1}`
+  }
+
+  const keys = primaryField.split('.')
+
+  if (keys.length === 1) {
+    return item[primaryField]
+  }
+
+  return primaryField.split('.').reduce((acc, key) => {
+    const newValue = acc[key]
+
+    return newValue
+  }, item)
+}
+
 const Item = ({
   idx,
   items,
@@ -125,7 +143,7 @@ const Item = ({
       <TitleWrapper>
         <div>
           <Handle />
-          <Title>{primaryField ? item[primaryField] : `Item ${idx + 1}`}</Title>
+          <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
         </div>
 
         <div>

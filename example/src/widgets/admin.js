@@ -4,6 +4,7 @@ import { Spec as NavigationWidget } from './NavigationWidget'
 import { Spec as ArticlesWidget } from './ArticlesWidget'
 import { Spec as SingleVideoWidget } from './SingleVideoWidget'
 import { Spec as DeprecatedWidget } from './DeprecatedWidget'
+import { Spec as ButtonsWidget } from './ButtonsWidget'
 
 export default {
   SectionTitleWidget,
@@ -11,5 +12,6 @@ export default {
   NavigationWidget,
   ArticlesWidget,
   SingleVideoWidget,
-  DeprecatedWidget
+  DeprecatedWidget,
+  ButtonsWidget
 }

@@ -15,6 +15,52 @@ const PAGE = {
       selected: false
     },
     {
+      widgetId: 'xsmdwfai',
+      component: 'ButtonsWidget',
+      settings: {
+        variant: '"3_columns"',
+        containerSettings: {},
+        list: [
+          {
+            id: 1,
+            button: {
+              id: '',
+              label: 'Button 1',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          },
+          {
+            id: 2,
+            button: {
+              id: '',
+              label: 'Button 2',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          },
+          {
+            id: 3,
+            button: {
+              id: '',
+              label: 'Button 3',
+              link: '#',
+              rel: 'follow',
+              target: '_self',
+              type: 'primary'
+            }
+          }
+        ]
+      },
+      id: 'xsmdwfai',
+      chosen: false,
+      selected: false
+    },
+    {
       widgetId: 'xsmkf2i',
       component: 'DeprecatedWidget',
       settings: {
