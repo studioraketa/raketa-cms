@@ -129,15 +129,15 @@ const Item = ({
   idx,
   items,
   item,
-  opened,
+  alwaysOpened,
   primaryField,
   template,
   handleRemove,
   handleChangeField,
   listItem
 }) => {
-  const [open, setOpen] = React.useState(opened)
-
+  const [open, setOpen] = React.useState(alwaysOpened)
+  console.log('alwaysOpened: ', alwaysOpened)
   return (
     <ItemWrapper>
       <TitleWrapper>
@@ -147,9 +147,11 @@ const Item = ({
         </div>
 
         <div>
-          <ListButton type='button' danger onClick={() => setOpen(!open)}>
-            {open ? <IconMinimize /> : <IconMaximize />}
-          </ListButton>
+          {!alwaysOpened && (
+            <ListButton type='button' danger onClick={() => setOpen(!open)}>
+              {open ? <IconMinimize /> : <IconMaximize />}
+            </ListButton>
+          )}
 
           {(template || (!template && items.length !== 1)) && (
             <ListButton type='button' danger onClick={() => handleRemove(idx)}>
@@ -159,7 +161,7 @@ const Item = ({
         </div>
       </TitleWrapper>
 
-      {open && (
+      {(alwaysOpened || open) && (
         <ContentWrapper>
           {listItem(
             item,
@@ -179,7 +181,7 @@ const List = ({
   template,
   primaryField,
   onChangeList,
-  itemsOpen = false
+  itemsAlwaysOpen = false
 }) => {
   const [items, setItems] = React.useState(defaultItems)
 
@@ -272,7 +274,7 @@ const List = ({
                 idx={idx}
                 items={items}
                 item={item}
-                opened={itemsOpen}
+                alwaysOpened={itemsAlwaysOpen}
                 primaryField={primaryField}
                 template={template}
                 handleRemove={handleRemove}

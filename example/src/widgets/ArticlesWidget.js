@@ -94,6 +94,7 @@ export const Spec = {
       />
 
       <List
+        itemsAlwaysOpen
         listItem={(settings, onChangeItem) => (
           <ListItem settings={settings} onChangeItem={onChangeItem} />
         )}
