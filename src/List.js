@@ -256,7 +256,7 @@ const List = ({
               variant='success'
               onClick={handleAddAtBeggining}
             >
-              Add item (Beggining)
+              Add item
             </Button>
           </AddButtonWrapepr>
 
@@ -287,7 +287,7 @@ const List = ({
       )}
 
       <Button type='button' variant='success' onClick={handleAdd}>
-        Add item {items.length > 0 ? '(End)' : ''}
+        Add item
       </Button>
     </ListWrapper>
   )
