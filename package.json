@@ -1,6 +1,6 @@
 {
   "name": "@raketa-cms/raketa-cms",
-  "version": "1.8.5",
+  "version": "1.8.6",
   "description": "Visual page building framework for editing and rendering component libraries",
   "author": "studioraketa",
   "license": "MIT",
@@ -55,6 +55,6 @@
   "dependencies": {
     "@raketa-cms/raketa-mir": "^1.1.4",
     "prop-types": "^15.7.2",
-    "react-sortablejs": "^6.0.0"
+    "react-sortablejs": "2.0.11"
   }
 }
