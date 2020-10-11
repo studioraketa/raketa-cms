@@ -22,6 +22,7 @@ const ImageWidget = ({ variant, image, description, containerSettings }) => (
 export const Spec = {
   title: 'Image',
   category: 'General',
+  primaryField: 'variant',
   defaults: {
     variant: 'col-12',
     image: 'https://placehold.it/1920x1080',

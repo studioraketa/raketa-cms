@@ -41,10 +41,17 @@ const truncate = (str, num) => {
 const getWidgetTitle = (library, widget) => {
   const widgetComponent = library[widget.component]
   const widgetName = widgetComponent.title || widget.component
+  const primaryField =
+    widgetComponent.primaryField &&
+    widget.settings[widgetComponent.primaryField]
 
-  const widgetTitle = widgetComponent.primaryField
-    ? truncate(cleanup(widget.settings[widgetComponent.primaryField]), 32)
-    : ''
+  if (primaryField && typeof primaryField !== 'string') {
+    throw new Error(
+      `The primaryField value of '${widget.component}' must be either a string or not present!`
+    )
+  }
+
+  const widgetTitle = primaryField ? truncate(cleanup(primaryField), 32) : ''
 
   return [widgetName, widgetTitle].filter((s) => s !== '').join(': ')
 }
