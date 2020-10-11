@@ -93,6 +93,7 @@ const ButtonSettings = ({ label, value, onChange }) => (
           ['text', 'Text']
         ]}
         value={value.type}
+        placeholder=''
         onChange={(type) => onChange(mergeSettings(value, 'type', type))}
       />
 

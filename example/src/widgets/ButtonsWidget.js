@@ -1,13 +1,13 @@
 import React from 'react'
 import { Container, List, ButtonSettings } from '@raketa-cms/raketa-cms'
 
-const Button = ({ settings, buttonClass }) => {
-  const { id, label, link, target, follow_link } = settings
+const Button = ({ settings }) => {
+  const { id, label, type, link, target, follow_link } = settings
 
   return (
     <a
       href={link}
-      className={buttonClass}
+      className={type}
       id={id ? id : ''}
       target={target}
       rel={follow_link === 'no-follow' ? 'nofollow' : ''}
