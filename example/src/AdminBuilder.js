@@ -22,6 +22,8 @@ const THEMES = [
   ['brand', 'Brand']
 ]
 
+const DEFAULT_THEME = 'dark'
+
 class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
     console.error(error, info)
@@ -50,6 +52,7 @@ const AdminBuilder = ({ page: defaultPage, host, back_url }) => {
           library={LIBRARY}
           adminLibrary={ADMIN_LIBRARY}
           themes={THEMES}
+          defaultTheme={DEFAULT_THEME}
           page={page}
           onChange={handleChange}
           onSave={handleSave}

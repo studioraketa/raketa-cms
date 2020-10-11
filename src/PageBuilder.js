@@ -32,6 +32,7 @@ const PageBuilder = ({
   adminLibrary,
   spacings,
   themes,
+  defaultTheme,
   navigation,
   identifier,
   sidebarButtons,
@@ -221,6 +222,7 @@ const PageBuilder = ({
               <SettingsDialog
                 spacings={spacings}
                 themes={themes}
+                defaultTheme={defaultTheme}
                 widget={currentWidget}
                 settings={selectedWidget.settings}
                 onSave={handleSaveWidget}

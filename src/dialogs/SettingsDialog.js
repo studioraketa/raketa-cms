@@ -136,6 +136,7 @@ const renderAdminFields = (widget, settings, onChange) =>
 const SettingsDialog = ({
   spacings,
   themes,
+  defaultTheme,
   widget,
   settings,
   onSave,
@@ -197,7 +198,7 @@ const SettingsDialog = ({
               <SelectMenu
                 label='Theme'
                 options={themes}
-                value={containerSettings.theme || ''}
+                value={containerSettings.theme || defaultTheme}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('theme', newValue)
                 }
