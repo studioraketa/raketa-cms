@@ -18,11 +18,20 @@ const Img = ({
     return null
   }
 
+  if (!variant) {
+    console.warn(
+      'WARNING: You are using an <Img /> tag without a variant. Unoptimized original is used as a fallback, but you need to specify a size variant'
+    )
+  }
+
+  const imgVariant = variant ? variant : 'original'
   const imgAlt = alt !== null ? alt : src.alt
   const imgTitle = title !== null ? title : ''
 
   if (typeof src === 'object' && !('name' in src))
-    console.warn(`WARNING: Image with empty {}: ${variant} ${className || ''}`)
+    console.warn(
+      `WARNING: Image with empty {}: ${imgVariant} ${className || ''}`
+    )
 
   if (
     typeof src === 'object' &&
@@ -42,7 +51,7 @@ const Img = ({
   if (typeof src === 'object' && 'name' in src)
     return (
       <img
-        src={src.urls[variant]}
+        src={src.urls[imgVariant]}
         alt={imgAlt !== null ? imgAlt : src.name}
         className={className}
         onLoad={onLoad}
