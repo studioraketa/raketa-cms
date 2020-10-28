@@ -31,7 +31,18 @@ const Tabs = ({ children }) => {
   )
 }
 
+const LOCAL_STORAGE_KEY = 'raketa-cms-example'
+
+const pickPage = () => {
+  const loadedPage = window.localStorage.getItem(LOCAL_STORAGE_KEY)
+  return loadedPage ? JSON.parse(loadedPage) : PAGE
+}
+
 const App = () => {
+  if (typeof window === 'undefined') {
+    return <h1>Loading...</h1>
+  }
+
   return (
     <React.Fragment>
       <link
@@ -42,11 +53,17 @@ const App = () => {
 
       <Tabs>
         <div title='Admin'>
-          <AdminBuilder page={PAGE} back_url='https://google.com/' />
+          <AdminBuilder
+            page={pickPage()}
+            back_url='https://google.com/'
+            onSave={(page) => {
+              localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(page))
+            }}
+          />
         </div>
 
         <div title='Render'>
-          <PageRender page={PAGE} />
+          <PageRender page={pickPage()} />
         </div>
       </Tabs>
     </React.Fragment>

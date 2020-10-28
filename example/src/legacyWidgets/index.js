@@ -5,6 +5,7 @@ import ArticlesWidget from './ArticlesWidget'
 import SingleVideoWidget from './SingleVideoWidget'
 import DeprecatedWidget from './DeprecatedWidget'
 import ButtonsWidget from './ButtonsWidget'
+import FormWidget from './FormWidget'
 
 export default {
   SectionTitleWidget,
@@ -13,5 +14,6 @@ export default {
   ArticlesWidget,
   SingleVideoWidget,
   DeprecatedWidget,
-  ButtonsWidget
+  ButtonsWidget,
+  FormWidget
 }
