@@ -1,10 +1,10 @@
 import React from 'react'
 import { PageBuilder } from '@raketa-cms/raketa-cms'
 import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
-// import LIBRARY from './widgets'
-// import ADMIN_LIBRARY from './widgets/admin'
-import LIBRARY from './legacyWidgets'
-import ADMIN_LIBRARY from './legacyWidgets'
+import LIBRARY from './widgets'
+import ADMIN_LIBRARY from './widgets/admin'
+// import LIBRARY from './legacyWidgets'
+// import ADMIN_LIBRARY from './legacyWidgets'
 import IMAGES from './IMAGES'
 
 class FakeMediaManager {
