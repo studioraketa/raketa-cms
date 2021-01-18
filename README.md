@@ -4,6 +4,12 @@
 
 [![NPM](https://img.shields.io/npm/v/@raketa-cms/raketa-cms.svg)](https://www.npmjs.com/package/@raketa-cms/raketa-cms) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+- [Install](#install)
+- [Usage](#usage)
+  - [Quick overview](#quick-overview)
+  - [Code Exapmles](#code-exapmles)
+  - [Starter projects](#starter-projects)
+
 ## Install
 
 ```bash
@@ -41,7 +47,6 @@ const THEMES = [
   ['none', 'None'],
   ['light', 'Light'],
   ['dark', 'Dark'],
-  ['brand', 'Brand']
 ]
 
 const SPACINGS = [
@@ -51,11 +56,9 @@ const SPACINGS = [
   ['bottom', 'Bottom']
 ]
 
-DEFAULT_THEME = 'dark'
+const DEFAULT_THEME = 'dark'
 
 <PageBuilder
-  // ?????
-  host='http://localhost:3000'
   // A collection of widgets. Check The Widgets section for more details
   library={WIDGETS}
   // Currently the same as the library - should be separate in the future in order to optimise the amount of JS loaded in the frontend.
@@ -280,7 +283,7 @@ NavigationWidget.adminFields = (items, onChange, settings) => (
       template={{
         link: LinkSettings.defaults
       }}
-      primaryField='title'
+      primaryField='link.label'
       onChangeList={onChange}
     />
   </div>
@@ -331,6 +334,10 @@ Besides the specific settings per widget type, the CMS also provides a common se
 - **spacing**: a configurable and consistant vertical spacing
 - **theme**: a configurable color theme
 - **HTML ID**: an id attribute for the widget, used mainly for in-page anchor links
+
+#### Starter projects
+
+- [Nextjs](./starters/nextjs/)
 
 ## License
 

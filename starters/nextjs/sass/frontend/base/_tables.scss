@@ -1,0 +1,10 @@
+.table-wrapper {
+  @include bp($bp-mobile) {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    table {
+      white-space: nowrap;
+    }
+  }
+}

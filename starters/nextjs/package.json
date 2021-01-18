@@ -1,0 +1,21 @@
+{
+  "name": "nextjs-raketa-cms-starter",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A starter project for raketa cms and nextjs",
+  "author": "studioraketa",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev -p 5000",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@raketa-cms/raketa-cms": "^1.8.8",
+    "next": "^10.0.5",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "sass": "^1.32.4",
+    "styled-components": "5.1.0"
+  }
+}

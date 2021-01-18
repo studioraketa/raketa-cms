@@ -1,0 +1,56 @@
+.navigation {
+  a {
+    display: inline-block;
+    margin-right: 2em;
+    font-size: var(--fs-large);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  &.darkgray {
+    a {
+      color: darkgray;
+    }
+  }
+
+  &.crimson {
+    a {
+      color: crimson;
+    }
+  }
+
+  &.tomato {
+    a {
+      color: tomato;
+    }
+  }
+
+  &.sandybrown {
+    a {
+      color: sandybrown;
+    }
+  }
+
+  &.slateblue {
+    a {
+      color: slateblue;
+    }
+  }
+
+  &.mediumseagreen {
+    a {
+      color: mediumseagreen;
+    }
+  }
+
+  &.royalblue {
+    a {
+      color: royalblue;
+    }
+  }
+}

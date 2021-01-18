@@ -1,0 +1,47 @@
+:root {
+  --spacing-sm: calc(var(--gutter) / 2);
+  --spacing-md: calc(var(--gutter));
+  --spacing-lg: calc(var(--gutter) * 2);
+
+  @include bp($bp-desktop) {
+    --spacing-sm: var(--gutter);
+    --spacing-md: calc(var(--gutter) * 2);
+    --spacing-lg: calc(var(--gutter) * 4);
+  }
+}
+
+.spacing-top-sm {
+  padding-top: var(--spacing-sm);
+}
+.spacing-bottom-sm {
+  padding-bottom: var(--spacing-sm);
+}
+
+.spacing-both-sm {
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+}
+
+.spacing-top {
+  padding-top: var(--spacing-md);
+}
+.spacing-bottom {
+  padding-bottom: var(--spacing-md);
+}
+
+.spacing-both {
+  padding-top: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+}
+
+.spacing-top-lg {
+  padding-top: var(--spacing-lg);
+}
+.spacing-bottom-lg {
+  padding-bottom: var(--spacing-lg);
+}
+
+.spacing-both-lg {
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+}

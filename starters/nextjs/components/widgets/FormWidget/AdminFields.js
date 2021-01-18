@@ -9,7 +9,6 @@ import FieldBuilder from './FieldBuilder/FieldBuilder'
 
 const FormRowInputs = ({ items, onChange }) => (
   <List
-    itemsAlwaysOpen
     label='Row Fields'
     listItem={(settings, onChangeItem) => (
       <FieldBuilder
@@ -20,7 +19,7 @@ const FormRowInputs = ({ items, onChange }) => (
     onChangeList={(_, newItems) => onChange(newItems)}
     items={items}
     template={{ item: FieldBuilder.defaults }}
-    // primaryField='item.name'
+    primaryField='item.name'
   />
 )
 
@@ -52,15 +51,14 @@ const AdminFields = (items, onChange, settings) => (
       onChange={(value) => onChange('button', value)}
       value={settings.button}
     />
-    <pre>{JSON.stringify(items, null, 2)}</pre>
+
     <List
-      itemsAlwaysOpen
       label='Form rows'
       listItem={(settings, onChangeItem) => (
         <FormRowInputs
           items={settings.fields}
-          onChange={(newFields) => {
-            onChangeItem('fields', newFields)
+          onChange={(newItems) => {
+            onChangeItem('fields', newItems)
           }}
         />
       )}
@@ -78,72 +76,37 @@ AdminFields.defaults = {
       fields: [
         {
           id: 42,
-          item: { ...FieldBuilder.defaults, name: 'name', label: 'Три имена' }
+          item: { ...FieldBuilder.defaults, name: 'name', label: 'Name' }
+        }
+      ]
+    },
+    {
+      id: 43,
+      fields: [
+        {
+          id: 43,
+          item: {
+            ...FieldBuilder.defaults,
+            name: 'phone',
+            label: 'Phone'
+          }
+        },
+        {
+          id: 44,
+          item: {
+            ...FieldBuilder.defaults,
+            type: 'email',
+            name: 'email',
+            label: 'Email'
+          }
         }
       ]
     }
-    // {
-    //   id: 43,
-    //   fields: [
-    //     {
-    //       id: 43,
-    //       item: {
-    //         ...FieldBuilder.defaults,
-    //         name: "phone",
-    //         label: "Телефон за връзка",
-    //       },
-    //     },
-    //     {
-    //       id: 44,
-    //       item: {
-    //         ...FieldBuilder.defaults,
-    //         type: "email",
-    //         name: "email",
-    //         label: "Ел. поща",
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 45,
-    //   fields: [
-    //     {
-    //       id: 48,
-    //       item: {
-    //         ...FieldBuilder.defaults,
-    //         name: "product_ref",
-    //         label: "Реф. номер",
-    //       },
-    //     },
-    //     {
-    //       id: 49,
-    //       item: {
-    //         ...FieldBuilder.defaults,
-    //         name: "price",
-    //         label: "Стойност на покупката",
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 46,
-    //   fields: [
-    //     {
-    //       id: 47,
-    //       item: {
-    //         ...FieldBuilder.defaults,
-    //         type: "checkbox",
-    //         name: "consent",
-    //         label: 'Съгласен съм с <a href="#">общите условия</a>',
-    //       },
-    //     },
-    //   ],
-    // },
   ],
   formUrl: 'https://forms-staging.raketa.cloud/submit/lokO966r-V',
   button: ButtonSettings.defaults,
   variant: 'col-12',
-  containerSettings: {}
+  containerSettings: { theme: 'none' }
 }
 
 export default AdminFields
