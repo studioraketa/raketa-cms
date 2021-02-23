@@ -56,18 +56,21 @@ const PageBuilder = ({
     ? adminLibrary[selectedWidget.component]
     : null
 
-  const factory = (widgetName) => {
+  const factory = (widgetName, defaultTheme) => {
     const widget = adminLibrary[widgetName]
+    const settings = widget.defaults
+    settings.containerSettings.theme =
+      settings.containerSettings.theme || defaultTheme
 
     return {
       widgetId: randomString(6),
       component: widgetName,
-      settings: widget.defaults
+      settings: settings
     }
   }
 
-  const handleAdd = (widgetName) => {
-    const widgets = add(page.widgets, factory(widgetName))
+  const handleAdd = (widgetName, defaultTheme) => {
+    const widgets = add(page.widgets, factory(widgetName, defaultTheme))
     const newPage = {
       ...page,
       widgets
@@ -204,7 +207,7 @@ const PageBuilder = ({
               buttons={sidebarButtons}
               identifier={identifier}
               onSave={handleSave}
-              onAddWidget={handleAdd}
+              onAddWidget={(widgetName) => handleAdd(widgetName, defaultTheme)}
               onReorderDialog={() => setReorderOpen(true)}
               onExit={onExit}
               onPasteWidget={handlePasteWidget}
@@ -222,7 +225,6 @@ const PageBuilder = ({
               <SettingsDialog
                 spacings={spacings}
                 themes={themes}
-                defaultTheme={defaultTheme}
                 widget={currentWidget}
                 settings={selectedWidget.settings}
                 onSave={handleSaveWidget}

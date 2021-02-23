@@ -1,0 +1,137 @@
+:root {
+  --container-width: 1200px;
+  --gutter: 1em;
+}
+
+.container {
+  width: 100%;
+  padding: 0 calc(var(--gutter) / 2);
+}
+
+@include bp($bp-desktop) {
+  .container {
+    width: var(--container-width);
+    margin: 0 auto;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+    margin: 0;
+  }
+
+  .col-1 {
+    grid-column: span 1;
+  }
+  .col-2 {
+    grid-column: span 2;
+  }
+  .col-3 {
+    grid-column: span 3;
+  }
+  .col-4 {
+    grid-column: span 4;
+  }
+  .col-5 {
+    grid-column: span 5;
+  }
+  .col-6 {
+    grid-column: span 6;
+  }
+  .col-7 {
+    grid-column: span 7;
+  }
+  .col-8 {
+    grid-column: span 8;
+  }
+  .col-9 {
+    grid-column: span 9;
+  }
+  .col-10 {
+    grid-column: span 10;
+  }
+  .col-11 {
+    grid-column: span 11;
+  }
+  .col-12 {
+    grid-column: span 12;
+  }
+
+  .shift-1 {
+    grid-column: 2 / span 10;
+  }
+  .shift-2 {
+    grid-column: 3 / span 8;
+  }
+  .shift-3 {
+    grid-column: 4 / span 6;
+  }
+
+  .shift-right-1 {
+    grid-column: 1 / span 10;
+  }
+  .shift-right-2 {
+    grid-column: 1 / span 8;
+  }
+  .shift-right-3 {
+    grid-column: 1 / span 6;
+  }
+}
+
+@include bp($bp-tablet) {
+  .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: var(--gutter);
+    grid-row-gap: var(--gutter);
+    margin: 0;
+  }
+
+  .col-1 {
+    grid-column: span 1;
+  }
+  .col-2 {
+    grid-column: span 2;
+  }
+  .col-3 {
+    grid-column: span 3;
+  }
+  .col-4 {
+    grid-column: span 4;
+  }
+  .col-5 {
+    grid-column: span 5;
+  }
+  .col-6 {
+    grid-column: span 6;
+  }
+  .col-7 {
+    grid-column: span 7;
+  }
+  .col-8 {
+    grid-column: span 8;
+  }
+  .col-9 {
+    grid-column: span 9;
+  }
+  .col-10 {
+    grid-column: span 10;
+  }
+  .col-11 {
+    grid-column: span 11;
+  }
+  .col-12 {
+    grid-column: span 12;
+  }
+
+  .shift-1,
+  .shift-2,
+  .shift-3,
+  .shift-right-1,
+  .shift-right-2,
+  .shift-right-3 {
+    grid-column: span 12;
+  }
+}

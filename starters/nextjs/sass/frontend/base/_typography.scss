@@ -1,0 +1,118 @@
+:root {
+  --base-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --heading-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+
+  --fs-base: 16px;
+  --base-line-height: 1.666;
+  --fraction: 1.25;
+
+  @include bp($bp-desktop) {
+    --fs-base: 18px;
+  }
+
+  --fs-small: calc(var(--fs-base) / var(--fraction));
+  --fs-tiny: calc(var(--fs-small) / var(--fraction));
+  --fs-medium: calc(var(--fs-base) * var(--fraction));
+  --fs-large: calc(var(--fs-medium) * var(--fraction));
+  --fs-xlarge: calc(var(--fs-large) * var(--fraction));
+  --fs-xxlarge: calc(var(--fs-xlarge) * var(--fraction));
+  --fs-huge: calc(var(--fs-xxlarge) * var(--fraction));
+}
+
+body {
+  color: var(--black);
+  font-family: var(--base-font);
+  font-size: var(--fs-base);
+  line-height: var(--base-line-height);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--brand);
+}
+
+small {
+  font-size: var(--fs-small);
+}
+.tiny {
+  font-size: var(--fs-tiny);
+}
+.muted {
+  opacity: 0.4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font); // style
+  line-height: var(--base-line-height);
+  font-weight: 700; // style
+}
+
+h1 {
+  font-size: var(--fs-huge);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: var(--fs-xxlarge);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: var(--fs-xlarge);
+  line-height: 1.2;
+}
+
+h4 {
+  font-size: var(--fs-medium);
+  line-height: 1.2;
+}
+
+h5,
+h6 {
+  font-size: var(--fs-base);
+}
+
+h6 {
+  font-family: var(--base-font);
+  font-weight: bold;
+  text-transform: none;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+
+  li {
+    margin-bottom: 0.5em;
+  }
+
+  ul,
+  li {
+    margin-left: 1em;
+  }
+}
+
+blockquote {
+  font-family: var(--heading-font);
+  font-size: var(--fs-large);
+  line-height: 1.2;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}

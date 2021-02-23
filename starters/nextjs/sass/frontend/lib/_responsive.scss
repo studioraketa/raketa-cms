@@ -1,0 +1,33 @@
+$bp-phone: "(max-width: 600px)";
+$bp-mobile: "(max-width: 1183px)";
+$bp-tablet: "(min-width: 601px) and (max-width: 1183px)";
+$bp-desktop: "(min-width: 1184px)";
+$bp-laptop: "(min-width: 1184px) and (max-width: 1440px)";
+$bp-big-screen: "(min-width: 1441px)";
+
+// Media Queries
+@mixin bp($point) {
+  @if $point == $bp-desktop {
+    @media #{$bp-desktop} { @content; }
+  }
+
+  @else if $point == $bp-mobile {
+    @media #{$bp-mobile} { @content; }
+  }
+
+  @else if $point == $bp-phone {
+    @media #{$bp-phone} { @content; }
+  }
+
+  @else if $point == $bp-laptop {
+    @media #{$bp-laptop} { @content; }
+  }
+
+  @else if $point == $bp-tablet {
+    @media #{$bp-tablet} { @content; }
+  }
+
+  @else if $point == $bp-big-screen {
+    @media #{$bp-big-screen} { @content; }
+  }
+}

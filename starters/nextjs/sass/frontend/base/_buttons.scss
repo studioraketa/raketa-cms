@@ -1,0 +1,75 @@
+.btn-primary,
+.btn-secondary,
+.btn-text {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0;
+  margin-right: 0.5em;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  width: auto;
+  overflow: visible;
+  -webkit-appearance: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  text-decoration: none;
+  // border-radius: 3px;
+  transition: all ease-in-out 0.3s;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+  &.btn-pill {
+    border-radius: calc(var(--gutter) * 2);
+  }
+
+  &.sm {
+    font-size: var(--fs-small);
+  }
+  &.lg {
+    font-size: var(--fs-medium);
+  }
+}
+
+.btn-primary {
+  border-color: var(--brand);
+  background-color: var(--brand);
+  color: var(--white);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn-secondary {
+  border-color: var(--brand);
+  color: var(--brand);
+
+  &:hover {
+    background-color: var(--brand);
+    color: var(--white);
+    opacity: 0.8;
+  }
+}
+
+.btn-text {
+  color: var(--brand);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.buttons-wrapper {
+  margin-top: calc(var(--gutter) * -1);
+
+  *[class^="btn-"] {
+    margin-top: var(--gutter);
+  }
+}

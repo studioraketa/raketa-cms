@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button,
+label,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding-bottom: 0.5em;
+  font-weight: bold;
+}
+
+p,
+ul,
+ol,
+table {
+  padding-bottom: 1em;
+}
+
+table {
+  width: 100%;
+
+  th,
+  td {
+    text-align: left;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  display: block;
+}
