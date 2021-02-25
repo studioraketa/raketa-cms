@@ -59,8 +59,13 @@ const PageBuilder = ({
   const factory = (widgetName, defaultTheme) => {
     const widget = adminLibrary[widgetName]
     const settings = widget.defaults
-    settings.containerSettings.theme =
-      settings.containerSettings.theme || defaultTheme
+
+    if (settings.containerSettings) {
+      settings.containerSettings.theme =
+        settings.containerSettings.theme || defaultTheme
+    } else {
+      settings.containerSettings = { theme: defaultTheme }
+    }
 
     return {
       widgetId: randomString(6),
