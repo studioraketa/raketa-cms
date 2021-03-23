@@ -75,11 +75,13 @@ const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   padding: 8px;
   background-color: #efefef;
+  cursor: pointer;
 `
 
 const ContentWrapper = styled.div`
@@ -140,7 +142,7 @@ const Item = ({
 
   return (
     <ItemWrapper>
-      <TitleWrapper>
+      <TitleWrapper type='button' as="button" danger onClick={() => setOpen(!open)}>
         <div>
           <Handle />
           <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
@@ -148,7 +150,7 @@ const Item = ({
 
         <div>
           {!alwaysOpened && (
-            <ListButton type='button' danger onClick={() => setOpen(!open)}>
+            <ListButton>
               {open ? <IconMinimize /> : <IconMaximize />}
             </ListButton>
           )}
