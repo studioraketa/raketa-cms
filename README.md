@@ -16,11 +16,19 @@
 npm install --save @raketa-cms/raketa-cms
 ```
 
-## Use for development
+## Development
 
-1. In the main directory of the project run 'yarn install' and then 'yarn start'
-2. In a different terminal navigate to /example directory and run 'yarn install' and then 'yarn start'
-3. Open: http://localhost:3000/admin and http://localhost:3000
+1. In the package directory:
+
+- `yarn install`
+- `yarn start`
+
+2. In the example directory
+
+- `yarn install`
+- `yarn start`
+
+3. Visit [http://localhost:3000/admin](http://localhost:3000/admin) to build pages or [http://localhost:3000](http://localhost:3000) to veiw them
 
 ## Usage
 

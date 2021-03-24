@@ -142,7 +142,12 @@ const Item = ({
 
   return (
     <ItemWrapper>
-      <TitleWrapper type='button' as="button" danger onClick={() => setOpen(!open)}>
+      <TitleWrapper
+        type='button'
+        as='button'
+        danger
+        onClick={() => setOpen(!open)}
+      >
         <div>
           <Handle />
           <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
