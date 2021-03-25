@@ -155,7 +155,7 @@ const Item = ({
 
         <div>
           {!alwaysOpened && (
-            <ListButton>
+            <ListButton type='button'>
               {open ? <IconMinimize /> : <IconMaximize />}
             </ListButton>
           )}
