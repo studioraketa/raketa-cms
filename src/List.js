@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactSortable } from 'react-sortablejs'
-import { reset, Button, P, H } from '@raketa-cms/raketa-mir'
+import { reset, buttonReset, Button, P, H } from '@raketa-cms/raketa-mir'
 
 import {
   add,
@@ -11,35 +11,13 @@ import {
   randomId
 } from './lists'
 
-const ListWrapper = styled.div`
-  ${reset};
-  margin-bottom: ${(props) => props.theme.font.base};
-`
-
-const AddButtonWrapepr = styled.div`
-  ${reset};
-  margin-bottom: ${(props) => props.theme.font.base};
-`
-
 const Handle = (props) => (
-  <span
-    data-drag
-    style={{
-      display: 'inline-block',
-      width: '16px',
-      cursor: 'move'
-    }}
-  >
+  <HandleWrapper data-drag>
     <img
       {...props}
       src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4='
-      style={{
-        position: 'relative',
-        top: '3px',
-        width: '16px'
-      }}
     />
-  </span>
+  </HandleWrapper>
 )
 
 const IconDelete = () => (
@@ -63,6 +41,28 @@ const IconMinimize = () => (
   />
 )
 
+const ListWrapper = styled.div`
+  ${reset};
+  margin-bottom: ${(props) => props.theme.font.base};
+`
+
+const AddButtonWrapepr = styled.div`
+  ${reset};
+  margin-bottom: ${(props) => props.theme.font.base};
+`
+
+const HandleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 16px;
+  padding-right: 8px;
+  cursor: move;
+
+  & > img {
+    width: 16px;
+  }
+`
+
 const ItemWrapper = styled.div`
   ${reset};
   margin-bottom: ${(props) => props.theme.font.base};
@@ -70,7 +70,7 @@ const ItemWrapper = styled.div`
   border-radius: 5px;
 `
 
-const TitleWrapper = styled.div`
+const TitleBar = styled.div`
   ${reset};
   display: flex;
   justify-content: space-between;
@@ -81,7 +81,15 @@ const TitleWrapper = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.gray};
   padding: 8px;
   background-color: #efefef;
-  cursor: pointer;
+`
+
+const TitleWrapper = styled.button`
+  ${buttonReset};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 0;
 `
 
 const ContentWrapper = styled.div`
@@ -90,22 +98,14 @@ const ContentWrapper = styled.div`
 `
 
 const ListButton = styled.button`
-  ${reset};
-  position: relative;
-  top: 2px;
-  -webkit-appearance: none;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  cursor: pointer;
-  margin-left: 8px;
+  ${buttonReset};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const Title = styled.span`
   ${reset};
-  margin-left: 0.5em;
   font-weight: 700;
 `
 
@@ -142,31 +142,26 @@ const Item = ({
 
   return (
     <ItemWrapper>
-      <TitleWrapper
-        type='button'
-        as='button'
-        danger
-        onClick={() => setOpen(!open)}
-      >
-        <div>
-          <Handle />
-          <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
-        </div>
+      <TitleBar>
+        <Handle />
 
-        <div>
+        <TitleWrapper type='button' onClick={() => setOpen(!open)}>
+          <Title>{extractPrimaryField(primaryField, item, idx)}</Title>
           {!alwaysOpened && (
             <ListButton type='button'>
               {open ? <IconMinimize /> : <IconMaximize />}
             </ListButton>
           )}
+        </TitleWrapper>
 
+        <div>
           {(template || (!template && items.length !== 1)) && (
             <ListButton type='button' danger onClick={() => handleRemove(idx)}>
               <IconDelete />
             </ListButton>
           )}
         </div>
-      </TitleWrapper>
+      </TitleBar>
 
       {(alwaysOpened || open) && (
         <ContentWrapper>
