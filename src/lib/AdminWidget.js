@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import styled from 'styled-components'
+import widgetData from '../helpers/widgetData'
 
 const icons = {
   iconMove:
@@ -73,7 +74,7 @@ const AdminWidget = ({
   onDelete
 }) => {
   const currentWidget = library[widget.component]
-  const currentAdminWidhet = adminLibrary[widget.component]
+  const currentAdminWidget = adminLibrary[widget.component]
 
   const handleDeleteWidget = () => {
     if (!confirm('Are you sure?')) return
@@ -105,7 +106,7 @@ const AdminWidget = ({
           onClick={() => handleDeleteWidget(widget.widgetId)}
         />
 
-        {!currentAdminWidhet.deprecated && (
+        {!widgetData.deprecated(currentAdminWidget) && (
           <IconButton
             icon='iconCopy'
             type='neutral'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Img } from '@raketa-cms/raketa-cms'
 import { ImagePicker } from '@raketa-cms/raketa-image-picker'
 
-const ImageWidget = ({ variant, image, description, containerSettings }) => (
+const Widget = ({ variant, image, description, containerSettings }) => (
   <Container settings={containerSettings}>
     <div className='image'>
       <div className='container'>
@@ -19,28 +19,35 @@ const ImageWidget = ({ variant, image, description, containerSettings }) => (
   </Container>
 )
 
-export const Spec = {
+const Config = {
   title: 'Image',
   category: 'General',
-  primaryField: 'variant',
-  defaults: {
-    variant: 'col-12',
-    image: 'https://placehold.it/1920x1080',
-    description: 'Example image',
-    containerSettings: {}
-  },
-  adminFields: {
-    variant: {
-      type: 'select',
-      options: [
-        ['col-12', 'Full width'],
-        ['shift-1', 'Shift 1'],
-        ['shift-2', 'Shift 2']
-      ]
-    },
-    image: { type: 'custom', component: ImagePicker },
-    description: { type: 'text' }
-  }
+  primaryField: 'variant'
 }
 
-export default ImageWidget
+const Defaults = {
+  variant: 'col-12',
+  image: 'https://placehold.it/1920x1080',
+  description: 'Example image',
+  containerSettings: {}
+}
+
+const Admin = {
+  variant: {
+    type: 'select',
+    options: [
+      ['col-12', 'Full width'],
+      ['shift-1', 'Shift 1'],
+      ['shift-2', 'Shift 2']
+    ]
+  },
+  image: { type: 'custom', component: ImagePicker },
+  description: { type: 'text' }
+}
+
+export default {
+  Widget,
+  Admin,
+  Config,
+  Defaults
+}

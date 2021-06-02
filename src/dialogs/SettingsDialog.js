@@ -11,6 +11,7 @@ import { humanize, capitalize } from '../helpers/humanize'
 import Dialog from './Dialog'
 import ImagePicker from '../pickers/ImagePicker/ImagePicker'
 
+import widgetData from '../helpers/widgetData'
 const SegmentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -125,10 +126,10 @@ const renderField = (field, value, onChange, opts) => {
 }
 
 const renderAdminFields = (widget, settings, onChange) =>
-  Object.keys(widget.adminFields).map((field) => {
+  Object.keys(widgetData.adminFields(widget)).map((field) => {
     const opts = Object.assign(
       { label: capitalize(humanize(field)) },
-      widget.adminFields[field]
+      widgetData.adminFields(widget)[field]
     )
     return renderField(field, settings[field], onChange, opts)
   })
@@ -159,13 +160,17 @@ const SettingsDialog = ({
 
   let fields
 
-  if (typeof widget.adminFields === 'object') {
+  if (typeof widgetData.adminFields(widget) === 'object') {
     fields = renderAdminFields(widget, localSettings, handleChangeField)
   }
 
-  if (typeof widget.adminFields === 'function') {
+  if (typeof widgetData.adminFields(widget) === 'function') {
     const items = localSettings.list ? localSettings.list : []
-    fields = widget.adminFields(items, handleChangeField, localSettings)
+    fields = widgetData.adminFields(widget)(
+      items,
+      handleChangeField,
+      localSettings
+    )
   }
 
   const { containerSettings = {} } = localSettings
@@ -173,7 +178,7 @@ const SettingsDialog = ({
   return (
     <Dialog
       open
-      title={widget.title}
+      title={widgetData.title(widget)}
       primaryLabel='OK'
       width='700px'
       onPrimary={() => onSave(localSettings)}

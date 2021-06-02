@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, List, TextInput } from '@raketa-cms/raketa-cms'
 
-const NavigationWidget = ({ list, containerSettings }) => (
+const Widget = ({ list, containerSettings }) => (
   <Container settings={containerSettings}>
     <div className='container'>
       <nav className='navigation'>
@@ -31,34 +31,41 @@ const NavigationItem = ({ settings, onChangeItem }) => (
   </div>
 )
 
-export const Spec = {
+const Config = {
   title: 'Navigation',
-  category: 'General',
-  defaults: {
-    list: [
-      { id: 1, title: 'All', link: '#' },
-      { id: 2, title: 'Houses', link: '#' },
-      { id: 3, title: 'Offices', link: '#' },
-      { id: 4, title: 'Apartments', link: '#' },
-      { id: 5, title: 'Infrastructure', link: '#' }
-    ],
-    variant: '3_columns',
-    containerSettings: {}
-  },
-  adminFields: (items, onChange, settings) => (
-    <div>
-      <List
-        label='Navigation items'
-        primaryField='title'
-        listItem={(settings, onChangeItem) => (
-          <NavigationItem settings={settings} onChangeItem={onChangeItem} />
-        )}
-        onChangeList={onChange}
-        items={items}
-        template={{ title: 'Title', link: '#' }}
-      />
-    </div>
-  )
+  category: 'General'
 }
 
-export default NavigationWidget
+const Defaults = {
+  list: [
+    { id: 1, title: 'All', link: '#' },
+    { id: 2, title: 'Houses', link: '#' },
+    { id: 3, title: 'Offices', link: '#' },
+    { id: 4, title: 'Apartments', link: '#' },
+    { id: 5, title: 'Infrastructure', link: '#' }
+  ],
+  variant: '3_columns',
+  containerSettings: {}
+}
+
+const Admin = (items, onChange, settings) => (
+  <div>
+    <List
+      label='Navigation items'
+      primaryField='title'
+      listItem={(settings, onChangeItem) => (
+        <NavigationItem settings={settings} onChangeItem={onChangeItem} />
+      )}
+      onChangeList={onChange}
+      items={items}
+      template={{ title: 'Title', link: '#' }}
+    />
+  </div>
+)
+
+export default {
+  Widget,
+  Config,
+  Defaults,
+  Admin
+}
