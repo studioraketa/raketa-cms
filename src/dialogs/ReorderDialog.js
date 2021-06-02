@@ -5,6 +5,7 @@ import { ReactSortable } from 'react-sortablejs'
 import { H, P, Button } from '@raketa-cms/raketa-mir'
 import Dialog from './Dialog'
 import LibraryContext from '../LibraryContext'
+import widgetData from '../helpers/widgetData'
 
 const Handle = (props) => (
   <img
@@ -40,10 +41,10 @@ const truncate = (str, num) => {
 
 const getWidgetTitle = (library, widget) => {
   const widgetComponent = library[widget.component]
-  const widgetName = widgetComponent.title || widget.component
+  const widgetName = widgetData.title(widgetComponent) || widget.component
   const primaryField =
-    widgetComponent.primaryField &&
-    widget.settings[widgetComponent.primaryField]
+    widgetData.primaryField(widgetComponent) &&
+    widget.settings[widgetData.primaryField(widgetComponent)]
 
   if (primaryField && typeof primaryField !== 'string') {
     throw new Error(

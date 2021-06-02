@@ -12,6 +12,7 @@ import {
 import { SidebarItem } from '../lib/SidebarItem'
 import TextInput from '../forms/TextInput'
 import LibraryContext from '../LibraryContext'
+import widgetData from '../helpers/widgetData'
 
 const sortByTitle = (a, b) => {
   var nameA = a.widgetTitle.toUpperCase()
@@ -30,12 +31,15 @@ const WidgetsList = ({ library, onAddWidget }) => {
     .filter((widgetName) => !library[widgetName].deprecated)
     .filter((widgetName) => {
       return (
-        library[widgetName].title.toLowerCase().indexOf(q.toLowerCase()) !== -1
+        widgetData
+          .title(library[widgetName])
+          .toLowerCase()
+          .indexOf(q.toLowerCase()) !== -1
       )
     })
 
   const widgetsCategories = widgets
-    .map((widgetName) => library[widgetName].category)
+    .map((widgetName) => widgetData.category(library[widgetName]))
     .filter((c, idx, self) => self.indexOf(c) === idx)
 
   return (
@@ -52,11 +56,12 @@ const WidgetsList = ({ library, onAddWidget }) => {
 
           {widgets
             .filter(
-              (widgetName) => library[widgetName].category === categoryName
+              (widgetName) =>
+                widgetData.category(library[widgetName]) === categoryName
             )
             .map((widgetName) => ({
               widgetName,
-              widgetTitle: library[widgetName].title
+              widgetTitle: widgetData.title(library[widgetName])
             }))
             .sort(sortByTitle)
             .map((item, idx) => (

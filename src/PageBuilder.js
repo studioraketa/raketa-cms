@@ -11,6 +11,7 @@ import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
 import SettingsDialog from './dialogs/SettingsDialog'
+import widgetData from './helpers/widgetData'
 
 const usePreventWindowUnload = (preventDefault) => {
   React.useEffect(() => {
@@ -58,7 +59,7 @@ const PageBuilder = ({
 
   const factory = (widgetName, defaultTheme) => {
     const widget = adminLibrary[widgetName]
-    const settings = widget.defaults
+    const settings = widgetData.defaults(widget)
 
     if (settings.containerSettings) {
       settings.containerSettings.theme =

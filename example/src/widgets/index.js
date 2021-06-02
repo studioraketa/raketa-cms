@@ -7,11 +7,11 @@ import DeprecatedWidget from './DeprecatedWidget'
 import ButtonsWidget from './ButtonsWidget'
 
 export default {
-  SectionTitleWidget,
-  ImageWidget,
-  NavigationWidget,
-  ArticlesWidget,
-  SingleVideoWidget,
-  DeprecatedWidget,
-  ButtonsWidget
+  SectionTitleWidget: SectionTitleWidget.Widget,
+  ImageWidget: ImageWidget.Widget,
+  NavigationWidget: NavigationWidget.Widget,
+  ArticlesWidget: ArticlesWidget.Widget,
+  SingleVideoWidget: SingleVideoWidget.Widget,
+  DeprecatedWidget: DeprecatedWidget.Widget,
+  ButtonsWidget: ButtonsWidget.Widget
 }

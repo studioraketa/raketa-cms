@@ -17,7 +17,7 @@ const Button = ({ settings }) => {
   )
 }
 
-const ButtonsWidget = ({ list, containerSettings }) => (
+const Widget = ({ list, containerSettings }) => (
   <Container settings={containerSettings}>
     <div className='container'>
       <nav className='navigation'>
@@ -36,28 +36,35 @@ const ButtonItem = ({ settings, onChangeItem }) => (
   />
 )
 
-export const Spec = {
+const Config = {
   title: 'Buttons',
-  category: 'General',
-  defaults: {
-    list: [{ id: 1, button: ButtonSettings.defaults }],
-    variant: '3_columns',
-    containerSettings: {}
-  },
-  adminFields: (items, onChange, settings) => (
-    <div>
-      <List
-        label='Buttons'
-        primaryField='button.label'
-        listItem={(settings, onChangeItem) => (
-          <ButtonItem settings={settings} onChangeItem={onChangeItem} />
-        )}
-        onChangeList={onChange}
-        items={items}
-        template={{ id: 1, button: ButtonSettings.defaults }}
-      />
-    </div>
-  )
+  category: 'General'
 }
 
-export default ButtonsWidget
+const Defaults = {
+  list: [{ id: 1, button: ButtonSettings.defaults }],
+  variant: '3_columns',
+  containerSettings: {}
+}
+
+const Admin = (items, onChange, settings) => (
+  <div>
+    <List
+      label='Buttons'
+      primaryField='button.label'
+      listItem={(settings, onChangeItem) => (
+        <ButtonItem settings={settings} onChangeItem={onChangeItem} />
+      )}
+      onChangeList={onChange}
+      items={items}
+      template={{ id: 1, button: ButtonSettings.defaults }}
+    />
+  </div>
+)
+
+export default {
+  Widget,
+  Config,
+  Admin,
+  Defaults
+}
