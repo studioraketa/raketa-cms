@@ -45,9 +45,4 @@ const Admin = {
   description: { type: 'text' }
 }
 
-export default {
-  Widget,
-  Admin,
-  Config,
-  Defaults
-}
+export { Widget, Admin, Config, Defaults }

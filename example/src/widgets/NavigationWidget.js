@@ -63,9 +63,4 @@ const Admin = (items, onChange, settings) => (
   </div>
 )
 
-export default {
-  Widget,
-  Config,
-  Defaults,
-  Admin
-}
+export { Widget, Config, Defaults, Admin }

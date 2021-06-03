@@ -34,4 +34,4 @@ const Admin = {
   title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' }
 }
 
-export default { Widget, Config, Admin, Defaults }
+export { Widget, Config, Admin, Defaults }

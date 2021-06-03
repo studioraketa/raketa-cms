@@ -1,3 +1,3 @@
-import SingleVideoWidget from './SingleVideoWidget'
+import { Widget, Admin, Config, Defaults } from './SingleVideoWidget'
 
-export default SingleVideoWidget
+export { Widget, Admin, Config, Defaults }

@@ -1,10 +1,10 @@
-import SectionTitleWidget from './SectionTitleWidget'
-import ImageWidget from './ImageWidget'
-import NavigationWidget from './NavigationWidget'
-import ArticlesWidget from './ArticlesWidget'
-import SingleVideoWidget from './SingleVideoWidget'
-import DeprecatedWidget from './DeprecatedWidget'
-import ButtonsWidget from './ButtonsWidget'
+import * as SectionTitleWidget from './SectionTitleWidget'
+import * as ImageWidget from './ImageWidget'
+import * as NavigationWidget from './NavigationWidget'
+import * as ArticlesWidget from './ArticlesWidget'
+import * as SingleVideoWidget from './SingleVideoWidget'
+import * as DeprecatedWidget from './DeprecatedWidget'
+import * as ButtonsWidget from './ButtonsWidget'
 
 export default {
   SectionTitleWidget,

@@ -24,9 +24,4 @@ const Admin = {
   videoUrl: { type: 'text' }
 }
 
-export default {
-  Widget,
-  Admin,
-  Defaults,
-  Config
-}
+export { Widget, Admin, Defaults, Config }

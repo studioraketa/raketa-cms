@@ -1,17 +1,17 @@
-import SectionTitleWidget from './SectionTitleWidget'
-import ImageWidget from './ImageWidget'
-import NavigationWidget from './NavigationWidget'
-import ArticlesWidget from './ArticlesWidget'
-import SingleVideoWidget from './SingleVideoWidget'
-import DeprecatedWidget from './DeprecatedWidget'
-import ButtonsWidget from './ButtonsWidget'
+import { Widget as SectionTitleWidget } from './SectionTitleWidget'
+import { Widget as ImageWidget } from './ImageWidget'
+import { Widget as NavigationWidget } from './NavigationWidget'
+import { Widget as ArticlesWidget } from './ArticlesWidget'
+import { Widget as SingleVideoWidget } from './SingleVideoWidget'
+import { Widget as DeprecatedWidget } from './DeprecatedWidget'
+import { Widget as ButtonsWidget } from './ButtonsWidget'
 
 export default {
-  SectionTitleWidget: SectionTitleWidget.Widget,
-  ImageWidget: ImageWidget.Widget,
-  NavigationWidget: NavigationWidget.Widget,
-  ArticlesWidget: ArticlesWidget.Widget,
-  SingleVideoWidget: SingleVideoWidget.Widget,
-  DeprecatedWidget: DeprecatedWidget.Widget,
-  ButtonsWidget: ButtonsWidget.Widget
+  SectionTitleWidget,
+  ImageWidget,
+  NavigationWidget,
+  ArticlesWidget,
+  SingleVideoWidget,
+  DeprecatedWidget,
+  ButtonsWidget
 }
