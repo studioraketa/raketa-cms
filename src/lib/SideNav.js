@@ -13,7 +13,7 @@ export const SideNav = styled.div`
   width: 64px;
   background-color: ${(props) => props.theme.colors.black};
   border-right: 1px solid ${(props) => props.theme.colors.darkerGray};
-  z-index: 10;
+  z-index: 30;
 `
 
 export const NavItem = styled.div`
