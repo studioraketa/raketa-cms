@@ -28,7 +28,7 @@ const WidgetsList = ({ library, onAddWidget }) => {
   const [q, setQ] = React.useState('')
 
   const widgets = Object.keys(library)
-    .filter((widgetName) => !library[widgetName].deprecated)
+    .filter((widgetName) => !widgetData.deprecated(library[widgetName]))
     .filter((widgetName) => {
       return (
         widgetData
