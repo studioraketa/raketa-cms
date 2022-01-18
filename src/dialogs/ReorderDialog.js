@@ -7,13 +7,6 @@ import Dialog from './Dialog'
 import LibraryContext from '../LibraryContext'
 import widgetData from '../helpers/widgetData'
 
-const Handle = (props) => (
-  <img
-    {...props}
-    src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItbW9yZS12ZXJ0aWNhbCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMSI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMTIiIGN5PSI1IiByPSIxIj48L2NpcmNsZT48Y2lyY2xlIGN4PSIxMiIgY3k9IjE5IiByPSIxIj48L2NpcmNsZT48L3N2Zz4='
-  />
-)
-
 const ReorderDialogItem = styled.div`
   display: flex;
   justify-content: space-between;
@@ -87,13 +80,6 @@ const ReorderDialog = ({
           <div key={widget.widgetId}>
             <ReorderDialogItem data-drag>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Handle
-                  style={{
-                    display: 'inline-block',
-                    width: '16px',
-                    marginRight: '.5em'
-                  }}
-                />
                 <H
                   size='base'
                   style={{
