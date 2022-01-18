@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import { reset, buttonReset } from '@raketa-cms/raketa-mir'
 
@@ -32,9 +33,11 @@ export const NavItem = styled.div`
   }
 `
 
-export const NavButton = styled.button`
+const NavButtonStyle = styled.button`
   ${reset}
   ${buttonReset}
+  position: relative;
+  z-index: 1000;
   display: block;
   font-size: ${(props) => props.theme.font.medium};
   color: ${(props) => props.theme.colors.white};
@@ -63,6 +66,41 @@ export const NavButton = styled.button`
     opacity: 0.9;
   }
 `
+
+const TooltipWrapper = styled.div`
+  position: relative;
+
+  &:hover {
+    .cms-tooltip {
+      opacity: 1;
+    }
+  }
+`
+
+const Tooltip = styled.div`
+  ${reset};
+  position: absolute;
+  top: calc(50% - 1em);
+  left: 72px;
+  z-index: 1001;
+  height: 2em;
+  padding: 0.5em 0.75em;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: ${(props) => props.theme.colors.white};
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+`
+
+export const NavButton = ({ tooltip, ...props }) => (
+  <TooltipWrapper>
+    <NavButtonStyle {...props} />
+    {tooltip && <Tooltip className='cms-tooltip'>{tooltip}</Tooltip>}
+  </TooltipWrapper>
+)
 
 export const NavPanel = styled.div`
   ${reset}

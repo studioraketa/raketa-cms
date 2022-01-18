@@ -76,6 +76,11 @@ const AdminWidget = ({
   const currentWidget = library[widget.component]
   const currentAdminWidget = adminLibrary[widget.component]
 
+  if (!currentWidget || !currentAdminWidget) {
+    console.error(`Unknown widget: ${widget.component}`)
+    return null
+  }
+
   const handleDeleteWidget = () => {
     if (!confirm('Are you sure?')) return
 
