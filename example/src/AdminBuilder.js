@@ -53,6 +53,12 @@ const AdminBuilder = ({ page: defaultPage, host, back_url, onSave }) => {
           library={LIBRARY}
           adminLibrary={ADMIN_LIBRARY}
           themes={THEMES}
+          buttonStyles={[
+            ['primary', 'Primary'],
+            ['primary-alt', 'Primary (white)'],
+            ['secondary', 'Secondary'],
+            ['text', 'Text']
+          ]}
           defaultTheme={DEFAULT_THEME}
           page={page}
           onChange={handleChange}

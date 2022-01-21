@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { reset } from '@raketa-cms/raketa-mir'
+import ButtonStyleContext from '../ButtonStyleContext'
 
 import TextInput from './TextInput'
 import SelectMenu from './SelectMenu'
@@ -58,67 +59,69 @@ const ButtonControl = styled.div`
 const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
-const ButtonSettings = ({ label, value, onChange }) => (
-  <ButtonControl>
-    <FormSectionTitle>
-      <SettingsIcon /> {label}
-    </FormSectionTitle>
+const ButtonSettings = ({ label, value, onChange }) => {
+  const buttonStyles = React.useContext(ButtonStyleContext)
 
-    <ThreeColumns>
-      <TextInput
-        label='Label'
-        value={value.label}
-        onChange={(label) => onChange(mergeSettings(value, 'label', label))}
-      />
+  return (
+    <ButtonControl>
+      <FormSectionTitle>
+        <SettingsIcon /> {label}
+      </FormSectionTitle>
 
-      <TextInput
-        label='Link'
-        value={value.link}
-        onChange={(link) => onChange(mergeSettings(value, 'link', link))}
-      />
+      <ThreeColumns>
+        <TextInput
+          label='Label'
+          value={value.label}
+          onChange={(label) => onChange(mergeSettings(value, 'label', label))}
+        />
 
-      <TextInput
-        label='ID'
-        value={value.id}
-        onChange={(id) => onChange(mergeSettings(value, 'id', id))}
-      />
-    </ThreeColumns>
+        <TextInput
+          label='Link'
+          value={value.link}
+          onChange={(link) => onChange(mergeSettings(value, 'link', link))}
+        />
 
-    <ThreeColumns>
-      <SelectMenu
-        label='Type'
-        options={[
-          ['primary', 'Primary'],
-          ['secondary', 'Secondary'],
-          ['text', 'Text']
-        ]}
-        value={value.type}
-        placeholder=''
-        onChange={(type) => onChange(mergeSettings(value, 'type', type))}
-      />
+        <TextInput
+          label='ID'
+          value={value.id}
+          onChange={(id) => onChange(mergeSettings(value, 'id', id))}
+        />
+      </ThreeColumns>
 
-      <SelectMenu
-        label='Target'
-        options={[
-          ['_self', 'Self'],
-          ['_blank', 'New Tab']
-        ]}
-        value={value.target}
-        onChange={(target) => onChange(mergeSettings(value, 'target', target))}
-      />
+      <ThreeColumns>
+        <SelectMenu
+          label='Type'
+          options={buttonStyles}
+          value={value.type}
+          placeholder=''
+          onChange={(type) => onChange(mergeSettings(value, 'type', type))}
+        />
 
-      <SelectMenu
-        label='Follow Link'
-        options={[
-          ['follow', 'Follow'],
-          ['nofollow', 'No Follow']
-        ]}
-        value={value.rel}
-        onChange={(rel) => onChange(mergeSettings(value, 'rel', rel))}
-      />
-    </ThreeColumns>
-  </ButtonControl>
-)
+        <SelectMenu
+          label='Target'
+          options={[
+            ['_self', 'Self'],
+            ['_blank', 'New Tab']
+          ]}
+          value={value.target}
+          onChange={(target) =>
+            onChange(mergeSettings(value, 'target', target))
+          }
+        />
+
+        <SelectMenu
+          label='Follow Link'
+          options={[
+            ['follow', 'Follow'],
+            ['nofollow', 'No Follow']
+          ]}
+          value={value.rel}
+          onChange={(rel) => onChange(mergeSettings(value, 'rel', rel))}
+        />
+      </ThreeColumns>
+    </ButtonControl>
+  )
+}
 
 const DEFAULTS = {
   label: 'Button',
