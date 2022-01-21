@@ -5,6 +5,7 @@ import { Widget as ArticlesWidget } from './ArticlesWidget'
 import { Widget as SingleVideoWidget } from './SingleVideoWidget'
 import { Widget as DeprecatedWidget } from './DeprecatedWidget'
 import { Widget as ButtonsWidget } from './ButtonsWidget'
+import { Widget as HeroWidget } from './HeroWidget'
 
 export default {
   SectionTitleWidget,
@@ -13,5 +14,6 @@ export default {
   ArticlesWidget,
   SingleVideoWidget,
   DeprecatedWidget,
-  ButtonsWidget
+  ButtonsWidget,
+  HeroWidget
 }
