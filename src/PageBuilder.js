@@ -7,6 +7,7 @@ import { add, removeById, updateFieldById, randomString } from './lists'
 
 import HostContext from './HostContext'
 import LibraryContext from './LibraryContext'
+import ButtonStyleContext from './ButtonStyleContext'
 import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
@@ -33,6 +34,7 @@ const PageBuilder = ({
   adminLibrary,
   spacings,
   themes,
+  buttonStyles,
   defaultTheme,
   navigation,
   identifier,
@@ -196,48 +198,52 @@ const PageBuilder = ({
     <ThemeProvider theme={theme}>
       <HostContext.Provider value={{ host }}>
         <LibraryContext.Provider value={{ library, adminLibrary }}>
-          <div style={{ paddingLeft: '64px' }}>
-            {reorderOpen && (
-              <ReorderDialog
+          <ButtonStyleContext.Provider value={buttonStyles}>
+            <div style={{ paddingLeft: '64px' }}>
+              {reorderOpen && (
+                <ReorderDialog
+                  widgets={sortableWidgets}
+                  onChange={handleReorder}
+                  onDelete={handleRemove}
+                  onSelectWidget={setSelectedWidget}
+                  onClose={() => setReorderOpen(false)}
+                />
+              )}
+
+              <AdminSidebar
+                navigation={navigation}
+                dirty={dirty}
+                buttons={sidebarButtons}
+                identifier={identifier}
+                onSave={handleSave}
+                onAddWidget={(widgetName) =>
+                  handleAdd(widgetName, defaultTheme)
+                }
+                onReorderDialog={() => setReorderOpen(true)}
+                onExit={onExit}
+                onPasteWidget={handlePasteWidget}
+              />
+
+              <Canvas
                 widgets={sortableWidgets}
-                onChange={handleReorder}
-                onDelete={handleRemove}
-                onSelectWidget={setSelectedWidget}
-                onClose={() => setReorderOpen(false)}
+                identifier={identifier}
+                onReorder={handleReorder}
+                onEdit={setSelectedWidget}
+                onRemove={handleRemove}
               />
-            )}
 
-            <AdminSidebar
-              navigation={navigation}
-              dirty={dirty}
-              buttons={sidebarButtons}
-              identifier={identifier}
-              onSave={handleSave}
-              onAddWidget={(widgetName) => handleAdd(widgetName, defaultTheme)}
-              onReorderDialog={() => setReorderOpen(true)}
-              onExit={onExit}
-              onPasteWidget={handlePasteWidget}
-            />
-
-            <Canvas
-              widgets={sortableWidgets}
-              identifier={identifier}
-              onReorder={handleReorder}
-              onEdit={setSelectedWidget}
-              onRemove={handleRemove}
-            />
-
-            {selectedWidget && (
-              <SettingsDialog
-                spacings={spacings}
-                themes={themes}
-                widget={currentWidget}
-                settings={selectedWidget.settings}
-                onSave={handleSaveWidget}
-                onClose={handleClose}
-              />
-            )}
-          </div>
+              {selectedWidget && (
+                <SettingsDialog
+                  spacings={spacings}
+                  themes={themes}
+                  widget={currentWidget}
+                  settings={selectedWidget.settings}
+                  onSave={handleSaveWidget}
+                  onClose={handleClose}
+                />
+              )}
+            </div>
+          </ButtonStyleContext.Provider>
         </LibraryContext.Provider>
       </HostContext.Provider>
     </ThemeProvider>
@@ -255,6 +261,11 @@ PageBuilder.defaultProps = {
     ['both', 'Both'],
     ['top', 'Top'],
     ['bottom', 'Bottom']
+  ],
+  buttonStyles: [
+    ['primary', 'Primary'],
+    ['secondary', 'Secondary'],
+    ['text', 'Text']
   ]
 }
 
