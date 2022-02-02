@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { reset } from '@raketa-cms/raketa-mir'
+import { reset, Hint } from '@raketa-cms/raketa-mir'
 import ButtonStyleContext from '../ButtonStyleContext'
 
 import TextInput from './TextInput'
@@ -59,7 +59,7 @@ const ButtonControl = styled.div`
 const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
-const ButtonSettings = ({ label, value, onChange }) => {
+const ButtonSettings = ({ label, hint, value, onChange }) => {
   const buttonStyles = React.useContext(ButtonStyleContext)
 
   return (
@@ -119,6 +119,8 @@ const ButtonSettings = ({ label, value, onChange }) => {
           onChange={(rel) => onChange(mergeSettings(value, 'rel', rel))}
         />
       </ThreeColumns>
+
+      {hint ? <Hint>{hint}</Hint> : ''}
     </ButtonControl>
   )
 }

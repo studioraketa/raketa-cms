@@ -31,8 +31,9 @@ const Widget = ({ list, containerSettings }) => (
 
 const ButtonItem = ({ settings, onChangeItem }) => (
   <ButtonSettings
-    onChange={(value) => onChangeItem('button', value)}
     value={settings.button}
+    hint='This is a useful hint'
+    onChange={(value) => onChangeItem('button', value)}
   />
 )
 
