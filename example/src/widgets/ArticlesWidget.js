@@ -36,6 +36,13 @@ const Widget = ({ variant, list, containerSettings }) => (
 
 const ListItem = ({ settings, onChangeItem }) => (
   <div>
+    <LinkSettings
+      label='Link'
+      onChange={(value) => onChangeItem('link', value)}
+      value={settings.link}
+      hint='Please enter standard URL or an anchor with #.'
+    />
+
     <ImagePicker
       label='Image'
       onChange={(value) => onChangeItem('image', value)}
@@ -67,6 +74,7 @@ const Defaults = {
   list: [
     {
       id: 1,
+      link: LinkSettings.defaults,
       title: 'Title',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
@@ -74,6 +82,7 @@ const Defaults = {
     },
     {
       id: 2,
+      link: LinkSettings.defaults,
       title: 'Title',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
@@ -103,8 +112,8 @@ const Admin = (items, onChange, settings) => (
       )}
       items={items}
       template={{
-        title: 'Title',
         link: LinkSettings.defaults,
+        title: 'Title',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
         image: 'http://placehold.it/400x300'

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { reset } from '@raketa-cms/raketa-mir'
+import { reset, Hint } from '@raketa-cms/raketa-mir'
 
 import TextInput from './TextInput'
 import SelectMenu from './SelectMenu'
@@ -59,7 +59,7 @@ const ButtonControl = styled.div`
 const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
-const LinkSettings = ({ label, value, onChange }) => (
+const LinkSettings = ({ label, hint, value, onChange }) => (
   <ButtonControl>
     <FormSectionTitle>
       <SettingsIcon /> {label}
@@ -114,6 +114,8 @@ const LinkSettings = ({ label, value, onChange }) => (
         onChange={(rel) => onChange(mergeSettings(value, 'rel', rel))}
       />
     </ThreeColumns>
+
+    {hint ? <Hint>{hint}</Hint> : ''}
   </ButtonControl>
 )
 
