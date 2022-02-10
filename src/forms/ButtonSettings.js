@@ -66,7 +66,8 @@ const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
 const ButtonSettings = ({ label, hint, value, onChange }) => {
-  const buttonStyles = React.useContext(ButtonStyleContext) || DEFAULT_BUTTON_STYLES;
+  const buttonStyles =
+    React.useContext(ButtonStyleContext) || DEFAULT_BUTTON_STYLES
 
   return (
     <ButtonControl>
