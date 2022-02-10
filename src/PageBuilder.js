@@ -13,6 +13,7 @@ import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
 import SettingsDialog from './dialogs/SettingsDialog'
 import widgetData from './helpers/widgetData'
+import ButtonSettings from './forms/ButtonSettings'
 
 const usePreventWindowUnload = (preventDefault) => {
   React.useEffect(() => {
@@ -262,11 +263,7 @@ PageBuilder.defaultProps = {
     ['top', 'Top'],
     ['bottom', 'Bottom']
   ],
-  buttonStyles: [
-    ['primary', 'Primary'],
-    ['secondary', 'Secondary'],
-    ['text', 'Text']
-  ]
+  buttonStyles: ButtonSettings.defaultButtonStyles
 }
 
 export default PageBuilder

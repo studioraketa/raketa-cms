@@ -56,11 +56,17 @@ const ButtonControl = styled.div`
   }
 `
 
+const DEFAULT_BUTTON_STYLES = [
+  ['primary', 'Primary'],
+  ['secondary', 'Secondary'],
+  ['text', 'Text']
+]
+
 const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
 const ButtonSettings = ({ label, hint, value, onChange }) => {
-  const buttonStyles = React.useContext(ButtonStyleContext)
+  const buttonStyles = React.useContext(ButtonStyleContext) || DEFAULT_BUTTON_STYLES;
 
   return (
     <ButtonControl>
@@ -140,5 +146,6 @@ ButtonSettings.defaultProps = {
 }
 
 ButtonSettings.defaults = DEFAULTS
+ButtonSettings.defaultButtonStyles = DEFAULT_BUTTON_STYLES
 
 export default ButtonSettings
