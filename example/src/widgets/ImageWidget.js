@@ -27,7 +27,7 @@ const Config = {
 
 const Defaults = {
   variant: 'col-12',
-  image: 'https://placehold.it/1920x1080',
+  image: 'https://placeholder.raketa.cloud/images/1920x1080',
   description: 'Example image',
   containerSettings: {}
 }

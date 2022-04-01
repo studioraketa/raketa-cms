@@ -15,7 +15,7 @@ const Config = {
 }
 
 const Defaults = {
-  image: 'http://placehold.it/540x540',
+  image: 'http://placeholder.raketa.cloud/images/540x540',
   videoUrl: 'https://www.youtube.com/watch?v=xqB9KJsbIlU',
   containerSettings: { theme: 'white' }
 }

@@ -78,7 +78,7 @@ const Defaults = {
       title: 'Title',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-      image: 'http://placehold.it/400x300'
+      image: 'http://placeholder.raketa.cloud/images/400x300'
     },
     {
       id: 2,
@@ -86,7 +86,7 @@ const Defaults = {
       title: 'Title',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-      image: 'http://placehold.it/400x300'
+      image: 'http://placeholder.raketa.cloud/images/400x300'
     }
   ],
   containerSettings: {}
@@ -116,7 +116,7 @@ const Admin = (items, onChange, settings) => (
         title: 'Title',
         description:
           'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores distinctio ea non? Quisquam enim blanditiis deserunt cumque earum.',
-        image: 'http://placehold.it/400x300'
+        image: 'http://placeholder.raketa.cloud/images/400x300'
       }}
       primaryField='title'
       onChangeList={onChange}
