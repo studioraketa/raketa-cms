@@ -38,11 +38,13 @@ const YouTubeEmbed = ({ videoId, autoplay }) => (
   />
 )
 
-const WistiaEmbed = ({ videoId }) => (
+const WistiaEmbed = ({ videoId, autoplay }) => (
   <iframe
     frameBorder='0'
     allowFullScreen
-    src={`https://fast.wistia.net/embed/iframe/${videoId}`}
+    src={`https://fast.wistia.net/embed/iframe/${videoId}${
+      autoplay ? '?autoPlay=true' : ''
+    }`}
     className='content'
     allow='autoplay'
   />
