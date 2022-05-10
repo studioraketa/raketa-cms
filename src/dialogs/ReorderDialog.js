@@ -38,6 +38,7 @@ const getWidgetTitle = (library, widget) => {
     console.error(`Unknown widget: ${widget.component}`)
     return `Unknown widget: ${widget.component}`
   }
+
   const widgetName = widgetData.title(widgetComponent) || widget.component
   const primaryField =
     widgetData.primaryField(widgetComponent) &&
