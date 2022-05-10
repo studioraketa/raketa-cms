@@ -34,6 +34,10 @@ const truncate = (str, num) => {
 
 const getWidgetTitle = (library, widget) => {
   const widgetComponent = library[widget.component]
+  if (!widgetComponent) {
+    console.error(`Unknown widget: ${widget.component}`)
+    return `Unknown widget: ${widget.component}`
+  }
   const widgetName = widgetData.title(widgetComponent) || widget.component
   const primaryField =
     widgetData.primaryField(widgetComponent) &&
@@ -92,16 +96,18 @@ const ReorderDialog = ({
               </div>
 
               <div>
-                <Button
-                  type='button'
-                  variant='primary'
-                  onClick={() => {
-                    onClose()
-                    onSelectWidget(widget)
-                  }}
-                >
-                  Edit
-                </Button>
+                {adminLibrary[widget.component] && (
+                  <Button
+                    type='button'
+                    variant='primary'
+                    onClick={() => {
+                      onClose()
+                      onSelectWidget(widget)
+                    }}
+                  >
+                    Edit
+                  </Button>
+                )}
 
                 <Button
                   type='button'
