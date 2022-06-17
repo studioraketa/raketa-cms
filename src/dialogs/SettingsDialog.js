@@ -220,7 +220,7 @@ const SettingsDialog = ({
             </Segment>
             <Segment>
               <TextInput
-                label='Section CSS class'
+                label='CSS class'
                 value={containerSettings.className || ''}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('className', newValue)
