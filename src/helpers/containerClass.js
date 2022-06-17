@@ -1,11 +1,13 @@
 export default (className, containerSettings) => {
   const classes = [className]
+
   if (
     containerSettings &&
     containerSettings.spacing !== 'none' &&
     containerSettings.spacing !== undefined
   )
     classes.push(`spacing-${containerSettings.spacing}`)
+
   if (
     containerSettings &&
     containerSettings.theme !== 'none' &&
@@ -13,5 +15,8 @@ export default (className, containerSettings) => {
   )
     classes.push(`${containerSettings.theme}-bg`)
 
-  return classes.join(' ')
+  if (containerSettings && containerSettings.className)
+    classes.push(containerSettings.className)
+
+  return classes.filter(Boolean).join(' ')
 }

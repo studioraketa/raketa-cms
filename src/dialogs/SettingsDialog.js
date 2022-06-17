@@ -14,11 +14,12 @@ import ImagePicker from '../pickers/ImagePicker/ImagePicker'
 import widgetData from '../helpers/widgetData'
 const SegmentWrapper = styled.div`
   display: flex;
+  gap: 0.5em;
   justify-content: space-between;
 `
 
 const Segment = styled.div`
-  width: 32%;
+  flex: 1;
 `
 
 const renderField = (field, value, onChange, opts) => {
@@ -214,6 +215,15 @@ const SettingsDialog = ({
                 value={containerSettings.sectionID || ''}
                 onChange={(newValue) =>
                   handleUpdateLayoutSettings('sectionID', newValue)
+                }
+              />
+            </Segment>
+            <Segment>
+              <TextInput
+                label='Section CSS class'
+                value={containerSettings.className || ''}
+                onChange={(newValue) =>
+                  handleUpdateLayoutSettings('className', newValue)
                 }
               />
             </Segment>
