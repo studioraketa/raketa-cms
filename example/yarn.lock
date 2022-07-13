@@ -1402,24 +1402,24 @@
   version "0.0.0"
   uid ""
 
-"@raketa-cms/raketa-image-picker@^1.2.2":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-image-picker/-/raketa-image-picker-1.2.5.tgz#48cc711e43f1052ed8d8e5ac672faa2fce604c47"
-  integrity sha512-zoqZd6rTTlzzLZgk/S+RdekrVNV6VLBURzm69LieGa6/81Up+g4i8lPVQHWzYf1B1Is8K626TznCN09brPUU7w==
+"@raketa-cms/raketa-image-picker@1.3.7":
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-image-picker/-/raketa-image-picker-1.3.7.tgz#feba7f0711699739cb0dc69beb06b68b8e030c69"
+  integrity sha512-ZpYr4eUz+PzhCamDeMrH69KorTNdz5ninoGA2tU05myX8gRKA158mn1kh3BXIZ7rx1dy6ecuz7Whyajiu5ol+w==
   dependencies:
-    "@raketa-cms/raketa-mir" "^1.1.2"
+    "@raketa-cms/raketa-mir" "1.1.7"
     prop-types "^15.7.2"
     react-dropzone "^11.0.1"
 
-"@raketa-cms/raketa-mir@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.2.tgz#a0d093010bd6efa38deee0013c099dc5ac5c3585"
-  integrity sha512-iCccWMGZW8N6jDBye6VXaIG3ZPikiuFtMt22n4d71mb3NLDEOPMTatXlQLXuB21f4uDWeSWvwCAdP1lxp/zqOA==
+"@raketa-cms/raketa-mir@1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.7.tgz#2b34c089646dfc3eed6779e9a9e6aa3412ac6351"
+  integrity sha512-/1BviVVK+XYAzTdQoQSfmoZeuHWhP8V91CbTEzGKanfN4Z65SJ2WGRjV5P0IhJeUoXLP9Yc0TkRzK5ytxUy24g==
 
-"@raketa-cms/raketa-mir@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.5.tgz#06ef8ead58c992bf0000d367650b56dc4eda8997"
-  integrity sha512-GjRze19r1IFzkikMTyb28JA8OdoTX8ynC6DX8b9vcxCtUAwLIn6zuO2/zxI2jjk6RtgpWSNgsItwvsozY/761w==
+"@raketa-cms/raketa-mir@1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@raketa-cms/raketa-mir/-/raketa-mir-1.1.9.tgz#93dfc9caa6cd1ef2a328d9bd9fe91dc000bde6ce"
+  integrity sha512-HK8iPjHGN6Y8KL6Y/7ZU+/mDCBVeCSZRrZ0J3y/QLFpT5gttoKsmXBSvU6CZ4WU2jlGzhacLHOusjZ8Bbi6KcQ==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"

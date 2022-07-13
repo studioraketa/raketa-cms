@@ -59,6 +59,41 @@ const AdminBuilder = ({ page: defaultPage, host, back_url, onSave }) => {
             ['secondary', 'Secondary'],
             ['text', 'Text']
           ]}
+          languageSwitcherSettings={{
+            current: 'EN',
+            navigation: [
+              { path: '/de', label: 'DE', newItem: true },
+              { path: '/es', label: 'ES' }
+            ]
+          }}
+          sidebarButtons={[
+            {
+              id: 'some-id',
+              label: 'Prev',
+              className: '',
+              onClick: () => {
+                console.log('Preview')
+              }
+            },
+            {
+              id: 'some-id-2',
+              label: 'Label',
+              className: '',
+              icon: 'publish',
+              onClick: () => {
+                console.log('Publish')
+              }
+            },
+            {
+              id: 'some-id-3',
+              label: 'Label',
+              className: '',
+              icon: 'settings',
+              onClick: () => {
+                console.log('Settings')
+              }
+            }
+          ]}
           defaultTheme={DEFAULT_THEME}
           page={page}
           onChange={handleChange}

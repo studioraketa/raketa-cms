@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@raketa-cms/raketa-cms": "link:..",
-    "@raketa-cms/raketa-image-picker": "^1.2.2",
+    "@raketa-cms/raketa-image-picker": "1.3.7",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts"
