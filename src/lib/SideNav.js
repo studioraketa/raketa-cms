@@ -10,22 +10,21 @@ export const SideNav = styled.div`
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 64px;
   background-color: ${(props) => props.theme.colors.black};
   border-right: 1px solid ${(props) => props.theme.colors.darkerGray};
   z-index: 30;
 `
 
+export const NavGroup = styled.div`
+  ${reset};
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+`
+
 export const NavItem = styled.div`
-  ${(props) =>
-    props.bottom
-      ? `
-    position: absolute;
-    bottom: 0;
-    border-top: 1px solid ${props.theme.colors.darkerGray};
-  `
-      : ''}
   z-index: 10;
 
   &:hover > * {

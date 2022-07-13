@@ -37,7 +37,7 @@ const PageBuilder = ({
   themes,
   buttonStyles,
   defaultTheme,
-  navigation,
+  languageSwitcherSettings,
   identifier,
   sidebarButtons,
   host,
@@ -212,10 +212,9 @@ const PageBuilder = ({
               )}
 
               <AdminSidebar
-                navigation={navigation}
+                languageSwitcherSettings={languageSwitcherSettings}
                 dirty={dirty}
                 buttons={sidebarButtons}
-                identifier={identifier}
                 onSave={handleSave}
                 onAddWidget={(widgetName) =>
                   handleAdd(widgetName, defaultTheme)
