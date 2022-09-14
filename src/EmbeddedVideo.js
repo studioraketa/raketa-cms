@@ -38,6 +38,18 @@ const YouTubeEmbed = ({ videoId, autoplay }) => (
   />
 )
 
+const YouTubeNoCookieEmbed = ({ videoId, autoplay }) => (
+  <iframe
+    frameBorder='0'
+    allowFullScreen
+    src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=${
+      autoplay === true ? '1' : '0'
+    }`}
+    className='content'
+    allow='autoplay'
+  />
+)
+
 const WistiaEmbed = ({ videoId, autoplay }) => (
   <iframe
     frameBorder='0'
@@ -90,17 +102,36 @@ const videoId = (url) => {
   if (videoType(url) === 'wistia') return wistiaId(url)
 }
 
-const VideoComponentType = {
-  youtube: YouTubeEmbed,
-  vimeo: VimeoEmbed,
-  youku: YoukuEmbed,
-  wistia: WistiaEmbed
+const VideoComponentType = (vType, noCookieDomains) => {
+  const components = {
+    youtube: YouTubeEmbed,
+    vimeo: VimeoEmbed,
+    youku: YoukuEmbed,
+    wistia: WistiaEmbed
+  }
+
+  const noCookiesComponents = {
+    youtube: YouTubeNoCookieEmbed,
+    vimeo: VimeoEmbed,
+    youku: YoukuEmbed,
+    wistia: WistiaEmbed
+  }
+
+  if (noCookieDomains) {
+    return noCookiesComponents[vType]
+  } else {
+    return components[vType]
+  }
 }
 
-const EmbeddedVideo = ({ videoUrl, autoplay = false }) => {
+const EmbeddedVideo = ({
+  videoUrl,
+  autoplay = false,
+  noCookieDomains = false
+}) => {
   const vType = videoType(videoUrl)
   const vId = videoId(videoUrl)
-  const VideoComponent = VideoComponentType[vType]
+  const VideoComponent = VideoComponentType(vType, noCookieDomains)
 
   if (VideoComponent) {
     return <VideoComponent videoId={vId} autoplay={autoplay} />

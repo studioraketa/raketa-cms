@@ -51,13 +51,6 @@ const App = () => {
         href='https://aimseducation.edu/assets/application-afbd19b7d4c79dfdedbc41a56884e5f681493e388c1f07f6f94193b5e13b08d5.css'
       />
 
-      <RaketaUIProvider>
-        <ButtonSettings
-          value={ButtonSettings.defaults}
-          onChange={(val) => console.log({ val })}
-        />
-      </RaketaUIProvider>
-
       <Tabs>
         <div title='Admin'>
           <AdminBuilder
