@@ -1,11 +1,8 @@
 import React from 'react'
-import { PageBuilder } from '@raketa-cms/raketa-cms'
+import { BuilderContext, PageBuilder } from '@raketa-cms/raketa-cms'
 import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
-import { BuilderContext } from '@raketa-cms/raketa-cms';
 import LIBRARY from './widgets'
 import ADMIN_LIBRARY from './widgets/admin'
-// import LIBRARY from './legacyWidgets'
-// import ADMIN_LIBRARY from './legacyWidgets'
 import IMAGES from './IMAGES'
 
 class FakeMediaManager {
@@ -45,7 +42,10 @@ const containerAdmin = {
   containerType: { type: 'select', options: [['container', 'Standard'], ['extended-container', 'Extended container']] },
 };
 
-const DEFAULT_THEME = 'dark'
+const configuration = {
+  buttonStyles: BUTTON_STYLES,
+  containerAdmin,
+};
 
 class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
@@ -71,10 +71,7 @@ const AdminBuilder = ({ page: defaultPage, host, back_url, onSave }) => {
   return (
     <ErrorBoundary>
       <MediaManagerContext.Provider value={mediaManager}>
-        <BuilderContext.Provider value={{
-          buttonStyles: BUTTON_STYLES,
-          containerAdmin,
-        }}>
+        <BuilderContext.Provider value={configuration}>
           <PageBuilder
             host={host}
             library={LIBRARY}
@@ -114,7 +111,6 @@ const AdminBuilder = ({ page: defaultPage, host, back_url, onSave }) => {
                 }
               }
             ]}
-            defaultTheme={DEFAULT_THEME}
             page={page}
             onChange={handleChange}
             onSave={handleSave}

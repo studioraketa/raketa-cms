@@ -31,7 +31,6 @@ const PageBuilder = ({
   page: initialPage,
   library,
   adminLibrary,
-  defaultTheme,
   languageSwitcherSettings,
   identifier,
   sidebarButtons,
@@ -55,16 +54,9 @@ const PageBuilder = ({
     ? adminLibrary[selectedWidget.component]
     : null
 
-  const factory = (widgetName, defaultTheme) => {
+  const factory = (widgetName) => {
     const widget = adminLibrary[widgetName]
     const settings = widgetData.defaults(widget)
-
-    if (settings.containerSettings) {
-      settings.containerSettings.theme =
-        settings.containerSettings.theme || defaultTheme
-    } else {
-      settings.containerSettings = { theme: defaultTheme }
-    }
 
     return {
       widgetId: randomString(6),
@@ -73,8 +65,8 @@ const PageBuilder = ({
     }
   }
 
-  const handleAdd = (widgetName, defaultTheme) => {
-    const widgets = add(page.widgets, factory(widgetName, defaultTheme))
+  const handleAdd = (widgetName) => {
+    const widgets = add(page.widgets, factory(widgetName))
     const newPage = {
       ...page,
       widgets
@@ -210,7 +202,7 @@ const PageBuilder = ({
               dirty={dirty}
               buttons={sidebarButtons}
               onSave={handleSave}
-              onAddWidget={(widgetName) => handleAdd(widgetName, defaultTheme)}
+              onAddWidget={(widgetName) => handleAdd(widgetName)}
               onReorderDialog={() => setReorderOpen(true)}
               onExit={onExit}
               onPasteWidget={handlePasteWidget}

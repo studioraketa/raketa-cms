@@ -31,7 +31,8 @@ const Admin = {
       ['text-left', 'Left']
     ]
   },
-  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' }
+  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' },
+  button: { type: 'button' }
 }
 
 export { Widget, Config, Admin, Defaults }
