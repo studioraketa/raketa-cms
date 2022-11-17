@@ -7,13 +7,11 @@ import { add, removeById, updateFieldById, randomString } from './lists'
 
 import HostContext from './HostContext'
 import LibraryContext from './LibraryContext'
-import ButtonStyleContext from './ButtonStyleContext'
 import Canvas from './Canvas'
 import AdminSidebar from './lib/AdminSidebar'
 import ReorderDialog from './dialogs/ReorderDialog'
 import SettingsDialog from './dialogs/SettingsDialog'
 import widgetData from './helpers/widgetData'
-import ButtonSettings from './forms/ButtonSettings'
 
 const usePreventWindowUnload = (preventDefault) => {
   React.useEffect(() => {
@@ -33,10 +31,6 @@ const PageBuilder = ({
   page: initialPage,
   library,
   adminLibrary,
-  spacings,
-  themes,
-  buttonStyles,
-  defaultTheme,
   languageSwitcherSettings,
   identifier,
   sidebarButtons,
@@ -60,16 +54,9 @@ const PageBuilder = ({
     ? adminLibrary[selectedWidget.component]
     : null
 
-  const factory = (widgetName, defaultTheme) => {
+  const factory = (widgetName) => {
     const widget = adminLibrary[widgetName]
     const settings = widgetData.defaults(widget)
-
-    if (settings.containerSettings) {
-      settings.containerSettings.theme =
-        settings.containerSettings.theme || defaultTheme
-    } else {
-      settings.containerSettings = { theme: defaultTheme }
-    }
 
     return {
       widgetId: randomString(6),
@@ -78,8 +65,8 @@ const PageBuilder = ({
     }
   }
 
-  const handleAdd = (widgetName, defaultTheme) => {
-    const widgets = add(page.widgets, factory(widgetName, defaultTheme))
+  const handleAdd = (widgetName) => {
+    const widgets = add(page.widgets, factory(widgetName))
     const newPage = {
       ...page,
       widgets
@@ -199,70 +186,49 @@ const PageBuilder = ({
     <ThemeProvider theme={theme}>
       <HostContext.Provider value={{ host }}>
         <LibraryContext.Provider value={{ library, adminLibrary }}>
-          <ButtonStyleContext.Provider value={buttonStyles}>
-            <div style={{ paddingLeft: '64px' }}>
-              {reorderOpen && (
-                <ReorderDialog
-                  widgets={sortableWidgets}
-                  onChange={handleReorder}
-                  onDelete={handleRemove}
-                  onSelectWidget={setSelectedWidget}
-                  onClose={() => setReorderOpen(false)}
-                />
-              )}
-
-              <AdminSidebar
-                languageSwitcherSettings={languageSwitcherSettings}
-                dirty={dirty}
-                buttons={sidebarButtons}
-                onSave={handleSave}
-                onAddWidget={(widgetName) =>
-                  handleAdd(widgetName, defaultTheme)
-                }
-                onReorderDialog={() => setReorderOpen(true)}
-                onExit={onExit}
-                onPasteWidget={handlePasteWidget}
-              />
-
-              <Canvas
+          <div style={{ paddingLeft: '64px' }}>
+            {reorderOpen && (
+              <ReorderDialog
                 widgets={sortableWidgets}
-                identifier={identifier}
-                onReorder={handleReorder}
-                onEdit={setSelectedWidget}
-                onRemove={handleRemove}
+                onChange={handleReorder}
+                onDelete={handleRemove}
+                onSelectWidget={setSelectedWidget}
+                onClose={() => setReorderOpen(false)}
               />
+            )}
 
-              {selectedWidget && (
-                <SettingsDialog
-                  spacings={spacings}
-                  themes={themes}
-                  widget={currentWidget}
-                  settings={selectedWidget.settings}
-                  onSave={handleSaveWidget}
-                  onClose={handleClose}
-                />
-              )}
-            </div>
-          </ButtonStyleContext.Provider>
+            <AdminSidebar
+              languageSwitcherSettings={languageSwitcherSettings}
+              dirty={dirty}
+              buttons={sidebarButtons}
+              onSave={handleSave}
+              onAddWidget={(widgetName) => handleAdd(widgetName)}
+              onReorderDialog={() => setReorderOpen(true)}
+              onExit={onExit}
+              onPasteWidget={handlePasteWidget}
+            />
+
+            <Canvas
+              widgets={sortableWidgets}
+              identifier={identifier}
+              onReorder={handleReorder}
+              onEdit={setSelectedWidget}
+              onRemove={handleRemove}
+            />
+
+            {selectedWidget && (
+              <SettingsDialog
+                widget={currentWidget}
+                settings={selectedWidget.settings}
+                onSave={handleSaveWidget}
+                onClose={handleClose}
+              />
+            )}
+          </div>
         </LibraryContext.Provider>
       </HostContext.Provider>
     </ThemeProvider>
   )
-}
-
-PageBuilder.defaultProps = {
-  themes: [
-    ['none', 'None'],
-    ['light', 'Light'],
-    ['dark', 'Dark']
-  ],
-  spacings: [
-    ['none', 'None'],
-    ['both', 'Both'],
-    ['top', 'Top'],
-    ['bottom', 'Bottom']
-  ],
-  buttonStyles: ButtonSettings.defaultButtonStyles
 }
 
 export default PageBuilder

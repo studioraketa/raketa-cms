@@ -1,98 +1,44 @@
 # @raketa-cms/raketa-cms
 
-> Visual page building framework for editing and rendering component libraries
-
 [![NPM](https://img.shields.io/npm/v/@raketa-cms/raketa-cms.svg)](https://www.npmjs.com/package/@raketa-cms/raketa-cms) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-- [Install](#install)
-- [Usage](#usage)
-  - [Quick overview](#quick-overview)
-  - [Code Exapmles](#code-exapmles)
-  - [Starter projects](#starter-projects)
+Raketa CMS is a framework for building block based websites. It allows blocks (widgets) to be defined, provides admin interface for managing page content and functionality to render pages to visitors.
+
+It plays nicely with Next.js and requires basic understanding of how React works.
 
 ## Install
 
 ```bash
-npm install --save @raketa-cms/raketa-cms
+yarn add @raketa-cms/raketa-cms
 ```
 
 ## Development
 
-1. In the package directory:
-
-- `yarn install`
-- `yarn start`
-
-2. In the example directory
-
-- `yarn install`
-- `yarn start`
-
-3. Visit [http://localhost:3000/admin](http://localhost:3000/admin) to build pages or [http://localhost:3000](http://localhost:3000) to veiw them
+1. Install dependencies in both root directory and `example` directory
+2. Run the package watcher in the root directory with `yarn start`
+3. Start the example project with `yarn start`
+4. Visit [http://localhost:3000/admin](http://localhost:3000/admin) to build pages or [http://localhost:3000](http://localhost:3000) to veiw them
 
 ## Usage
 
-### Quick overview
+### User Interface overview
 
-The `PageBuilder` component renders a view where pages can be visually edited:
 ![PageBuilder Overview](/doc-assets/page-builder-overview.png)
 
-1. The canvas - where the widgets are added
-2. A button to access the widgets library
-3. A button to see a compact list of all widgets currently on the page. Allows reordering, edit and deletion of widgets.
-4. The save button. If it is green then there are changes to be saved.
-5. A button for pasting widgets. Each widget has a copy button attached to it.
-6. The exit button.
+1. **Canvas:** where widgets are added
+2. **Library:** a list that allows editors to add widgets from a predefined library
+3. **Reorder:** opens a modal to reorder widgets on the page
+4. **Save:** a butto to save changes (shows in green if there are any changes)
+5. **Paste:** an option to paste previoysly copied widget with its contents
+6. **Exit:** Close the builder and go back to the previous screen
 
-![PageBuilder Library](/doc-assets/page-builder-library.png)
+### Data structure
 
-1. The Widgets library
+Information for a page is kept in a JSON structure. It requires a `widgets` key, an array of widgets that keep reference to the following:
 
-### Code examples
-
-#### The PageBuilder
-
-```jsx
-import { PageBuilder } from '@raketa-cms/raketa-cms'
-
-import WIDGETS from './widgets'
-
-const THEMES = [
-  ['none', 'None'],
-  ['light', 'Light'],
-  ['dark', 'Dark'],
-]
-
-const SPACINGS = [
-  ['none', 'None'],
-  ['both', 'Both'],
-  ['top', 'Top'],
-  ['bottom', 'Bottom']
-]
-
-const DEFAULT_THEME = 'dark'
-
-<PageBuilder
-  // A collection of widgets. Check The Widgets section for more details
-  library={WIDGETS}
-  // Currently the same as the library - should be separate in the future in order to optimise the amount of JS loaded in the frontend.
-  adminLibrary={WIDGETS}
-  // A collection of themes for the background of widgets. Those would be available in the admin settings for each widget
-  themes={THEMES}
-  defaultTheme={DEFAULT_THEME}
-  // The widgets spacings. Those would be available in the admin settings for each widget
-  spacings={SPACINGS}
-  page={page}
-  // Callback triggered on page change???
-  onChange={(newPage) => console.log('Changing the page!')}
-  // Callback triggered by the "Save" button.
-  onSave={(newPage) => console.log('Saving the page!')}
-  // Callback triggered by the "Exit" button
-  onExit={() => console.log('Exit...')}
-/>
-```
-
-The structure of `newPage` in the `onChange` and `onSave` callbacks and the `page` prop is:
+- `widgetId`: unique ID for each component
+- `component`: which widget from the library configuration to be used for rendering frontend and admin configuration
+- `settings`: key-value pair for each widget setting
 
 ```js
 {
@@ -108,40 +54,21 @@ The structure of `newPage` in the `onChange` and `onSave` callbacks and the `pag
           spacing: 'bottom'
         }
       },
-      id: 'wdwadwd'
     }
   ]
 }
 ```
 
-Each widget has the following settings:
+### How to add the admin interface
 
-- **component**: maps to the React component file in the widget library
-- **settings**: a map containing the specific widget settings, editable by the user
-  **widgetId**: a unique key to access, parse and manage the widget structure
+Follow the example in: https://github.com/studioraketa/raketa-cms/blob/master/example/src/AdminBuilder.js
 
-Check [The Widgets](#-the-widgets) section for more information.
 
-#### The PageRender
+### How to integrate the frontend
 
-Once you have your `page` built with the `PageBuilder` you can create a simple `PageRender` component and use it:
+Follow the example in: https://github.com/studioraketa/raketa-cms/blob/master/example/src/PageRender.js
 
-```jsx
-import React from 'react'
-import WIDGETS from './widgets'
-
-const PageRender = ({ page }) => (
-  <React.Fragment>
-    {page.widgets.map(({ widgetId, component, settings }) =>
-      React.createElement(WIDGETS[component], { key: widgetId, ...settings })
-    )}
-  </React.Fragment>
-)
-
-export default PageRender
-```
-
-#### The Widgets
+### Widget definitions
 
 A widget is a reusable and editable content block, based on a component from a design system.
 
@@ -153,12 +80,6 @@ Each widget consists of several key pieces:
 
 Widgets’s `adminFields` setting can be either a JSON structure or a component. We tend to use the component style when we have a list widget and the JSON struct when we have a list.
 
-Based on this, we divide widgets into two types:
-
-- **simple widget**: a single piece of content, for example a video embed, or a client testimonial
-- **list widget**: a repeatable list of similar items, for example an article list or an image slideshow
-
-**Simple widgets**
 ![Simple Widget Settings](/doc-assets/simple-widget-settings-dialog.png)
 
 The anotated code for a simple widget:
@@ -168,145 +89,48 @@ import React from 'react'
 import { Container } from '@raketa-cms/raketa-cms'
 
 // The frontend
-const SectionTitleWidget = ({ size, title, containerSettings }) => (
+import React from 'react'
+import { Container } from '@raketa-cms/raketa-cms'
+
+const Widget = ({ align, title, containerSettings }) => (
   <Container settings={containerSettings}>
-    <div className='section-title'>
+    <div className={`section-title ${align}`}>
       <div className='container'>
-        {size === 'lg' && <h1 className='title'>{title}</h1>}
-        {size === 'md' && <h2 className='title'>{title}</h2>}
-        {size === 'sm' && <h3 className='title'>{title}</h3>}
+        <h2 className='title'>{title}</h2>
       </div>
     </div>
   </Container>
 )
 
-// Settings for the CMS UI
-SectionTitleWidget.title = 'Section title' // sets the title for the settings modal
-SectionTitleWidget.category = 'General' // groups widgets in the library list
-SectionTitleWidget.primaryField = 'title' // used to distinguish similar widgets in the reorder modal
+const Config = {
+  title: 'Section title',
+  category: 'General',
+  primaryField: 'title'
+}
 
-// We always supply defaults
-SectionTitleWidget.defaults = {
-  size: 'md',
+const Defaults = {
+  align: 'text-center',
   title: 'Section title',
   containerSettings: {}
 }
 
-// This JSON struct defines the UI for the settings modal
-SectionTitleWidget.adminFields = {
-  size: {
+const Admin = {
+  align: {
     type: 'select',
     options: [
-      ['sm', 'Small'],
-      ['md', 'Medium'],
-      ['lg', 'Large']
+      ['text-center', 'Center'],
+      ['text-left', 'Left']
     ]
   },
-  title: { type: 'text' }
+  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' },
+  button: { type: 'button' }
 }
 
-export default SectionTitleWidget
+export { Widget, Config, Admin, Defaults }
 ```
 
-**List widgets**
-![Simple Widget Settings](/doc-assets/list-widget-settings-dialog.png)
+#### Widget settings
 
-And an example for list widget:
-
-```jsx
-import React from 'react'
-import {
-  Container,
-  List,
-  SelectMenu,
-  LinkSettings
-} from '@raketa-cms/raketa-cms'
-import Link from '../frontend/Link'
-
-// The frontend
-const NavigationWidget = ({ color, list, containerSettings }) => (
-  <Container settings={containerSettings}>
-    <div className={`navigation ${color}`}>
-      <div className='container'>
-        {list.map((item) => (
-          <Link key={item.id} settings={item.link} />
-        ))}
-      </div>
-    </div>
-  </Container>
-)
-
-// Settings for the CMS UI
-NavigationWidget.title = 'Navigation'
-NavigationWidget.category = 'General'
-
-// Provide defaults, notice the list key
-NavigationWidget.defaults = {
-  color: 'darkgray',
-  list: [
-    {
-      id: 1,
-      link: LinkSettings.defaults
-    },
-    {
-      id: 2,
-      link: LinkSettings.defaults
-    },
-    {
-      id: 3,
-      link: LinkSettings.defaults
-    }
-  ],
-  containerSettings: {}
-}
-
-// We define the admin interface for the settings modal
-const ListItem = ({ settings, onChangeItem }) => (
-  <div>
-    <LinkSettings
-      label='Link'
-      onChange={(value) => onChangeItem('link', value)}
-      value={settings.link}
-    />
-  </div>
-)
-
-// adminSettings can be a React component
-NavigationWidget.adminFields = (items, onChange, settings) => (
-  <div>
-    <SelectMenu
-      label='Color'
-      options={[
-        ['darkgray', 'Dark Gray'],
-        ['crimson', 'Crimson'],
-        ['tomato', 'Tomato'],
-        ['sandybrown', 'Sandy Brown'],
-        ['slateblue', 'Slate Blue'],
-        ['mediumseagreen', 'Medium Seagreen'],
-        ['royalblue', 'Royal Blue']
-      ]}
-      value={settings.color}
-      onChange={(value) => onChange('color', value)}
-    />
-
-    <List
-      listItem={(settings, onChangeItem) => (
-        <ListItem settings={settings} onChangeItem={onChangeItem} />
-      )}
-      items={items}
-      template={{
-        link: LinkSettings.defaults
-      }}
-      primaryField='link.label'
-      onChangeList={onChange}
-    />
-  </div>
-)
-
-export default NavigationWidget
-```
-
-**Widget settings**
 In order to build the admin interface for a widget we can use the following types of inputs:
 
 - **text**: plain old text input
@@ -314,40 +138,59 @@ In order to build the admin interface for a widget we can use the following type
 - **select**: a drop-down menu
 - **link**: CMS specific input for setting up link specific settings
 - **button**: CMS specific input for setting up button specific settings
-- **image**: CMS specific input for browsing and selecting an image
-- **rich text**: CMS specific input for rich text editing, based on ReactRTE
 - **custom**: You can supply your own React components, they need to provide the following interface – `label`, `value` and `onChange`
 
-To use an input in the JSON notation:
+Admin schema is defined in the `Admin` configuration exported from the main widget file:
 
-```jsx
-Widget.adminFields = {
-  title: { type: 'text', label: 'Custom label' }
+```js
+const Admin = {
+  align: {
+    type: 'select',
+    options: [
+      ['text-center', 'Center'],
+      ['text-left', 'Left']
+    ]
+  },
+  title: { type: 'text', placeholder: 'Enter something...', hint: '3 words' },
+  button: { type: 'button' }
 }
 ```
 
-Or the same in the React-component version:
+#### Container settings
 
-```jsx
-import { TextInput } from '@raketa-cms/raketa-cms'
+Besides the specific settings per widget type, the CMS also provides a common set of settings, that is the same for all widgets and is applied to the container.
 
-NavigationWidget.adminFields = (items, onChange, settings) => (
-  <div>
-    <TextInput
-      label='Custom label'
-      value={items.title}
-      onChange={(value) => onChange('title', value)}
-    />
-  </div>
-)
+The schema for the container settings follows the same format as the widget settings definition, but it's saved under `containerSettings` key under the widget settings.
+
+It can be configured globally and passed to the configuration object (see example in https://github.com/studioraketa/raketa-cms/blob/master/example/src/AdminBuilder.js):
+
+```js
+const SPACINGS = [
+  ['', 'None'],
+  ['spacing-both', 'Both'],
+  ['spacing-top', 'Top'],
+  ['spacing-bottom', 'Bottom']
+];
+
+const THEMES = [
+  ['', 'None'],
+  ['light-bg', 'Light'],
+  ['dark-bg', 'Dark'],
+  ['brand-bg', 'Brand']
+];
+
+const containerAdmin = {
+  spacing: { type: 'select', options: SPACINGS },
+  theme: { type: 'select', options: THEMES },
+  containerID: { type: 'text', label: 'Section ID', hint: 'HTML ID attribute for use in anchors' },
+  className: { type: 'text', label: 'CSS class' },
+  containerType: { type: 'select', options: [['container', 'Standard'], ['extended-container', 'Extended container']] },
+};
+
+const configuration = {
+  containerAdmin,
+};
 ```
-
-**Common settings**
-Besides the specific settings per widget type, the CMS also provides a common set of settings, that is the same for all widgets:
-
-- **spacing**: a configurable and consistant vertical spacing
-- **theme**: a configurable color theme
-- **HTML ID**: an id attribute for the widget, used mainly for in-page anchor links
 
 #### Starter projects
 

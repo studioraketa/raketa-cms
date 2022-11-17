@@ -1,10 +1,8 @@
 import React from 'react'
-import { PageBuilder } from '@raketa-cms/raketa-cms'
+import { BuilderContext, PageBuilder } from '@raketa-cms/raketa-cms'
 import { MediaManagerContext } from '@raketa-cms/raketa-image-picker'
 import LIBRARY from './widgets'
 import ADMIN_LIBRARY from './widgets/admin'
-// import LIBRARY from './legacyWidgets'
-// import ADMIN_LIBRARY from './legacyWidgets'
 import IMAGES from './IMAGES'
 
 class FakeMediaManager {
@@ -13,16 +11,41 @@ class FakeMediaManager {
   }
 }
 
-const mediaManager = new FakeMediaManager('/')
+const mediaManager = new FakeMediaManager('/');
+
+const SPACINGS = [
+  ['', 'None'],
+  ['spacing-both', 'Both'],
+  ['spacing-top', 'Top'],
+  ['spacing-bottom', 'Bottom']
+];
 
 const THEMES = [
-  ['none', 'None'],
-  ['light', 'Light'],
-  ['dark', 'Dark'],
-  ['brand', 'Brand']
-]
+  ['', 'None'],
+  ['light-bg', 'Light'],
+  ['dark-bg', 'Dark'],
+  ['brand-bg', 'Brand']
+];
 
-const DEFAULT_THEME = 'dark'
+const BUTTON_STYLES = [
+  ['primary', 'Primary'],
+  ['primary-alt', 'Primary (white)'],
+  ['secondary', 'Secondary'],
+  ['text', 'Text']
+];
+
+const containerAdmin = {
+  spacing: { type: 'select', options: SPACINGS },
+  theme: { type: 'select', options: THEMES },
+  containerID: { type: 'text', label: 'Section ID', hint: 'HTML ID attribute for use in anchors' },
+  className: { type: 'text', label: 'CSS class' },
+  containerType: { type: 'select', options: [['container', 'Standard'], ['extended-container', 'Extended container']] },
+};
+
+const configuration = {
+  buttonStyles: BUTTON_STYLES,
+  containerAdmin,
+};
 
 class ErrorBoundary extends React.Component {
   componentDidCatch(error, info) {
@@ -48,58 +71,52 @@ const AdminBuilder = ({ page: defaultPage, host, back_url, onSave }) => {
   return (
     <ErrorBoundary>
       <MediaManagerContext.Provider value={mediaManager}>
-        <PageBuilder
-          host={host}
-          library={LIBRARY}
-          adminLibrary={ADMIN_LIBRARY}
-          themes={THEMES}
-          buttonStyles={[
-            ['primary', 'Primary'],
-            ['primary-alt', 'Primary (white)'],
-            ['secondary', 'Secondary'],
-            ['text', 'Text']
-          ]}
-          languageSwitcherSettings={{
-            current: 'EN',
-            navigation: [
-              { path: '/de', label: 'DE', newItem: true },
-              { path: '/es', label: 'ES' }
-            ]
-          }}
-          sidebarButtons={[
-            {
-              id: 'some-id',
-              label: 'Prev',
-              className: '',
-              onClick: () => {
-                console.log('Preview')
+        <BuilderContext.Provider value={configuration}>
+          <PageBuilder
+            host={host}
+            library={LIBRARY}
+            adminLibrary={ADMIN_LIBRARY}
+            languageSwitcherSettings={{
+              current: 'EN',
+              navigation: [
+                { path: '/de', label: 'DE', newItem: true },
+                { path: '/es', label: 'ES' }
+              ]
+            }}
+            sidebarButtons={[
+              {
+                id: 'some-id',
+                label: 'Prev',
+                className: '',
+                onClick: () => {
+                  console.log('Preview')
+                }
+              },
+              {
+                id: 'some-id-2',
+                label: 'Label',
+                className: '',
+                icon: 'publish',
+                onClick: () => {
+                  console.log('Publish')
+                }
+              },
+              {
+                id: 'some-id-3',
+                label: 'Label',
+                className: '',
+                icon: 'settings',
+                onClick: () => {
+                  console.log('Settings')
+                }
               }
-            },
-            {
-              id: 'some-id-2',
-              label: 'Label',
-              className: '',
-              icon: 'publish',
-              onClick: () => {
-                console.log('Publish')
-              }
-            },
-            {
-              id: 'some-id-3',
-              label: 'Label',
-              className: '',
-              icon: 'settings',
-              onClick: () => {
-                console.log('Settings')
-              }
-            }
-          ]}
-          defaultTheme={DEFAULT_THEME}
-          page={page}
-          onChange={handleChange}
-          onSave={handleSave}
-          onExit={() => (window.location.href = back_url)}
-        />
+            ]}
+            page={page}
+            onChange={handleChange}
+            onSave={handleSave}
+            onExit={() => (window.location.href = back_url)}
+          />
+        </BuilderContext.Provider>
       </MediaManagerContext.Provider>
     </ErrorBoundary>
   )

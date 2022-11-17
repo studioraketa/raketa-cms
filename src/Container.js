@@ -1,17 +1,15 @@
 import React from 'react'
-import containerClass from './helpers/containerClass'
 
 const Container = ({ settings, className, children }) => {
-  const props = {}
-  props.className = containerClass(className, settings)
-  if (settings && settings.sectionID) props.id = settings.sectionID
+  const { containerID, ...restSettings } = settings
 
-  return <div {...props}>{children}</div>
-}
+  const cssClasses = [...Object.values(restSettings), className].join(' ')
 
-Container.defaultProps = {
-  className: '',
-  id: ''
+  return (
+    <div id={containerID} className={cssClasses}>
+      {children}
+    </div>
+  )
 }
 
 export default Container

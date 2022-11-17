@@ -21,6 +21,7 @@ import Button from './forms/Button'
 import ButtonSettings from './forms/ButtonSettings'
 import LinkSettings from './forms/LinkSettings'
 import Link from './lib/Link'
+import BuilderContext from './contexts/BuilderContext'
 
 const RaketaUIProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>{children}</ThemeProvider>
@@ -53,5 +54,6 @@ export {
   Label,
   theme,
   FormGroup,
-  RaketaUIProvider
+  RaketaUIProvider,
+  BuilderContext
 }

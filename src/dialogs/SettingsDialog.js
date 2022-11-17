@@ -1,7 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Tabs } from '@raketa-cms/raketa-mir'
-
+import BuilderContext from '../contexts/BuilderContext'
 import TextArea from '../forms/TextArea'
 import RichText from '../forms/RichText'
 import TextInput from '../forms/TextInput'
@@ -10,17 +9,7 @@ import ButtonSettings from '../forms/ButtonSettings'
 import { humanize, capitalize } from '../helpers/humanize'
 import Dialog from './Dialog'
 import ImagePicker from '../pickers/ImagePicker/ImagePicker'
-
 import widgetData from '../helpers/widgetData'
-const SegmentWrapper = styled.div`
-  display: flex;
-  gap: 0.5em;
-  justify-content: space-between;
-`
-
-const Segment = styled.div`
-  flex: 1;
-`
 
 const renderField = (field, value, onChange, opts) => {
   const handleChange = (newValue) => onChange(field, newValue)
@@ -126,109 +115,63 @@ const renderField = (field, value, onChange, opts) => {
   }
 }
 
-const renderAdminFields = (widget, settings, onChange) =>
-  Object.keys(widgetData.adminFields(widget)).map((field) => {
+const renderAdmin = (schema = {}, settings = {}, onChange) =>
+  Object.keys(schema).map((field) => {
     const opts = Object.assign(
       { label: capitalize(humanize(field)) },
-      widgetData.adminFields(widget)[field]
+      schema[field]
     )
+
     return renderField(field, settings[field], onChange, opts)
   })
 
-const SettingsDialog = ({
-  spacings,
-  themes,
-  widget,
-  settings,
-  onSave,
-  onClose
-}) => {
+const SettingsDialog = ({ widget, settings, onSave, onClose }) => {
+  const { containerAdmin } = React.useContext(BuilderContext)
   const [localSettings, setLocalSettings] = React.useState(settings)
 
-  const handleChangeField = (field, value) => {
+  const handleChange = (field, value) => {
     setLocalSettings({
       ...localSettings,
       [field]: value
     })
   }
 
-  const handleUpdateLayoutSettings = (field, value) => {
-    handleChangeField('containerSettings', {
+  const handleChangeContainer = (field, value) => {
+    handleChange('containerSettings', {
       ...localSettings.containerSettings,
       [field]: value
     })
   }
 
-  let fields
-
-  if (typeof widgetData.adminFields(widget) === 'object') {
-    fields = renderAdminFields(widget, localSettings, handleChangeField)
-  }
-
-  if (typeof widgetData.adminFields(widget) === 'function') {
-    const items = localSettings.list ? localSettings.list : []
-    fields = widgetData.adminFields(widget)(
-      items,
-      handleChangeField,
-      localSettings
+  const schema = widgetData.adminFields(widget)
+  if (typeof schema !== 'object') {
+    console.warn(
+      `Legacy widget with React admin definition: ${widgetData.title(
+        widget
+      )}. Update to custom inputs. `
     )
   }
 
-  const { containerSettings = {} } = localSettings
+  const fields = renderAdmin(schema, localSettings, handleChange)
+
+  const { containerSettings } = localSettings
+  const containerAdminFields = renderAdmin(
+    containerAdmin,
+    containerSettings,
+    handleChangeContainer
+  )
 
   return (
     <Dialog
       open
       title={widgetData.title(widget)}
       primaryLabel='OK'
-      width='700px'
       onPrimary={() => onSave(localSettings)}
       onClose={onClose}
     >
       <Tabs>
         <div title='Content'>{fields}</div>
-        <div title='Settings'>
-          <SegmentWrapper>
-            <Segment>
-              <SelectMenu
-                label='Spacing'
-                options={spacings}
-                value={containerSettings.spacing || ''}
-                onChange={(newValue) =>
-                  handleUpdateLayoutSettings('spacing', newValue)
-                }
-              />
-            </Segment>
-            <Segment>
-              <SelectMenu
-                label='Theme'
-                options={themes}
-                value={containerSettings.theme}
-                onChange={(newValue) =>
-                  handleUpdateLayoutSettings('theme', newValue)
-                }
-              />
-            </Segment>
-            <Segment>
-              <TextInput
-                label='Section ID'
-                value={containerSettings.sectionID || ''}
-                onChange={(newValue) =>
-                  handleUpdateLayoutSettings('sectionID', newValue)
-                }
-              />
-            </Segment>
-            <Segment>
-              <TextInput
-                label='CSS class'
-                value={containerSettings.className || ''}
-                onChange={(newValue) =>
-                  handleUpdateLayoutSettings('className', newValue)
-                }
-              />
-            </Segment>
-          </SegmentWrapper>
-        </div>
+        <div title='Container'>{containerAdminFields}</div>
       </Tabs>
     </Dialog>
   )

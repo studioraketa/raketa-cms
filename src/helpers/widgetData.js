@@ -1,49 +1,25 @@
 const title = (widget) => {
-  if (widget.Config) {
-    return widget.Config.title
-  } else {
-    return widget.title
-  }
+  return widget.Config.title
 }
 
 const adminFields = (widget) => {
-  if (widget.Admin) {
-    return widget.Admin
-  } else {
-    return widget.adminFields
-  }
+  return widget.Admin
 }
 
 const category = (widget) => {
-  if (widget.Config) {
-    return widget.Config.category
-  } else {
-    return widget.category
-  }
+  return widget.Config.category
 }
 
 const deprecated = (widget) => {
-  if (widget.Config) {
-    return widget.Config.deprecated
-  } else {
-    return widget.deprecated
-  }
+  return widget.Config.deprecated
 }
 
 const primaryField = (widget) => {
-  if (widget.Config) {
-    return widget.Config.primaryField
-  } else {
-    return widget.primaryField
-  }
+  return widget.Config.primaryField
 }
 
 const defaults = (widget) => {
-  if (widget.Defaults) {
-    return widget.Defaults
-  } else {
-    return widget.defaults
-  }
+  return widget.Defaults
 }
 
 export default {
