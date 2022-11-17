@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { reset, Hint } from '@raketa-cms/raketa-mir'
-import ButtonStyleContext from '../ButtonStyleContext'
+import BuilderContext from '../contexts/BuilderContext'
 
 import TextInput from './TextInput'
 import SelectMenu from './SelectMenu'
@@ -66,8 +66,8 @@ const mergeSettings = (settings, key, value) =>
   Object.assign({}, settings, { [key]: value })
 
 const ButtonSettings = ({ label, hint, value, onChange }) => {
-  const buttonStyles =
-    React.useContext(ButtonStyleContext) || DEFAULT_BUTTON_STYLES
+  const { buttonStyles } =
+    React.useContext(BuilderContext) || DEFAULT_BUTTON_STYLES
 
   return (
     <ButtonControl>
